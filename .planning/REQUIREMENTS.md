@@ -34,7 +34,7 @@
 
 ### Developer Experience
 
-- [ ] **DEV-01**: Plugin ships a Docker-based local development environment using `@wordpress/env` (zero-config WP instance with WP-CLI and PHPUnit)
+- [ ] **DEV-01**: Plugin ships a Docker-based local development environment using `docker-compose.yml` with the official WordPress image (no Node.js/npm required)
 - [ ] **DEV-02**: Plugin includes a PHPUnit test suite: unit tests (Brain Monkey, no WP bootstrap) and integration tests (Docker WP environment)
 - [ ] **DEV-03**: WordPress coding standards enforced via PHPCS/WPCS with a `.phpcs.xml` config that runs in CI
 - [ ] **DEV-04**: Plugin includes a `CONTRIBUTING.md` developer guide covering local setup, running tests, coding conventions, and PR submission
@@ -75,32 +75,32 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CONF-01 | — | Pending |
-| CONF-02 | — | Pending |
-| CONF-03 | — | Pending |
-| CONF-04 | — | Pending |
-| CONF-05 | — | Pending |
-| FORM-01 | — | Pending |
-| FORM-02 | — | Pending |
-| FORM-03 | — | Pending |
-| FORM-04 | — | Pending |
-| FORM-05 | — | Pending |
-| PDF-01 | — | Pending |
-| PDF-02 | — | Pending |
-| PDF-03 | — | Pending |
-| MAIL-01 | — | Pending |
-| MAIL-02 | — | Pending |
-| DEV-01 | — | Pending |
-| DEV-02 | — | Pending |
-| DEV-03 | — | Pending |
-| DEV-04 | — | Pending |
-| DEV-05 | — | Pending |
+| CONF-01 | Phase 1 | Pending |
+| CONF-02 | Phase 1 | Pending |
+| CONF-03 | Phase 1 | Pending |
+| CONF-04 | Phase 1 | Pending |
+| CONF-05 | Phase 1 | Pending |
+| FORM-01 | Phase 4 | Pending |
+| FORM-02 | Phase 4 | Pending |
+| FORM-03 | Phase 4 | Pending |
+| FORM-04 | Phase 4 | Pending |
+| FORM-05 | Phase 4 | Pending |
+| PDF-01 | Phase 2 | Pending |
+| PDF-02 | Phase 2 | Pending |
+| PDF-03 | Phase 2 | Pending |
+| MAIL-01 | Phase 3 | Pending |
+| MAIL-02 | Phase 3 | Pending |
+| DEV-01 | Phase 1 | Pending |
+| DEV-02 | Phase 4 | Pending |
+| DEV-03 | Phase 1 | Pending |
+| DEV-04 | Phase 4 | Pending |
+| DEV-05 | Phase 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 20 total
-- Mapped to phases: 0
-- Unmapped: 20 ⚠️
+- Mapped to phases: 20
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-03-20*
-*Last updated: 2026-03-20 after initial definition*
+*Last updated: 2026-03-20 after roadmap creation — all 20 v1 requirements mapped*
