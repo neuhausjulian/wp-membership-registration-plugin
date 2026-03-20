@@ -1,0 +1,106 @@
+# Requirements: WP Membership Registration Plugin
+
+**Defined:** 2026-03-20
+**Core Value:** A member can register digitally and receive a legally valid, pre-filled membership form (PDF) without the club needing to pay for any software or manage a spreadsheet.
+
+## v1 Requirements
+
+### Admin Configuration
+
+- [ ] **CONF-01**: Admin can define registration form fields via settings page (label, field type: text/email/date/tel/textarea/select, required toggle)
+- [ ] **CONF-02**: Admin can add, remove, and reorder form fields in the settings UI
+- [ ] **CONF-03**: Admin can configure PDF branding: club name, logo upload, accent color
+- [ ] **CONF-04**: Admin can configure one or more recipient email addresses for PDF notification emails
+- [ ] **CONF-05**: Admin can send a test email from the settings page to verify SMTP delivery is working
+
+### Frontend Form
+
+- [ ] **FORM-01**: Visitor can access the registration form on any page via the `[membership_form]` shortcode
+- [ ] **FORM-02**: Form includes a GDPR/privacy consent checkbox with admin-configurable text (required to submit)
+- [ ] **FORM-03**: Form uses honeypot spam protection to block automated bot submissions
+- [ ] **FORM-04**: Form validates required fields and email format client-side before submission
+- [ ] **FORM-05**: Form displays a configurable success message after successful submission
+
+### PDF Generation
+
+- [ ] **PDF-01**: Plugin generates a pre-filled PDF on every form submission, containing all submitted field values
+- [ ] **PDF-02**: Generated PDF incorporates admin-configured branding (club name, logo, accent color)
+- [ ] **PDF-03**: A blank (empty-fields) version of the PDF template is downloadable via shortcode parameter for manual fallback
+
+### Email Notifications
+
+- [ ] **MAIL-01**: Member receives the generated PDF as an email attachment immediately after submitting the form
+- [ ] **MAIL-02**: All configured admin recipient(s) receive a copy of the generated PDF by email after each submission
+
+### Developer Experience
+
+- [ ] **DEV-01**: Plugin ships a Docker-based local development environment using `@wordpress/env` (zero-config WP instance with WP-CLI and PHPUnit)
+- [ ] **DEV-02**: Plugin includes a PHPUnit test suite: unit tests (Brain Monkey, no WP bootstrap) and integration tests (Docker WP environment)
+- [ ] **DEV-03**: WordPress coding standards enforced via PHPCS/WPCS with a `.phpcs.xml` config that runs in CI
+- [ ] **DEV-04**: Plugin includes a `CONTRIBUTING.md` developer guide covering local setup, running tests, coding conventions, and PR submission
+- [ ] **DEV-05**: Plugin includes a user-facing `README.md` covering installation, settings configuration, and shortcode usage
+
+## v2 Requirements
+
+### Automation
+
+- **AUTO-01**: Plugin fires a webhook (HTTP POST with JSON payload) to a configurable URL on each form submission
+- **AUTO-02**: Plugin sends a machine-readable JSON payload by email to a configurable address on each submission
+
+### Member Management
+
+- **MGMT-01**: Admin can view a list of all form submissions in the WordPress backend
+- **MGMT-02**: Admin can export submission data as CSV
+
+### UX Enhancements
+
+- **UX-01**: Plugin provides a Gutenberg block alternative to the shortcode for block editor users
+- **UX-02**: Form fields support conditional logic (show/hide based on another field's value)
+
+## Out of Scope
+
+| Feature | Reason |
+|---------|--------|
+| Payment / dues collection | Different product category; clubs handle this separately |
+| WordPress user account creation on registration | Clubs don't need members to log into the site |
+| Filling existing AcroForm PDFs | Fragile without proper AcroForm fields; generating from template is more reliable |
+| File upload fields | Storage, MIME validation, and GDPR implications are out of v1 scope |
+| Member approval workflow (admin gates registration) | v1 is self-service; approval adds admin burden for small clubs |
+| CAPTCHA / reCAPTCHA | Honeypot is sufficient for v1 and avoids accessibility issues |
+| Multisite WordPress support | Out of scope; standard single-site install covers all pilot use cases |
+
+## Traceability
+
+Which phases cover which requirements. Updated during roadmap creation.
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| CONF-01 | — | Pending |
+| CONF-02 | — | Pending |
+| CONF-03 | — | Pending |
+| CONF-04 | — | Pending |
+| CONF-05 | — | Pending |
+| FORM-01 | — | Pending |
+| FORM-02 | — | Pending |
+| FORM-03 | — | Pending |
+| FORM-04 | — | Pending |
+| FORM-05 | — | Pending |
+| PDF-01 | — | Pending |
+| PDF-02 | — | Pending |
+| PDF-03 | — | Pending |
+| MAIL-01 | — | Pending |
+| MAIL-02 | — | Pending |
+| DEV-01 | — | Pending |
+| DEV-02 | — | Pending |
+| DEV-03 | — | Pending |
+| DEV-04 | — | Pending |
+| DEV-05 | — | Pending |
+
+**Coverage:**
+- v1 requirements: 20 total
+- Mapped to phases: 0
+- Unmapped: 20 ⚠️
+
+---
+*Requirements defined: 2026-03-20*
+*Last updated: 2026-03-20 after initial definition*
