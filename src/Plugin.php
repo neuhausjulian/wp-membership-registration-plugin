@@ -1,0 +1,36 @@
+<?php
+/**
+ * Main Plugin class.
+ *
+ * Registers all WordPress hooks for the plugin.
+ *
+ * @package WpMembershipRegistration
+ */
+
+namespace WpMembershipRegistration;
+
+use WpMembershipRegistration\Admin\SettingsPage;
+use WpMembershipRegistration\Admin\SettingsRegistrar;
+use WpMembershipRegistration\Admin\AjaxHandlers;
+
+/**
+ * Main Plugin orchestrator.
+ */
+class Plugin {
+
+	/**
+	 * Register all hooks.
+	 *
+	 * @return void
+	 */
+	public function register(): void {
+		$settings_page      = new SettingsPage();
+		$settings_registrar = new SettingsRegistrar();
+		$ajax_handlers      = new AjaxHandlers();
+
+		add_action( 'admin_menu', array( $settings_page, 'register' ) );
+		add_action( 'admin_init', array( $settings_registrar, 'register' ) );
+		add_action( 'admin_enqueue_scripts', array( $settings_page, 'enqueue_scripts' ) );
+		add_action( 'wp_ajax_wmr_send_test_email', array( $ajax_handlers, 'handle_send_test_email' ) );
+	}
+}
