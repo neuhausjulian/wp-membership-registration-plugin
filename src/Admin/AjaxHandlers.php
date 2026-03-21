@@ -7,6 +7,8 @@
 
 namespace WpMembershipRegistration\Admin;
 
+use WpMembershipRegistration\Pdf\PdfGenerator;
+
 /**
  * Handles wp_ajax_ actions for the plugin settings page.
  */
@@ -70,6 +72,35 @@ class AjaxHandlers {
 					),
 				)
 			);
+		}
+	}
+
+	/**
+	 * Smoke-test AJAX stub: accepts POST field_values and calls PdfGenerator::generate().
+	 *
+	 * PDF-01 contract proof — verifies PdfGenerator::generate(array $field_values) works
+	 * end-to-end from an AJAX context. This stub is replaced by the real form submission
+	 * handler in Phase 4.
+	 *
+	 * Not registered as a public hook — only callable via wp_ajax_ (logged-in) during dev/test.
+	 *
+	 * @return void
+	 */
+	public function handle_generate_pdf_stub(): void {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- smoke-test stub, nonce added in Phase 4.
+		$field_values = isset( $_POST['field_values'] ) && is_array( $_POST['field_values'] )
+			? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['field_values'] ) )
+			: array();
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
+
+		$generator = new PdfGenerator();
+
+		try {
+			$path = $generator->generate( $field_values );
+			wp_delete_file( $path );
+			wp_send_json_success( array( 'message' => 'PDF generated successfully.' ) );
+		} catch ( \Throwable $e ) {
+			wp_send_json_error( array( 'message' => $e->getMessage() ) );
 		}
 	}
 }
