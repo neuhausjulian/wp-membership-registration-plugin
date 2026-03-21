@@ -1,0 +1,41 @@
+/**
+ * Admin settings page styles for WP Membership Registration.
+ *
+ * Spacing scale (multiples of 4px): 4, 8, 16, 24, 32
+ * Color tokens follow WordPress admin conventions.
+ */
+
+/* Tab panel visibility — JS overrides these after page load */
+.wmr-tab-panel { display: none; }
+.wmr-tab-panel--active { display: block; }
+
+/* Tab top padding */
+.wmr-tab-panel { padding-top: 16px; }
+
+/* Field schema table */
+.wmr-fields-table { margin-top: 16px; }
+.wmr-fields-table th { font-weight: 600; }
+.wmr-drag-handle {
+	color: #8c8f94;
+	cursor: grab;
+}
+.wmr-drag-handle:active { cursor: grabbing; }
+
+/* Minimum 44px row height for accessibility */
+.wmr-fields-table tbody tr { min-height: 44px; }
+.wmr-fields-table td { padding: 8px; vertical-align: middle; }
+
+/* Destructive delete button */
+.wmr-delete-row { color: #d63638 !important; }
+
+/* Add Field button */
+#wmr-add-field { margin-top: 8px; }
+
+/* Logo field */
+.wmr-logo-field { margin-bottom: 16px; }
+#wmr-logo-preview { display: none; max-width: 200px; max-height: 80px; margin-bottom: 8px; }
+
+/* Inline notices for test email result */
+.wmr-inline-notice { margin-left: 8px; }
+.wmr-inline-notice--success { color: #00a32a; }
+.wmr-inline-notice--error { color: #d63638; }

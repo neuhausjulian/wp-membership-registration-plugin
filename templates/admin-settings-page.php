@@ -1,0 +1,164 @@
+<?php
+/**
+ * Admin settings page template.
+ *
+ * Renders the three-tab settings page for the WP Membership Registration plugin.
+ * Tabs: Form Fields | PDF Branding | Email Settings
+ *
+ * @package WpMembershipRegistration
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+$schema         = get_option( 'wmr_field_schema', '[]' );
+$branding       = get_option( 'wmr_pdf_branding', array() );
+$email_settings = get_option( 'wmr_email_settings', array() );
+?>
+<div class="wrap">
+	<h1><?php esc_html_e( 'Membership Registration Settings', 'wp-membership-registration' ); ?></h1>
+
+	<nav class="nav-tab-wrapper wmr-tab-nav">
+		<a href="#wmr-tab-fields" class="nav-tab nav-tab-active" data-tab="fields"><?php esc_html_e( 'Form Fields', 'wp-membership-registration' ); ?></a>
+		<a href="#wmr-tab-branding" class="nav-tab" data-tab="branding"><?php esc_html_e( 'PDF Branding', 'wp-membership-registration' ); ?></a>
+		<a href="#wmr-tab-email" class="nav-tab" data-tab="email"><?php esc_html_e( 'Email Settings', 'wp-membership-registration' ); ?></a>
+	</nav>
+
+	<div id="wmr-tab-fields" class="wmr-tab-panel wmr-tab-panel--active">
+		<form method="post" action="options.php">
+			<?php settings_fields( 'wmr_form_fields_group' ); ?>
+
+			<table class="wp-list-table widefat fixed striped wmr-fields-table">
+				<thead>
+					<tr>
+						<th style="width:40px"></th>
+						<th><?php esc_html_e( 'Label', 'wp-membership-registration' ); ?></th>
+						<th style="width:160px"><?php esc_html_e( 'Field Type', 'wp-membership-registration' ); ?></th>
+						<th style="width:80px"><?php esc_html_e( 'Required', 'wp-membership-registration' ); ?></th>
+						<th style="width:60px"></th>
+					</tr>
+				</thead>
+				<tbody id="wmr-fields-tbody">
+					<!-- JS-rendered rows -->
+				</tbody>
+			</table>
+
+			<script>
+			var wmrExistingFields = <?php echo wp_json_encode( \WpMembershipRegistration\Util\FieldSchema::decode( $schema ) ); ?>;
+			</script>
+
+			<button type="button" id="wmr-add-field" class="button">
+				<span class="dashicons dashicons-plus" aria-hidden="true"></span>
+				<?php esc_html_e( 'Add Field', 'wp-membership-registration' ); ?>
+			</button>
+
+			<input type="hidden" id="wmr-field-schema-json" name="wmr_field_schema" value="">
+
+			<?php submit_button(); ?>
+		</form>
+	</div>
+
+	<div id="wmr-tab-branding" class="wmr-tab-panel" style="display:none">
+		<form method="post" action="options.php">
+			<?php settings_fields( 'wmr_pdf_branding_group' ); ?>
+
+			<table class="form-table" role="presentation">
+				<tbody>
+					<tr>
+						<th scope="row">
+							<label for="wmr-club-name"><?php esc_html_e( 'Club Name', 'wp-membership-registration' ); ?></label>
+						</th>
+						<td>
+							<input
+								type="text"
+								id="wmr-club-name"
+								name="wmr_pdf_branding[club_name]"
+								class="regular-text"
+								value="<?php echo esc_attr( $branding['club_name'] ?? '' ); ?>"
+							>
+							<p class="description"><?php esc_html_e( 'Appears in the header of the generated PDF.', 'wp-membership-registration' ); ?></p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">
+							<label><?php esc_html_e( 'Club Logo', 'wp-membership-registration' ); ?></label>
+						</th>
+						<td>
+							<div class="wmr-logo-field">
+								<img
+									id="wmr-logo-preview"
+									src="<?php echo esc_url( $branding['logo_url'] ?? '' ); ?>"
+									alt="<?php esc_attr_e( 'Club logo preview', 'wp-membership-registration' ); ?>"
+									style="max-width:200px; max-height:80px; display:<?php echo ! empty( $branding['logo_url'] ) ? 'block' : 'none'; ?>; margin-bottom:8px;"
+								>
+								<br>
+								<button type="button" id="wmr-select-logo" class="button"><?php esc_html_e( 'Select Logo', 'wp-membership-registration' ); ?></button>
+								<button type="button" id="wmr-remove-logo" class="button" style="display:<?php echo ! empty( $branding['logo_url'] ) ? 'inline-block' : 'none'; ?>"><?php esc_html_e( 'Remove Logo', 'wp-membership-registration' ); ?></button>
+								<input type="hidden" id="wmr-logo-url" name="wmr_pdf_branding[logo_url]" value="<?php echo esc_attr( $branding['logo_url'] ?? '' ); ?>">
+							</div>
+							<p class="description"><?php esc_html_e( 'Upload your club logo. Appears on the PDF membership form.', 'wp-membership-registration' ); ?></p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">
+							<label for="wmr-accent-color"><?php esc_html_e( 'Accent Color', 'wp-membership-registration' ); ?></label>
+						</th>
+						<td>
+							<input
+								type="text"
+								id="wmr-accent-color"
+								name="wmr_pdf_branding[accent_color]"
+								class="wmr-color-picker"
+								value="<?php echo esc_attr( $branding['accent_color'] ?? '#2271b1' ); ?>"
+								data-default-color="#2271b1"
+							>
+							<p class="description"><?php esc_html_e( 'Used as the highlight color in the PDF template.', 'wp-membership-registration' ); ?></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<?php submit_button(); ?>
+		</form>
+	</div>
+
+	<div id="wmr-tab-email" class="wmr-tab-panel" style="display:none">
+		<form method="post" action="options.php">
+			<?php settings_fields( 'wmr_email_settings_group' ); ?>
+
+			<table class="form-table" role="presentation">
+				<tbody>
+					<tr>
+						<th scope="row">
+							<label for="wmr-recipients"><?php esc_html_e( 'Notification Recipients', 'wp-membership-registration' ); ?></label>
+						</th>
+						<td>
+							<textarea
+								id="wmr-recipients"
+								name="wmr_email_settings[recipients]"
+								class="large-text"
+								rows="4"
+								placeholder="admin@example.com&#10;secretary@example.com"
+								aria-describedby="wmr-recipients-description"
+							><?php echo esc_textarea( $email_settings['recipients'] ?? '' ); ?></textarea>
+							<p id="wmr-recipients-description" class="description"><?php esc_html_e( 'Enter one email address per line. All addresses receive a copy of each membership PDF.', 'wp-membership-registration' ); ?></p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"></th>
+						<td>
+							<button type="button" id="wmr-send-test-email" class="button">
+								<span class="dashicons dashicons-email" aria-hidden="true" style="margin-top:3px;"></span>
+								<?php esc_html_e( 'Send Test Email', 'wp-membership-registration' ); ?>
+							</button>
+							<span id="wmr-test-email-result" class="wmr-inline-notice" aria-live="polite"></span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<?php submit_button(); ?>
+		</form>
+	</div>
+</div>
