@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-pdf-engine-02-03-PLAN.md
-last_updated: "2026-03-21T12:48:22.935Z"
+stopped_at: Completed 02-pdf-engine-02-04-PLAN.md
+last_updated: "2026-03-21T21:08:55.525Z"
 last_activity: 2026-03-21 — Plan 01-01 complete; dev tooling foundation (Composer PHPCS/WPCS + Docker Compose + Mailpit mu-plugin)
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 7
-  completed_plans: 6
+  completed_plans: 7
   percent: 8
 ---
 
@@ -56,6 +56,7 @@ Progress: [█░░░░░░░░░] 8%
 | Phase 02-pdf-engine P02 | 3 | 2 tasks | 2 files |
 | Phase 02-pdf-engine P01 | 5 | 2 tasks | 9 files |
 | Phase 02-pdf-engine P03 | 35 | 3 tasks | 4 files |
+| Phase 02-pdf-engine P04 | continuation | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -88,6 +89,9 @@ Recent decisions affecting current work:
 - [Phase 02-pdf-engine]: wp_delete_file() used in AjaxHandlers smoke-test stub instead of bare unlink() to satisfy WPCS
 - [Phase 02-pdf-engine]: phpcs:disable/enable block required for multi-line ternary nonce suppression — single-line phpcs:ignore insufficient
 - [Phase 02-pdf-engine]: Brain Monkey stubs for esc_attr/esc_html/wp_kses_post must be added explicitly — not auto-stubbed by Brain Monkey
+- [Phase 02-pdf-engine]: Strauss package names must use dompdf/php-font-lib not phenx/ — phenx packages not installed so Strauss silently skips scoping them
+- [Phase 02-pdf-engine]: bin/patch-vendor-prefixed.php patches hard-coded FontLib\ strings Strauss cannot rewrite (upstream PR #148)
+- [Phase 02-pdf-engine]: wp_ajax_wmr_generate_pdf_stub is logged-in only (no nopriv) — dev/test smoke-test endpoint, Phase 4 replaces
 
 ### Pending Todos
 
@@ -101,6 +105,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T12:48:22.934Z
-Stopped at: Completed 02-pdf-engine-02-03-PLAN.md
+Last session: 2026-03-21T21:08:55.524Z
+Stopped at: Completed 02-pdf-engine-02-04-PLAN.md
 Resume file: None
