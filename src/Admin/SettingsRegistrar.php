@@ -46,9 +46,13 @@ class SettingsRegistrar {
 				'type'              => 'array',
 				'sanitize_callback' => array( $this, 'sanitize_pdf_branding' ),
 				'default'           => array(
-					'club_name'    => '',
-					'logo_url'     => '',
-					'accent_color' => '#2271b1',
+					'club_name'      => '',
+					'logo_url'       => '',
+					'accent_color'   => '#2271b1',
+					'document_title' => '',
+					'gdpr_text'      => '',
+					'footer_text'    => '',
+					'page2_content'  => '',
 				),
 			)
 		);
@@ -102,7 +106,7 @@ class SettingsRegistrar {
 	 * Sanitize PDF branding settings array.
 	 *
 	 * @param mixed $input Raw input from form submission.
-	 * @return array{club_name: string, logo_url: string, accent_color: string}
+	 * @return array{club_name: string, logo_url: string, accent_color: string, document_title: string, gdpr_text: string, footer_text: string, page2_content: string}
 	 */
 	public function sanitize_pdf_branding( mixed $input ): array {
 		if ( ! is_array( $input ) ) {
@@ -110,9 +114,13 @@ class SettingsRegistrar {
 		}
 		$accent_color = sanitize_hex_color( $input['accent_color'] ?? '' );
 		return array(
-			'club_name'    => sanitize_text_field( $input['club_name'] ?? '' ),
-			'logo_url'     => esc_url_raw( $input['logo_url'] ?? '' ),
-			'accent_color' => $accent_color ? $accent_color : '#2271b1',
+			'club_name'      => sanitize_text_field( $input['club_name'] ?? '' ),
+			'logo_url'       => esc_url_raw( $input['logo_url'] ?? '' ),
+			'accent_color'   => $accent_color ? $accent_color : '#2271b1',
+			'document_title' => sanitize_text_field( $input['document_title'] ?? '' ),
+			'gdpr_text'      => wp_kses_post( $input['gdpr_text'] ?? '' ),
+			'footer_text'    => wp_kses_post( $input['footer_text'] ?? '' ),
+			'page2_content'  => wp_kses_post( $input['page2_content'] ?? '' ),
 		);
 	}
 
