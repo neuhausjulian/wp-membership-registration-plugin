@@ -45,7 +45,13 @@ Plans:
   2. The generated PDF displays the admin-configured club name, logo, and accent color
   3. A visitor can download a blank version of the PDF template (empty fields, with branding) via a shortcode parameter without submitting any data
   4. The PDF is written to `sys_get_temp_dir()` and deleted after use; no PDF file appears in `wp-content/uploads/`
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — DOMPDF install + Strauss namespace scoping + PHPUnit/Brain Monkey scaffold + test stub (Wave 0)
+- [ ] 02-02-PLAN.md — Extend wmr_pdf_branding settings with 4 new fields (document_title, gdpr_text, footer_text, page2_content) (Wave 1, parallel)
+- [ ] 02-03-PLAN.md — PdfGenerator class + HTML template + 3 passing PHPUnit tests (Wave 1, parallel)
+- [ ] 02-04-PLAN.md — Wire blank-PDF AJAX handler + human-verify checkpoint (Wave 2)
 
 ### Phase 3: Email Notifications
 **Goal**: Every form submission triggers email delivery of the generated PDF to both the submitting member and all configured admin recipients; admins can verify email deliverability from the settings page before going live
@@ -77,6 +83,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Plugin Foundation and Settings | 3/3 | Complete   | 2026-03-21 |
-| 2. PDF Engine | 0/TBD | Not started | - |
+| 2. PDF Engine | 0/4 | Not started | - |
 | 3. Email Notifications | 0/TBD | Not started | - |
 | 4. Frontend Form and UX Polish | 0/TBD | Not started | - |
