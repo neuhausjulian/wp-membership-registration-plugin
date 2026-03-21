@@ -23,7 +23,7 @@ class FieldSchema {
 	 */
 	public static function encode( array $fields ): string {
 		$encoded = wp_json_encode( $fields );
-		return $encoded !== false ? $encoded : '[]';
+		return false !== $encoded ? $encoded : '[]';
 	}
 
 	/**
