@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: in-progress
-stopped_at: Completed 01-01-PLAN.md
-last_updated: "2026-03-21T14:22:10.000Z"
+status: executing
+stopped_at: Completed 01-02-PLAN.md
+last_updated: "2026-03-21T08:24:22.986Z"
 last_activity: 2026-03-21 — Plan 01-01 complete; dev tooling foundation (Composer PHPCS/WPCS + Docker Compose + Mailpit mu-plugin)
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
+  completed_plans: 2
   percent: 8
 ---
 
@@ -50,6 +50,7 @@ Progress: [█░░░░░░░░░] 8%
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 01-plugin-foundation-and-settings P02 | 3 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -65,6 +66,10 @@ Recent decisions affecting current work:
 - 01-01: mu-plugin phpmailer_init hook used for SMTP relay (not WORDPRESS_CONFIG_EXTRA — that doesn't hook phpmailer_init)
 - 01-01: wordpress:latest unpinned for development; pin before v1.0 release
 - 01-01: PSR-4 filename sniffs (WordPress.Files.FileName.*) excluded in .phpcs.xml to allow ClassName.php files in src/
+- [Phase 01-02]: Field schema stored as JSON-encoded string (wmr_field_schema) not PHP serialized array — enables safe json_decode on both PHP and JS sides
+- [Phase 01-02]: wp_unslash() applied before json_decode() in sanitize_field_schema to handle WP magic quotes on POST data
+- [Phase 01-02]: Hook-suffix guard on admin_enqueue_scripts prevents wp_enqueue_media() loading on every admin page
+- [Phase 01-02]: AjaxHandlers stub created in plan 02 so Plugin.php can instantiate; full implementation deferred to Plan 03
 
 ### Pending Todos
 
@@ -78,6 +83,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T14:22:10.000Z
-Stopped at: Completed 01-01-PLAN.md
-Resume file: .planning/phases/01-plugin-foundation-and-settings/01-02-PLAN.md
+Last session: 2026-03-21T08:24:22.985Z
+Stopped at: Completed 01-02-PLAN.md
+Resume file: None

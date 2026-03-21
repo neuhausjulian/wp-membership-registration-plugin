@@ -7,10 +7,10 @@
 
 ### Admin Configuration
 
-- [ ] **CONF-01**: Admin can define registration form fields via settings page (label, field type: text/email/date/tel/textarea/select, required toggle)
-- [ ] **CONF-02**: Admin can add, remove, and reorder form fields in the settings UI
-- [ ] **CONF-03**: Admin can configure PDF branding: club name, logo upload, accent color
-- [ ] **CONF-04**: Admin can configure one or more recipient email addresses for PDF notification emails
+- [x] **CONF-01**: Admin can define registration form fields via settings page (label, field type: text/email/date/tel/textarea/select, required toggle)
+- [x] **CONF-02**: Admin can add, remove, and reorder form fields in the settings UI
+- [x] **CONF-03**: Admin can configure PDF branding: club name, logo upload, accent color
+- [x] **CONF-04**: Admin can configure one or more recipient email addresses for PDF notification emails
 - [ ] **CONF-05**: Admin can send a test email from the settings page to verify SMTP delivery is working
 
 ### Frontend Form
@@ -75,10 +75,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CONF-01 | Phase 1 | Pending |
-| CONF-02 | Phase 1 | Pending |
-| CONF-03 | Phase 1 | Pending |
-| CONF-04 | Phase 1 | Pending |
+| CONF-01 | Phase 1 | Complete |
+| CONF-02 | Phase 1 | Complete |
+| CONF-03 | Phase 1 | Complete |
+| CONF-04 | Phase 1 | Complete |
 | CONF-05 | Phase 1 | Pending |
 | FORM-01 | Phase 4 | Pending |
 | FORM-02 | Phase 4 | Pending |
