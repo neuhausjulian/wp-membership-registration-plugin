@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ruleset name="WP-Membership-Registration">
+    <description>PHPCS rules for WP Membership Registration plugin.</description>
+
+    <!-- Scan src/ and the main plugin file only -->
+    <file>src/</file>
+    <file>wp-membership-registration.php</file>
+
+    <!-- Exclude generated files -->
+    <exclude-pattern>vendor/</exclude-pattern>
+    <exclude-pattern>node_modules/</exclude-pattern>
+
+    <!-- Use the full WordPress standard -->
+    <rule ref="WordPress">
+        <!-- Allow PSR-4 PascalCase filenames (class-*.php not required) -->
+        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+    </rule>
+
+    <!-- Set text domain for i18n sniff -->
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array">
+                <element value="wp-membership-registration"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- PHP version minimum -->
+    <config name="minimum_supported_wp_version" value="6.0"/>
+    <config name="testVersion" value="8.0-"/>
+</ruleset>
