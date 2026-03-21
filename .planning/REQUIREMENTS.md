@@ -34,9 +34,9 @@
 
 ### Developer Experience
 
-- [ ] **DEV-01**: Plugin ships a Docker-based local development environment using `docker-compose.yml` with the official WordPress image (no Node.js/npm required)
+- [x] **DEV-01**: Plugin ships a Docker-based local development environment using `docker-compose.yml` with the official WordPress image (no Node.js/npm required)
 - [ ] **DEV-02**: Plugin includes a PHPUnit test suite: unit tests (Brain Monkey, no WP bootstrap) and integration tests (Docker WP environment)
-- [ ] **DEV-03**: WordPress coding standards enforced via PHPCS/WPCS with a `.phpcs.xml` config that runs in CI
+- [x] **DEV-03**: WordPress coding standards enforced via PHPCS/WPCS with a `.phpcs.xml` config that runs in CI
 - [ ] **DEV-04**: Plugin includes a `CONTRIBUTING.md` developer guide covering local setup, running tests, coding conventions, and PR submission
 - [ ] **DEV-05**: Plugin includes a user-facing `README.md` covering installation, settings configuration, and shortcode usage
 
@@ -90,9 +90,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PDF-03 | Phase 2 | Pending |
 | MAIL-01 | Phase 3 | Pending |
 | MAIL-02 | Phase 3 | Pending |
-| DEV-01 | Phase 1 | Pending |
+| DEV-01 | Phase 1 | Complete |
 | DEV-02 | Phase 4 | Pending |
-| DEV-03 | Phase 1 | Pending |
+| DEV-03 | Phase 1 | Complete |
 | DEV-04 | Phase 4 | Pending |
 | DEV-05 | Phase 4 | Pending |
 

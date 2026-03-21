@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Phase 1 context gathered
-last_updated: "2026-03-20T22:10:43.324Z"
-last_activity: 2026-03-20 — Roadmap created; all 20 v1 requirements mapped to 4 phases
+status: in-progress
+stopped_at: Completed 01-01-PLAN.md
+last_updated: "2026-03-21T14:22:10.000Z"
+last_activity: 2026-03-21 — Plan 01-01 complete; dev tooling foundation (Composer PHPCS/WPCS + Docker Compose + Mailpit mu-plugin)
 progress:
   total_phases: 4
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  total_plans: 3
+  completed_plans: 1
+  percent: 8
 ---
 
 # Project State
@@ -26,27 +26,27 @@ See: .planning/PROJECT.md (updated 2026-03-20)
 ## Current Position
 
 Phase: 1 of 4 (Plugin Foundation and Settings)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-03-20 — Roadmap created; all 20 v1 requirements mapped to 4 phases
+Plan: 1 of 3 in current phase
+Status: In progress
+Last activity: 2026-03-21 — Plan 01-01 complete; dev tooling foundation (Composer PHPCS/WPCS + Docker Compose + Mailpit mu-plugin)
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█░░░░░░░░░] 8%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: —
-- Total execution time: —
+- Total plans completed: 1
+- Average duration: 2 min
+- Total execution time: 2 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 01-plugin-foundation-and-settings | 1 | 2 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: —
+- Last 5 plans: 01-01 (2 min)
 - Trend: —
 
 *Updated after each plan completion*
@@ -62,6 +62,9 @@ Recent decisions affecting current work:
 - Research: DOMPDF remote access must be disabled (`$isRemoteEnabled = false`) — implement in Phase 2, never relax
 - Research: All PDFs must use `sys_get_temp_dir()` + immediate `unlink()` — never write to `wp-content/uploads/`
 - Research: Strauss preferred over PHP-Scoper for vendor namespace prefixing — confirm during Phase 2 planning
+- 01-01: mu-plugin phpmailer_init hook used for SMTP relay (not WORDPRESS_CONFIG_EXTRA — that doesn't hook phpmailer_init)
+- 01-01: wordpress:latest unpinned for development; pin before v1.0 release
+- 01-01: PSR-4 filename sniffs (WordPress.Files.FileName.*) excluded in .phpcs.xml to allow ClassName.php files in src/
 
 ### Pending Todos
 
@@ -75,6 +78,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T22:10:43.322Z
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-plugin-foundation-and-settings/01-CONTEXT.md
+Last session: 2026-03-21T14:22:10.000Z
+Stopped at: Completed 01-01-PLAN.md
+Resume file: .planning/phases/01-plugin-foundation-and-settings/01-02-PLAN.md

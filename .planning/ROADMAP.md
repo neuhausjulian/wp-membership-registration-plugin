@@ -29,7 +29,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Admin can enter one or more recipient email addresses for notification emails and save them from the settings UI
   4. Admin can click a "Send test email" button and receive a test email at the configured address
   5. Running `docker compose up` launches a working local WordPress instance; running PHPCS reports zero violations on plugin source files
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Dev environment (docker-compose.yml, Mailpit mu-plugin) and PHPCS/WPCS tooling (composer.json, .phpcs.xml)
+- [ ] 01-02-PLAN.md — Plugin PHP skeleton: main file, Plugin.php, SettingsPage.php, SettingsRegistrar.php, FieldSchema.php
+- [ ] 01-03-PLAN.md — Settings UI: admin template, admin JS, admin CSS, AjaxHandlers.php; human verification checkpoint
 
 ### Phase 2: PDF Engine
 **Goal**: Every form submission produces a correctly branded, pre-filled PDF in the system temp directory; the same template with empty fields is available for manual download; the DOMPDF dependency is secure and namespace-prefixed for distribution
@@ -71,7 +76,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Plugin Foundation and Settings | 0/TBD | Not started | - |
+| 1. Plugin Foundation and Settings | 1/3 | In Progress|  |
 | 2. PDF Engine | 0/TBD | Not started | - |
 | 3. Email Notifications | 0/TBD | Not started | - |
 | 4. Frontend Form and UX Polish | 0/TBD | Not started | - |
