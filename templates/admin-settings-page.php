@@ -116,6 +116,63 @@ $email_settings = get_option( 'wmr_email_settings', array() );
 							<p class="description"><?php esc_html_e( 'Used as the highlight color in the PDF template.', 'wp-membership-registration' ); ?></p>
 						</td>
 					</tr>
+					<tr>
+						<th scope="row">
+							<label for="wmr-document-title"><?php esc_html_e( 'Document Title', 'wp-membership-registration' ); ?></label>
+						</th>
+						<td>
+							<input
+								type="text"
+								id="wmr-document-title"
+								name="wmr_pdf_branding[document_title]"
+								class="regular-text"
+								value="<?php echo esc_attr( $branding['document_title'] ?? '' ); ?>"
+							>
+							<p class="description"><?php esc_html_e( 'Shown in the PDF header next to the club name. Example: Aufnahmeantrag.', 'wp-membership-registration' ); ?></p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">
+							<label for="wmr-gdpr-text"><?php esc_html_e( 'GDPR / Consent Text', 'wp-membership-registration' ); ?></label>
+						</th>
+						<td>
+							<textarea
+								id="wmr-gdpr-text"
+								name="wmr_pdf_branding[gdpr_text]"
+								class="large-text"
+								rows="5"
+							><?php echo wp_kses_post( $branding['gdpr_text'] ?? '' ); ?></textarea>
+							<p class="description"><?php esc_html_e( 'Shown above the signature line in the PDF. May include HTML links.', 'wp-membership-registration' ); ?></p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">
+							<label for="wmr-footer-text"><?php esc_html_e( 'Footer Text', 'wp-membership-registration' ); ?></label>
+						</th>
+						<td>
+							<textarea
+								id="wmr-footer-text"
+								name="wmr_pdf_branding[footer_text]"
+								class="large-text"
+								rows="4"
+							><?php echo wp_kses_post( $branding['footer_text'] ?? '' ); ?></textarea>
+							<p class="description"><?php esc_html_e( 'Board contact details and bank information shown at the bottom of page 1. May include HTML.', 'wp-membership-registration' ); ?></p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">
+							<label for="wmr-page2-content"><?php esc_html_e( 'Page 2 Content', 'wp-membership-registration' ); ?></label>
+						</th>
+						<td>
+							<textarea
+								id="wmr-page2-content"
+								name="wmr_pdf_branding[page2_content]"
+								class="large-text"
+								rows="8"
+							><?php echo wp_kses_post( $branding['page2_content'] ?? '' ); ?></textarea>
+							<p class="description"><?php esc_html_e( 'If set, a second page is added to the PDF (e.g. Datenschutzerklärung). Leave empty for single-page PDF. May include HTML.', 'wp-membership-registration' ); ?></p>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 
