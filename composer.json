@@ -3,11 +3,15 @@
   "description": "WordPress membership registration plugin with PDF generation",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
-  "require": {},
+  "require": {
+    "dompdf/dompdf": "^3.1"
+  },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.8",
     "wp-coding-standards/wpcs": "^3.0",
-    "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "phpunit/phpunit": "^9.6",
+    "brain/monkey": "^2.6"
   },
   "autoload": {
     "psr-4": {
@@ -17,9 +21,32 @@
   "config": {
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true
+    },
+    "vendor-dir": "vendor",
+    "optimize-autoloader": true
+  },
+  "extra": {
+    "strauss": {
+      "target_directory": "vendor-prefixed",
+      "namespace_prefix": "WpMembershipRegistration\\Vendor\\",
+      "classmap_prefix": "WpMembershipRegistration_Vendor_",
+      "packages": [
+        "dompdf/dompdf",
+        "phenx/php-font-lib",
+        "phenx/php-svg-lib"
+      ],
+      "delete_vendor_files": false
     }
   },
   "scripts": {
-    "phpcs": "phpcs --standard=.phpcs.xml src/ wp-membership-registration.php"
+    "phpcs": "phpcs --standard=.phpcs.xml src/ wp-membership-registration.php",
+    "phpunit": "phpunit",
+    "prefix-namespaces": [
+      "sh -c 'test -f ./bin/strauss.phar || (mkdir -p bin && curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/latest/download/strauss.phar)'",
+      "@php bin/strauss.phar",
+      "@composer dump-autoload"
+    ],
+    "post-install-cmd": ["@prefix-namespaces"],
+    "post-update-cmd": ["@prefix-namespaces"]
   }
 }
