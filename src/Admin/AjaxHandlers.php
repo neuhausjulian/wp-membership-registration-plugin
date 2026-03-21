@@ -103,4 +103,36 @@ class AjaxHandlers {
 			wp_send_json_error( array( 'message' => $e->getMessage() ) );
 		}
 	}
+
+	/**
+	 * Handle the wmr_download_blank_pdf AJAX action.
+	 *
+	 * Streams a blank (empty-fields) membership form PDF to the browser,
+	 * then deletes the temp file. Accessible without login (nopriv hook).
+	 *
+	 * @return void
+	 */
+	public function handle_download_blank_pdf(): void {
+		$generator = new PdfGenerator();
+		$path      = $generator->generate_blank();
+
+		header( 'Content-Type: application/pdf' );
+		header( 'Content-Disposition: attachment; filename="membership-form.pdf"' );
+		header( 'Content-Length: ' . filesize( $path ) );
+		header( 'Cache-Control: private, max-age=0, must-revalidate' );
+		header( 'Pragma: private' );
+
+		ob_clean();
+		flush();
+
+		try {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_readfile
+			readfile( $path );
+		} finally {
+			// Guarantee cleanup even if readfile() throws.
+			@unlink( $path ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged,WordPress.WP.AlternativeFunctions.unlink_unlink
+		}
+
+		exit;
+	}
 }

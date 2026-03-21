@@ -12,6 +12,7 @@ namespace WpMembershipRegistration;
 use WpMembershipRegistration\Admin\SettingsPage;
 use WpMembershipRegistration\Admin\SettingsRegistrar;
 use WpMembershipRegistration\Admin\AjaxHandlers;
+use WpMembershipRegistration\Shortcodes\MembershipFormShortcode;
 
 /**
  * Main Plugin orchestrator.
@@ -32,5 +33,10 @@ class Plugin {
 		add_action( 'admin_init', array( $settings_registrar, 'register' ) );
 		add_action( 'admin_enqueue_scripts', array( $settings_page, 'enqueue_scripts' ) );
 		add_action( 'wp_ajax_wmr_send_test_email', array( $ajax_handlers, 'handle_send_test_email' ) );
+		add_action( 'wp_ajax_wmr_download_blank_pdf', array( $ajax_handlers, 'handle_download_blank_pdf' ) );
+		add_action( 'wp_ajax_nopriv_wmr_download_blank_pdf', array( $ajax_handlers, 'handle_download_blank_pdf' ) );
+		add_action( 'wp_ajax_wmr_generate_pdf_stub', array( $ajax_handlers, 'handle_generate_pdf_stub' ) );
+		$shortcode = new MembershipFormShortcode();
+		add_shortcode( 'membership_form', array( $shortcode, 'render' ) );
 	}
 }
