@@ -21,6 +21,16 @@ define( 'WMR_PLUGIN_FILE', __FILE__ );
 define( 'WMR_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WMR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
-require_once WMR_PLUGIN_DIR . 'vendor/autoload.php';
+spl_autoload_register( function ( $class ) {
+	$prefix = 'WpMembershipRegistration\\';
+	if ( strncmp( $prefix, $class, strlen( $prefix ) ) !== 0 ) {
+		return;
+	}
+	$relative = substr( $class, strlen( $prefix ) );
+	$file     = WMR_PLUGIN_DIR . 'src/' . str_replace( '\\', '/', $relative ) . '.php';
+	if ( file_exists( $file ) ) {
+		require $file;
+	}
+} );
 
 ( new \WpMembershipRegistration\Plugin() )->register();

@@ -17,19 +17,33 @@ jQuery( function ( $ ) {
 	// -------------------------------------------------------------------------
 	// 1. Tab switching
 	// -------------------------------------------------------------------------
-	$( '.wmr-tab-nav .nav-tab' ).on( 'click', function ( e ) {
-		e.preventDefault();
-
-		var tab = $( this ).data( 'tab' );
-
-		// Update active tab link.
+	function activateTab( tab ) {
 		$( '.wmr-tab-nav .nav-tab' ).removeClass( 'nav-tab-active' );
-		$( this ).addClass( 'nav-tab-active' );
-
-		// Show the matching panel; hide all others.
+		$( '.wmr-tab-nav .nav-tab[data-tab="' + tab + '"]' ).addClass( 'nav-tab-active' );
 		$( '.wmr-tab-panel' ).hide();
 		$( '#wmr-tab-' + tab ).show();
+	}
+
+	$( '.wmr-tab-nav .nav-tab' ).on( 'click', function ( e ) {
+		e.preventDefault();
+		var tab = $( this ).data( 'tab' );
+		sessionStorage.setItem( 'wmrActiveTab', tab );
+		activateTab( tab );
 	} );
+
+	// Persist active tab across the settings-save redirect.
+	$( '.wmr-tab-panel form' ).on( 'submit', function () {
+		var activeTab = $( '.wmr-tab-nav .nav-tab-active' ).data( 'tab' );
+		if ( activeTab ) {
+			sessionStorage.setItem( 'wmrActiveTab', activeTab );
+		}
+	} );
+
+	// Restore active tab on page load.
+	var savedTab = sessionStorage.getItem( 'wmrActiveTab' );
+	if ( savedTab && $( '#wmr-tab-' + savedTab ).length ) {
+		activateTab( savedTab );
+	}
 
 	// -------------------------------------------------------------------------
 	// 2. Field schema row rendering
@@ -196,11 +210,12 @@ jQuery( function ( $ ) {
 	$( '#wmr-send-test-email' ).on( 'click', function () {
 		var $button = $( this );
 		var $result = $( '#wmr-test-email-result' );
+		var originalHtml = $button.html();
 
 		// Disable button and show in-flight state.
-		$button.prop( 'disabled', true );
-		$button.find( '.dashicons' ).nextAll().remove();
-		$button.append( document.createTextNode( 'Sending\u2026' ) );
+		$button.prop( 'disabled', true ).html(
+			$button.find( '.dashicons' ).prop( 'outerHTML' ) + ' Sending\u2026'
+		);
 
 		// Clear previous result.
 		$result.removeClass( 'wmr-inline-notice--success wmr-inline-notice--error' ).text( '' );
@@ -226,10 +241,7 @@ jQuery( function ( $ ) {
 				}
 			}
 		).always( function () {
-			// Re-enable button and restore original text.
-			$button.prop( 'disabled', false );
-			$button.find( '.dashicons' ).nextAll().remove();
-			$button.append( document.createTextNode( 'Send Test Email' ) );
+			$button.prop( 'disabled', false ).html( originalHtml );
 		} );
 	} );
 } );

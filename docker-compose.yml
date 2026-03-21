@@ -9,13 +9,20 @@ services:
       MYSQL_PASSWORD: wordpress
     volumes:
       - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uwordpress", "-pwordpress"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   wordpress:
     image: wordpress:latest
     restart: unless-stopped
     depends_on:
-      - db
-      - mailpit
+      db:
+        condition: service_healthy
+      mailpit:
+        condition: service_started
     ports:
       - "8080:80"
     environment:

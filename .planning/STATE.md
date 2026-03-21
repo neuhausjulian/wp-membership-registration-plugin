@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: "Checkpoint 01-03: awaiting human-verify of settings page UI"
-last_updated: "2026-03-21T08:29:12.491Z"
+stopped_at: Completed 01-03-PLAN.md
+last_updated: "2026-03-21T11:45:14.605Z"
 last_activity: 2026-03-21 — Plan 01-01 complete; dev tooling foundation (Composer PHPCS/WPCS + Docker Compose + Mailpit mu-plugin)
 progress:
   total_phases: 4
@@ -52,6 +52,7 @@ Progress: [█░░░░░░░░░] 8%
 *Updated after each plan completion*
 | Phase 01-plugin-foundation-and-settings P02 | 3 | 2 tasks | 6 files |
 | Phase 01-plugin-foundation-and-settings P03 | 3 | 2 tasks | 4 files |
+| Phase 01-plugin-foundation-and-settings P03 | 30 | 3 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -73,6 +74,9 @@ Recent decisions affecting current work:
 - [Phase 01-02]: AjaxHandlers stub created in plan 02 so Plugin.php can instantiate; full implementation deferred to Plan 03
 - [Phase 01-plugin-foundation-and-settings]: PHP sets initial tab panel visibility (active/hidden) to avoid flash before JS loads; JS takes over tab switching from that state
 - [Phase 01-plugin-foundation-and-settings]: wmrExistingFields bootstrapped via inline script block using FieldSchema::decode() — eliminates extra AJAX round-trip on page load
+- [Phase 01-plugin-foundation-and-settings]: Tab persistence via sessionStorage — survives options.php redirect without requiring tab query parameter
+- [Phase 01-plugin-foundation-and-settings]: spl_autoload_register used instead of vendor autoloader — avoids fatal error when vendor/ not present in container
+- [Phase 01-plugin-foundation-and-settings]: SMTPAutoTLS = false in mailpit-smtp.php — Mailpit does not support STARTTLS; PHPMailer AutoTLS caused delivery failure
 
 ### Pending Todos
 
@@ -86,6 +90,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T08:29:12.489Z
-Stopped at: Checkpoint 01-03: awaiting human-verify of settings page UI
+Last session: 2026-03-21T11:45:06.786Z
+Stopped at: Completed 01-03-PLAN.md
 Resume file: None

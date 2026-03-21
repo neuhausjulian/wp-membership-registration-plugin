@@ -13,13 +13,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+add_filter( 'wp_mail_from', fn() => 'wordpress@dev.local' );
+add_filter( 'wp_mail_from_name', fn() => 'WordPress Dev' );
+
 add_action(
 	'phpmailer_init',
 	function ( $phpmailer ) {
 		$phpmailer->isSMTP();
-		$phpmailer->Host       = 'mailpit';
-		$phpmailer->Port       = 1025;
-		$phpmailer->SMTPAuth   = false;
-		$phpmailer->SMTPSecure = '';
+		$phpmailer->Host        = 'mailpit';
+		$phpmailer->Port        = 1025;
+		$phpmailer->SMTPAuth    = false;
+		$phpmailer->SMTPSecure  = '';
+		$phpmailer->SMTPAutoTLS = false;
 	}
 );
