@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-02-PLAN.md
-last_updated: "2026-03-21T08:24:22.986Z"
+stopped_at: "Checkpoint 01-03: awaiting human-verify of settings page UI"
+last_updated: "2026-03-21T08:29:12.491Z"
 last_activity: 2026-03-21 — Plan 01-01 complete; dev tooling foundation (Composer PHPCS/WPCS + Docker Compose + Mailpit mu-plugin)
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
+  completed_plans: 3
   percent: 8
 ---
 
@@ -51,6 +51,7 @@ Progress: [█░░░░░░░░░] 8%
 
 *Updated after each plan completion*
 | Phase 01-plugin-foundation-and-settings P02 | 3 | 2 tasks | 6 files |
+| Phase 01-plugin-foundation-and-settings P03 | 3 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -70,6 +71,8 @@ Recent decisions affecting current work:
 - [Phase 01-02]: wp_unslash() applied before json_decode() in sanitize_field_schema to handle WP magic quotes on POST data
 - [Phase 01-02]: Hook-suffix guard on admin_enqueue_scripts prevents wp_enqueue_media() loading on every admin page
 - [Phase 01-02]: AjaxHandlers stub created in plan 02 so Plugin.php can instantiate; full implementation deferred to Plan 03
+- [Phase 01-plugin-foundation-and-settings]: PHP sets initial tab panel visibility (active/hidden) to avoid flash before JS loads; JS takes over tab switching from that state
+- [Phase 01-plugin-foundation-and-settings]: wmrExistingFields bootstrapped via inline script block using FieldSchema::decode() — eliminates extra AJAX round-trip on page load
 
 ### Pending Todos
 
@@ -83,6 +86,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T08:24:22.985Z
-Stopped at: Completed 01-02-PLAN.md
+Last session: 2026-03-21T08:29:12.489Z
+Stopped at: Checkpoint 01-03: awaiting human-verify of settings page UI
 Resume file: None

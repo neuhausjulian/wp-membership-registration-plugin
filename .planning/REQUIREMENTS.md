@@ -11,7 +11,7 @@
 - [x] **CONF-02**: Admin can add, remove, and reorder form fields in the settings UI
 - [x] **CONF-03**: Admin can configure PDF branding: club name, logo upload, accent color
 - [x] **CONF-04**: Admin can configure one or more recipient email addresses for PDF notification emails
-- [ ] **CONF-05**: Admin can send a test email from the settings page to verify SMTP delivery is working
+- [x] **CONF-05**: Admin can send a test email from the settings page to verify SMTP delivery is working
 
 ### Frontend Form
 
@@ -79,7 +79,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CONF-02 | Phase 1 | Complete |
 | CONF-03 | Phase 1 | Complete |
 | CONF-04 | Phase 1 | Complete |
-| CONF-05 | Phase 1 | Pending |
+| CONF-05 | Phase 1 | Complete |
 | FORM-01 | Phase 4 | Pending |
 | FORM-02 | Phase 4 | Pending |
 | FORM-03 | Phase 4 | Pending |
