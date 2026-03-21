@@ -23,9 +23,9 @@
 
 ### PDF Generation
 
-- [ ] **PDF-01**: Plugin generates a pre-filled PDF on every form submission, containing all submitted field values
+- [x] **PDF-01**: Plugin generates a pre-filled PDF on every form submission, containing all submitted field values
 - [x] **PDF-02**: Generated PDF incorporates admin-configured branding (club name, logo, accent color)
-- [ ] **PDF-03**: A blank (empty-fields) version of the PDF template is downloadable via shortcode parameter for manual fallback
+- [x] **PDF-03**: A blank (empty-fields) version of the PDF template is downloadable via shortcode parameter for manual fallback
 
 ### Email Notifications
 
@@ -85,9 +85,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FORM-03 | Phase 4 | Pending |
 | FORM-04 | Phase 4 | Pending |
 | FORM-05 | Phase 4 | Pending |
-| PDF-01 | Phase 2 | Pending |
+| PDF-01 | Phase 2 | Complete |
 | PDF-02 | Phase 2 | Complete |
-| PDF-03 | Phase 2 | Pending |
+| PDF-03 | Phase 2 | Complete |
 | MAIL-01 | Phase 3 | Pending |
 | MAIL-02 | Phase 3 | Pending |
 | DEV-01 | Phase 1 | Complete |

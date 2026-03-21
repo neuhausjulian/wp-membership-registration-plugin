@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-02-PLAN.md
-last_updated: "2026-03-21T12:39:42.668Z"
+stopped_at: Completed 02-pdf-engine/02-01-PLAN.md
+last_updated: "2026-03-21T12:42:31.414Z"
 last_activity: 2026-03-21 — Plan 01-01 complete; dev tooling foundation (Composer PHPCS/WPCS + Docker Compose + Mailpit mu-plugin)
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 7
-  completed_plans: 4
+  completed_plans: 5
   percent: 8
 ---
 
@@ -54,6 +54,7 @@ Progress: [█░░░░░░░░░] 8%
 | Phase 01-plugin-foundation-and-settings P03 | 3 | 2 tasks | 4 files |
 | Phase 01-plugin-foundation-and-settings P03 | 30 | 3 tasks | 8 files |
 | Phase 02-pdf-engine P02 | 3 | 2 tasks | 2 files |
+| Phase 02-pdf-engine P01 | 5 | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -80,6 +81,9 @@ Recent decisions affecting current work:
 - [Phase 01-plugin-foundation-and-settings]: SMTPAutoTLS = false in mailpit-smtp.php — Mailpit does not support STARTTLS; PHPMailer AutoTLS caused delivery failure
 - [Phase 02-02]: wp_kses_post() for gdpr_text, footer_text, page2_content — these fields accept HTML links/formatting for legal text
 - [Phase 02-02]: sanitize_text_field() for document_title — plain text, no HTML expected
+- [Phase 02-01]: Strauss chosen over PHP-Scoper for namespace scoping — simpler config, no build step
+- [Phase 02-01]: vendor-prefixed/ excluded from git — generated artifact rebuilt via post-install-cmd
+- [Phase 02-01]: file_exists() guard on vendor-prefixed/autoload.php prevents fatal error on fresh clone
 
 ### Pending Todos
 
@@ -93,6 +97,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T12:39:42.666Z
-Stopped at: Completed 02-02-PLAN.md
+Last session: 2026-03-21T12:42:31.412Z
+Stopped at: Completed 02-pdf-engine/02-01-PLAN.md
 Resume file: None
