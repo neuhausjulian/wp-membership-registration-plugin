@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-pdf-engine/02-01-PLAN.md
-last_updated: "2026-03-21T12:42:31.414Z"
+stopped_at: Completed 02-pdf-engine-02-03-PLAN.md
+last_updated: "2026-03-21T12:48:22.935Z"
 last_activity: 2026-03-21 — Plan 01-01 complete; dev tooling foundation (Composer PHPCS/WPCS + Docker Compose + Mailpit mu-plugin)
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 7
-  completed_plans: 5
+  completed_plans: 6
   percent: 8
 ---
 
@@ -55,6 +55,7 @@ Progress: [█░░░░░░░░░] 8%
 | Phase 01-plugin-foundation-and-settings P03 | 30 | 3 tasks | 8 files |
 | Phase 02-pdf-engine P02 | 3 | 2 tasks | 2 files |
 | Phase 02-pdf-engine P01 | 5 | 2 tasks | 9 files |
+| Phase 02-pdf-engine P03 | 35 | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -84,6 +85,9 @@ Recent decisions affecting current work:
 - [Phase 02-01]: Strauss chosen over PHP-Scoper for namespace scoping — simpler config, no build step
 - [Phase 02-01]: vendor-prefixed/ excluded from git — generated artifact rebuilt via post-install-cmd
 - [Phase 02-01]: file_exists() guard on vendor-prefixed/autoload.php prevents fatal error on fresh clone
+- [Phase 02-pdf-engine]: wp_delete_file() used in AjaxHandlers smoke-test stub instead of bare unlink() to satisfy WPCS
+- [Phase 02-pdf-engine]: phpcs:disable/enable block required for multi-line ternary nonce suppression — single-line phpcs:ignore insufficient
+- [Phase 02-pdf-engine]: Brain Monkey stubs for esc_attr/esc_html/wp_kses_post must be added explicitly — not auto-stubbed by Brain Monkey
 
 ### Pending Todos
 
@@ -97,6 +101,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T12:42:31.412Z
-Stopped at: Completed 02-pdf-engine/02-01-PLAN.md
+Last session: 2026-03-21T12:48:22.934Z
+Stopped at: Completed 02-pdf-engine-02-03-PLAN.md
 Resume file: None
