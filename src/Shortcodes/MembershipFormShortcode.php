@@ -10,6 +10,8 @@
 
 namespace WpMembershipRegistration\Shortcodes;
 
+use WpMembershipRegistration\Frontend\FormRenderer;
+
 /**
  * Registers and handles the [membership_form] shortcode.
  */
@@ -37,8 +39,8 @@ class MembershipFormShortcode {
 			return $this->render_blank_download_link();
 		}
 
-		// Phase 4 will render the registration form here.
-		return '';
+		$renderer = new FormRenderer();
+		return $renderer->render();
 	}
 
 	/**
