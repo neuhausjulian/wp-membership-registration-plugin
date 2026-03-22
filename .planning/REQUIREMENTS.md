@@ -29,8 +29,8 @@
 
 ### Email Notifications
 
-- [ ] **MAIL-01**: Member receives the generated PDF as an email attachment immediately after submitting the form
-- [ ] **MAIL-02**: All configured admin recipient(s) receive a copy of the generated PDF by email after each submission
+- [x] **MAIL-01**: Member receives the generated PDF as an email attachment immediately after submitting the form
+- [x] **MAIL-02**: All configured admin recipient(s) receive a copy of the generated PDF by email after each submission
 
 ### Developer Experience
 
@@ -88,8 +88,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PDF-01 | Phase 2 | Complete |
 | PDF-02 | Phase 2 | Complete |
 | PDF-03 | Phase 2 | Complete |
-| MAIL-01 | Phase 3 | Pending |
-| MAIL-02 | Phase 3 | Pending |
+| MAIL-01 | Phase 3 | Complete |
+| MAIL-02 | Phase 3 | Complete |
 | DEV-01 | Phase 1 | Complete |
 | DEV-02 | Phase 4 | Pending |
 | DEV-03 | Phase 1 | Complete |
