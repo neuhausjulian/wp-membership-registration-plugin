@@ -4,7 +4,7 @@
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
   "require": {
-    "dompdf/dompdf": "^3.1"
+    "tecnickcom/tcpdf": "^6.11"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.8",
@@ -31,9 +31,7 @@
       "namespace_prefix": "WpMembershipRegistration\\Vendor\\",
       "classmap_prefix": "WpMembershipRegistration_Vendor_",
       "packages": [
-        "dompdf/dompdf",
-        "dompdf/php-font-lib",
-        "dompdf/php-svg-lib"
+        "tecnickcom/tcpdf"
       ],
       "delete_vendor_files": false
     }
