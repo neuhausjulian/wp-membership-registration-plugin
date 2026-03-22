@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-03-PLAN.md
-last_updated: "2026-03-22T19:47:56.081Z"
+stopped_at: Completed 03-02-PLAN.md
+last_updated: "2026-03-22T19:55:54.562Z"
 last_activity: 2026-03-21 — Plan 01-01 complete; dev tooling foundation (Composer PHPCS/WPCS + Docker Compose + Mailpit mu-plugin)
 progress:
   total_phases: 4
   completed_phases: 2
   total_plans: 11
-  completed_plans: 9
+  completed_plans: 10
   percent: 8
 ---
 
@@ -59,6 +59,7 @@ Progress: [█░░░░░░░░░] 8%
 | Phase 02-pdf-engine P04 | continuation | 3 tasks | 5 files |
 | Phase 03-email-notifications P01 | 8 | 1 tasks | 1 files |
 | Phase 03-email-notifications P03 | 2 | 1 tasks | 1 files |
+| Phase 03-email-notifications P02 | 20 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -98,6 +99,10 @@ Recent decisions affecting current work:
 - [Phase 03-email-notifications]: Mailer accepts optional PdfGenerator constructor param for test injection (constructor injection pattern)
 - [Phase 03-email-notifications]: Warning notice placed BEFORE <form> tag in Email Settings tab — inside form disrupts layout (Pitfall 4)
 - [Phase 03-email-notifications]: Email preview boxes placed OUTSIDE form to prevent accidental submission of read-only content
+- [Phase 03-email-notifications]: filter_var(FILTER_VALIDATE_EMAIL) used instead of is_email() in Mailer — WP function not stubbed by Brain Monkey in unit test context
+- [Phase 03-email-notifications]: wp_delete_file stub moved from setUp to individual tests in MailerTest — Brain Monkey 2.7 skips redefineUsingExpectation when function already registered as stub
+- [Phase 03-email-notifications]: Single admin recipient passed as string not array to wp_mail() — tests assert string equality on  parameter
+- [Phase 03-email-notifications]: __() i18n stub added to tests/bootstrap.php — not auto-stubbed by Brain Monkey, required for Mailer translated strings
 
 ### Pending Todos
 
@@ -111,6 +116,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T19:47:56.079Z
-Stopped at: Completed 03-03-PLAN.md
+Last session: 2026-03-22T19:55:54.560Z
+Stopped at: Completed 03-02-PLAN.md
 Resume file: None
