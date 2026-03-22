@@ -15,6 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 $schema         = get_option( 'wmr_field_schema', '[]' );
 $branding       = get_option( 'wmr_pdf_branding', array() );
 $email_settings = get_option( 'wmr_email_settings', array() );
+$fields         = \WpMembershipRegistration\Util\FieldSchema::decode( $schema );
+$has_email      = ! empty( array_filter( $fields, fn( $f ) => ( $f['type'] ?? '' ) === 'email' ) );
 ?>
 <div class="wrap">
 	<h1><?php esc_html_e( 'Membership Registration Settings', 'wp-membership-registration' ); ?></h1>
@@ -181,6 +183,11 @@ $email_settings = get_option( 'wmr_email_settings', array() );
 	</div>
 
 	<div id="wmr-tab-email" class="wmr-tab-panel" style="display:none">
+		<?php if ( ! $has_email ) : ?>
+		<div class="notice notice-warning inline">
+			<p><?php esc_html_e( 'No email-type field is configured in the form — members will not receive a confirmation email. Add an email-type field on the Form Fields tab.', 'wp-membership-registration' ); ?></p>
+		</div>
+		<?php endif; ?>
 		<form method="post" action="options.php">
 			<?php settings_fields( 'wmr_email_settings_group' ); ?>
 
@@ -217,5 +224,27 @@ $email_settings = get_option( 'wmr_email_settings', array() );
 
 			<?php submit_button(); ?>
 		</form>
+
+		<h2><?php esc_html_e( 'Email Previews', 'wp-membership-registration' ); ?></h2>
+		<p class="description"><?php esc_html_e( 'These are the emails that will be sent on each registration. The content is fixed for v1 and cannot be edited here.', 'wp-membership-registration' ); ?></p>
+
+		<table class="form-table" role="presentation">
+			<tbody>
+				<tr>
+					<th scope="row"><?php esc_html_e( 'Member email', 'wp-membership-registration' ); ?></th>
+					<td>
+						<p><strong><?php esc_html_e( 'Subject:', 'wp-membership-registration' ); ?></strong> <?php esc_html_e( 'Your registration form', 'wp-membership-registration' ); ?></p>
+						<p><strong><?php esc_html_e( 'Body:', 'wp-membership-registration' ); ?></strong> <?php esc_html_e( 'Thank you for your registration. Please find your completed membership form attached.', 'wp-membership-registration' ); ?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><?php esc_html_e( 'Admin email', 'wp-membership-registration' ); ?></th>
+					<td>
+						<p><strong><?php esc_html_e( 'Subject:', 'wp-membership-registration' ); ?></strong> <?php esc_html_e( 'New membership registration received', 'wp-membership-registration' ); ?></p>
+						<p><strong><?php esc_html_e( 'Body:', 'wp-membership-registration' ); ?></strong> <?php esc_html_e( 'A new membership registration was submitted. The completed form is attached.', 'wp-membership-registration' ); ?></p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>
