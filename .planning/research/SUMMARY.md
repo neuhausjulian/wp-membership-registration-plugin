@@ -26,7 +26,7 @@ One vendor-bundling risk is non-obvious: shipping `vendor/` with standard Compos
 - Composer 2.9.x: dependency management and PSR-4 autoloading — required for dompdf and namespace-based class structure
 - dompdf/dompdf 3.1.x: HTML-to-PDF generation — pure PHP, no binary required, 168M+ Packagist installs, WordPress-safe
 - Alpine.js 3.15.x: form interactivity — no build step, ~15 KB gzipped, HTML-native directives fit shortcode-rendered forms
-- `@wordpress/env` 11.2.x: Docker-based local dev — official WordPress tooling, zero-config, ships PHPUnit and WP-CLI
+- `docker-compose.yml` with official WordPress image: Docker-based local dev — no Node.js/npm required, contributor-friendly, plain Docker Compose (preferred over @wordpress/env for this project)
 - WordPress Settings API, `wp_mail()`, `wp_remote_post()`: admin config, email delivery, webhook dispatch — no external libraries needed for these core features
 
 ### Expected Features
