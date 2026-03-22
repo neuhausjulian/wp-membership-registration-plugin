@@ -2,7 +2,7 @@
 /**
  * PDF generation service.
  *
- * Generates filled and blank A4 membership form PDFs using DOMPDF.
+ * Generates filled and blank A4 membership form PDFs using TCPDF.
  * All output goes to sys_get_temp_dir(); callers are responsible for unlink().
  *
  * @package WpMembershipRegistration\Pdf
@@ -11,8 +11,7 @@
 namespace WpMembershipRegistration\Pdf;
 
 use WpMembershipRegistration\Util\FieldSchema;
-use WpMembershipRegistration\Vendor\Dompdf\Dompdf;
-use WpMembershipRegistration\Vendor\Dompdf\Options;
+use WpMembershipRegistration_Vendor_TCPDF as PdfLib;
 
 /**
  * Generates pre-filled and blank A4 PDF membership forms.
@@ -27,107 +26,145 @@ class PdfGenerator {
 	 * @return string Absolute path to the generated temp file.
 	 */
 	public function generate( array $field_values ): string {
-		$html     = $this->render_template( $field_values, false );
-		$pdf_data = $this->render_pdf( $html );
-		return $this->write_temp_file( $pdf_data );
+		$pdf  = $this->build_pdf( false, $field_values );
+		$data = $pdf->Output( '', 'S' );
+		return $this->write_temp_file( $data );
 	}
 
 	/**
-	 * Generate a blank PDF with underline placeholders for empty fields.
+	 * Generate a blank PDF with AcroForm interactive text fields.
 	 * Returns the temp file path. Caller is responsible for unlink().
 	 *
 	 * @return string Absolute path to the generated temp file.
 	 */
 	public function generate_blank(): string {
-		$html     = $this->render_template( array(), true );
-		$pdf_data = $this->render_pdf( $html );
-		return $this->write_temp_file( $pdf_data );
+		$pdf  = $this->build_pdf( true, array() );
+		$data = $pdf->Output( '', 'S' );
+		return $this->write_temp_file( $data );
 	}
 
 	/**
-	 * Render the HTML template for DOMPDF.
+	 * Build a TCPDF document with all page content.
 	 *
-	 * @param array<string, string> $field_values Field label => value (empty array for blank).
-	 * @param bool                  $is_blank     True to render underlines instead of values.
-	 * @return string Rendered HTML string.
+	 * Shared by generate() and generate_blank(). Uses a two-column Cell() layout
+	 * for field rows (~50mm label column, remaining width for values/widgets).
+	 *
+	 * @param bool                  $is_blank     True to render AcroForm TextField widgets instead of static values.
+	 * @param array<string, string> $field_values Field label => value (empty array for blank PDFs).
+	 * @return PdfLib Configured TCPDF instance (call Output() to get bytes).
 	 */
-	private function render_template( array $field_values, bool $is_blank ): string { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+	private function build_pdf( bool $is_blank, array $field_values ): PdfLib {
 		$branding       = get_option( 'wmr_pdf_branding', array() );
-		$club_name      = $branding['club_name'] ?? '';
-		$accent_color   = $branding['accent_color'] ?? '#2271b1';
-		$document_title = $branding['document_title'] ?? '';
-		$gdpr_text      = $branding['gdpr_text'] ?? '';
-		$footer_text    = $branding['footer_text'] ?? '';
-		$page2_content  = $branding['page2_content'] ?? '';
-		$logo_data_uri  = $this->get_logo_data_uri( $branding['logo_url'] ?? '' );
-		$fields         = FieldSchema::decode( get_option( 'wmr_field_schema', '[]' ) );
+		$club_name      = sanitize_text_field( $branding['club_name'] ?? '' );
+		$raw_color      = sanitize_hex_color( $branding['accent_color'] ?? '#2271b1' );
+		$accent_color   = $raw_color ? $raw_color : '#2271b1';
+		$document_title = sanitize_text_field( $branding['document_title'] ?? '' );
+		$form_notes     = wp_kses_post( $branding['form_notes'] ?? '' );
+		$footer_text    = sanitize_text_field( $branding['footer_text'] ?? '' );
+		$page2_content  = wp_kses_post( $branding['page2_content'] ?? '' );
 
-		ob_start();
-		include WMR_PLUGIN_DIR . 'templates/pdf/membership-form.php';
-		return (string) ob_get_clean();
-	}
+		$pdf = new PdfLib( 'P', 'mm', 'A4', true, 'UTF-8', false );
+		$pdf->SetCreator( 'WP Membership Registration' );
+		$pdf->SetTitle( $document_title ? $document_title : $club_name );
+		$pdf->setPrintHeader( false );
+		$pdf->setPrintFooter( false );
+		$pdf->SetMargins( 20, 20, 20 );
+		$pdf->SetAutoPageBreak( true, 20 );
+		$pdf->AddPage();
 
-	/**
-	 * Render HTML to PDF bytes using DOMPDF.
-	 *
-	 * SECURITY: isRemoteEnabled and isPhpEnabled are always false.
-	 *
-	 * @param string $html Valid HTML string.
-	 * @return string Raw PDF bytes.
-	 */
-	private function render_pdf( string $html ): string {
-		$options = new Options();
-		$options->set( 'isRemoteEnabled', false );     // SECURITY: must stay false — RCE risk.
-		$options->set( 'isPhpEnabled', false );        // SECURITY: must stay false.
-		$options->set( 'isHtml5ParserEnabled', true );
-		$options->set( 'defaultPaperSize', 'a4' );
-		$options->set( 'defaultPaperOrientation', 'portrait' );
+		// --- Club name heading ---
+		$pdf->SetFont( 'dejavusans', 'B', 14 );
+		$pdf->Cell( 0, 10, esc_html( $club_name ), 0, 1, 'C' );
 
-		$dompdf = new Dompdf( $options );
-		$dompdf->loadHtml( $html, 'UTF-8' );
-		$dompdf->setPaper( 'a4', 'portrait' );
-		$dompdf->render();
-		return (string) $dompdf->output();
+		// --- Document title ---
+		if ( $document_title ) {
+			$pdf->SetFont( 'dejavusans', '', 11 );
+			$pdf->Cell( 0, 8, esc_html( $document_title ), 0, 1, 'C' );
+		}
+		$pdf->Ln( 4 );
+
+		// --- Dynamic field rows (two-column layout: ~50mm label, rest for value/widget) ---
+		$schema_json = get_option( 'wmr_field_schema', '[]' );
+		$fields      = FieldSchema::decode( is_string( $schema_json ) ? $schema_json : '[]' );
+		$label_width = 50;
+		foreach ( $fields as $field ) {
+			$pdf->SetFont( 'dejavusans', 'B', 9 );
+			$pdf->Cell( $label_width, 7, esc_html( $field['label'] ) . ':', 0, 0, 'R' );
+			$pdf->SetFont( 'dejavusans', '', 10 );
+
+			if ( $is_blank ) {
+				// AcroForm text field for fillable blank PDF.
+				$field_name = str_replace( ' ', '_', $field['label'] );
+				$options    = ( 'date' === $field['type'] )
+					? array(
+						'v'  => 'TT.MM.JJJJ',
+						'dv' => 'TT.MM.JJJJ',
+					)
+					: array();
+				$pdf->TextField(
+					$field_name,
+					110,
+					6,
+					array(
+						'lineWidth'   => 0.3,
+						'borderStyle' => 'solid',
+						'fillColor'   => array( 255, 255, 255 ),
+					),
+					$options
+				);
+				$pdf->Ln( 8 );
+			} else {
+				// Static value for filled (submitted) PDF.
+				$value = esc_html( $field_values[ $field['label'] ] ?? '' );
+				$pdf->Cell( 0, 7, $value, 'B', 1, 'L' );
+			}
+			$pdf->Ln( 2 );
+		}
+
+		// --- form_notes block (HTML from TinyMCE) ---
+		if ( $form_notes ) {
+			$pdf->Ln( 4 );
+			$pdf->writeHTML( $form_notes, true, false, true, false, '' );
+		}
+
+		// --- Signature / date line (~8mm margin above) ---
+		$pdf->Ln( 8 );
+		$pdf->SetFont( 'dejavusans', '', 9 );
+		$pdf->Cell( 80, 6, '', 'B', 0, 'L' );
+		$pdf->Cell( 10, 6, '', 0, 0 );
+		$pdf->Cell( 60, 6, '', 'B', 1, 'L' );
+		$pdf->SetFont( 'dejavusans', '', 8 );
+		$pdf->Cell( 80, 5, esc_html__( 'Ort, Datum', 'wp-membership-registration' ), 0, 0, 'L' );
+		$pdf->Cell( 10, 5, '', 0, 0 );
+		$pdf->Cell( 60, 5, esc_html__( 'Unterschrift', 'wp-membership-registration' ), 0, 1, 'L' );
+
+		// --- Footer text on page 1 ---
+		if ( $footer_text ) {
+			$pdf->Ln( 6 );
+			$pdf->SetFont( 'dejavusans', 'I', 8 );
+			$pdf->MultiCell( 0, 5, esc_html( $footer_text ), 0, 'C' );
+		}
+
+		// --- Page 2 (page2_content HTML) ---
+		if ( $page2_content ) {
+			$pdf->AddPage();
+			$pdf->SetFont( 'dejavusans', '', 10 );
+			$pdf->writeHTML( $page2_content, true, false, true, false, '' );
+		}
+
+		return $pdf;
 	}
 
 	/**
 	 * Write PDF bytes to a unique temp file.
 	 *
-	 * @param string $pdf_data Raw PDF bytes.
+	 * @param string $data Raw PDF bytes.
 	 * @return string Absolute path to the written temp file.
 	 */
-	private function write_temp_file( string $pdf_data ): string {
+	private function write_temp_file( string $data ): string {
 		$path = sys_get_temp_dir() . '/wmr-' . wp_generate_uuid4() . '.pdf';
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
-		file_put_contents( $path, $pdf_data );
+		file_put_contents( $path, $data );
 		return $path;
-	}
-
-	/**
-	 * Convert a logo URL to a base64 data-URI for DOMPDF rendering.
-	 *
-	 * DOMPDF cannot fetch URLs (isRemoteEnabled=false). The logo must be
-	 * embedded as a data-URI using the local filesystem path.
-	 *
-	 * @param string $logo_url The logo URL stored in wmr_pdf_branding.
-	 * @return string Base64 data-URI, or empty string if logo not set/found.
-	 */
-	private function get_logo_data_uri( string $logo_url ): string {
-		if ( empty( $logo_url ) ) {
-			return '';
-		}
-		$upload_dir = wp_upload_dir();
-		$logo_path  = str_replace(
-			$upload_dir['baseurl'],
-			$upload_dir['basedir'],
-			$logo_url
-		);
-		if ( ! file_exists( $logo_path ) ) {
-			return '';
-		}
-		$mime = mime_content_type( $logo_path );
-		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
-		$data = base64_encode( file_get_contents( $logo_path ) );
-		return 'data:' . $mime . ';base64,' . $data;
 	}
 }
