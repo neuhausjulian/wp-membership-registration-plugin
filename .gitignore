@@ -1,3 +1,5 @@
 vendor/
 /bin/strauss.phar
 /vendor-prefixed/
+
+.phpunit.result.cache
