@@ -16,10 +16,10 @@
 ### Frontend Form
 
 - [ ] **FORM-01**: Visitor can access the registration form on any page via the `[membership_form]` shortcode
-- [ ] **FORM-02**: Form includes a GDPR/privacy consent checkbox with admin-configurable text (required to submit)
+- [x] **FORM-02**: Form includes a GDPR/privacy consent checkbox with admin-configurable text (required to submit)
 - [ ] **FORM-03**: Form uses honeypot spam protection to block automated bot submissions
 - [ ] **FORM-04**: Form validates required fields and email format client-side before submission
-- [ ] **FORM-05**: Form displays a configurable success message after successful submission
+- [x] **FORM-05**: Form displays a configurable success message after successful submission
 
 ### PDF Generation
 
@@ -81,10 +81,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CONF-04 | Phase 1 | Complete |
 | CONF-05 | Phase 1 | Complete |
 | FORM-01 | Phase 4 | Pending |
-| FORM-02 | Phase 4 | Pending |
+| FORM-02 | Phase 4 | Complete |
 | FORM-03 | Phase 4 | Pending |
 | FORM-04 | Phase 4 | Pending |
-| FORM-05 | Phase 4 | Pending |
+| FORM-05 | Phase 4 | Complete |
 | PDF-01 | Phase 2 | Complete |
 | PDF-02 | Phase 2 | Complete |
 | PDF-03 | Phase 2 | Complete |
