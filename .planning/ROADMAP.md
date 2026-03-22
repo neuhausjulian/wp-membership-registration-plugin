@@ -61,7 +61,13 @@ Plans:
   1. A member who submits the registration form receives an email with the generated PDF attached within seconds of submission
   2. All configured admin recipient addresses receive a copy of the same PDF by email after each submission
   3. Admin can click "Send test email" in settings and confirm a test message arrives at the configured address (SMTP verification)
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Failing MailerTest.php scaffold — 6 tests covering MAIL-01, MAIL-02 (Wave 0, TDD red)
+- [ ] 03-02-PLAN.md — Mailer class implementation + Plugin.php hook wiring (Wave 1)
+- [ ] 03-03-PLAN.md — Email Settings tab UI: inline warning notice + read-only email preview boxes (Wave 1, parallel)
+- [ ] 03-04-PLAN.md — Full test suite gate + human-verify checkpoint CONF-05 in Mailpit (Wave 2)
 
 ### Phase 4: Frontend Form and UX Polish
 **Goal**: Any WordPress page with the `[membership_form]` shortcode shows a working registration form that validates input, blocks bots, requires GDPR consent, submits successfully, and confirms to the user that their registration was received; all user-facing guides are complete
@@ -84,5 +90,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Plugin Foundation and Settings | 3/3 | Complete   | 2026-03-21 |
 | 2. PDF Engine | 4/4 | Complete   | 2026-03-21 |
-| 3. Email Notifications | 0/TBD | Not started | - |
+| 3. Email Notifications | 0/4 | Not started | - |
 | 4. Frontend Form and UX Polish | 0/TBD | Not started | - |
