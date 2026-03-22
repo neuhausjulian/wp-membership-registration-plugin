@@ -32,8 +32,8 @@
       "classmap_prefix": "WpMembershipRegistration_Vendor_",
       "packages": [
         "dompdf/dompdf",
-        "phenx/php-font-lib",
-        "phenx/php-svg-lib"
+        "dompdf/php-font-lib",
+        "dompdf/php-svg-lib"
       ],
       "delete_vendor_files": false
     }
@@ -44,6 +44,7 @@
     "prefix-namespaces": [
       "sh -c 'test -f ./bin/strauss.phar || (mkdir -p bin && curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/latest/download/strauss.phar)'",
       "@php bin/strauss.phar",
+      "@php bin/patch-vendor-prefixed.php",
       "@composer dump-autoload"
     ],
     "post-install-cmd": ["@prefix-namespaces"],
