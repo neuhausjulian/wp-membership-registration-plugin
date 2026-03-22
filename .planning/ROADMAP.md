@@ -55,7 +55,7 @@ Plans:
 
 ### Phase 3: Email Notifications
 **Goal**: Every form submission triggers email delivery of the generated PDF to both the submitting member and all configured admin recipients; admins can verify email deliverability from the settings page before going live
-**Depends on**: Phase 2
+**Depends on**: Phase 3
 **Requirements**: MAIL-01, MAIL-02, CONF-05
 **Success Criteria** (what must be TRUE):
   1. A member who submits the registration form receives an email with the generated PDF attached within seconds of submission
@@ -79,7 +79,14 @@ Plans:
   3. Submitting the form with missing required fields or an invalid email shows inline error messages without a page reload
   4. After a valid submission, the form shows a configurable success message and the full pipeline (PDF generation + both emails) completes
   5. PHPUnit unit tests and integration tests pass in the Docker environment; `CONTRIBUTING.md` and user `README.md` exist and cover setup, configuration, and usage
-**Plans**: TBD
+**Plans**: 5 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — TCPDF engine swap: replace DOMPDF with TCPDF; two-column layout; AcroForm blank PDF (Wave 1)
+- [ ] 04-02-PLAN.md — Admin settings: Form Settings tab + wp_editor() for form_notes/page2_content + gdpr_text→form_notes rename (Wave 1, parallel)
+- [ ] 04-03-PLAN.md — Frontend form pipeline: FormRenderer, MembershipFormShortcode, AJAX handler, Plugin hooks, form.js, form.css (Wave 2)
+- [ ] 04-04-PLAN.md — PHPUnit tests: FormRendererTest, AjaxHandlersTest, update PdfGeneratorTest stubs (Wave 3, TDD)
+- [ ] 04-05-PLAN.md — Documentation: CONTRIBUTING.md and README.md (Wave 3, parallel)
 
 ## Progress
 
@@ -91,4 +98,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Plugin Foundation and Settings | 3/3 | Complete   | 2026-03-21 |
 | 2. PDF Engine | 4/4 | Complete   | 2026-03-21 |
 | 3. Email Notifications | 4/4 | Complete   | 2026-03-22 |
-| 4. Frontend Form and UX Polish | 0/TBD | Not started | - |
+| 4. Frontend Form and UX Polish | 0/5 | In progress | - |
