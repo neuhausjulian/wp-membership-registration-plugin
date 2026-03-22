@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-02-PLAN.md
-last_updated: "2026-03-22T21:54:53.037Z"
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-03-22T21:57:15.695Z"
 last_activity: 2026-03-22 — Plan 03-04 complete; Phase 3 e2e verification confirmed in Docker + Mailpit (CONF-05 gate passed)
 progress:
   total_phases: 4
   completed_phases: 3
   total_plans: 16
-  completed_plans: 12
+  completed_plans: 13
   percent: 91
 ---
 
@@ -61,6 +61,7 @@ Progress: [█████████░] 91%
 | Phase 03-email-notifications P03 | 2 | 1 tasks | 1 files |
 | Phase 03-email-notifications P02 | 20 | 2 tasks | 4 files |
 | Phase 04-frontend-form-and-ux-polish P02 | 3 | 2 tasks | 2 files |
+| Phase 04-frontend-form-and-ux-polish P01 | 4 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -106,6 +107,8 @@ Recent decisions affecting current work:
 - [Phase 03-email-notifications]: __() i18n stub added to tests/bootstrap.php — not auto-stubbed by Brain Monkey, required for Mailer translated strings
 - [Phase 04-frontend-form-and-ux-polish]: gdpr_text migration fallback retained in sanitize_pdf_branding to migrate existing installs — reads input[gdpr_text] as fallback for form_notes but never writes it back
 - [Phase 04-frontend-form-and-ux-polish]: Form Settings tab uses data-tab='form-settings' — existing JS activateTab() handles it dynamically, no JS changes needed
+- [Phase 04-frontend-form-and-ux-polish]: TCPDF uses classmap (WpMembershipRegistration_Vendor_TCPDF) not PHP namespace — plan's use statement incorrect; adapted to bare class alias
+- [Phase 04-frontend-form-and-ux-polish]: bin/patch-vendor-prefixed.php reduced to no-op stub — DOMPDF FontLib hard-coded string patches no longer needed for TCPDF
 
 ### Pending Todos
 
@@ -119,6 +122,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T21:54:53.036Z
-Stopped at: Completed 04-02-PLAN.md
+Last session: 2026-03-22T21:57:15.694Z
+Stopped at: Completed 04-01-PLAN.md
 Resume file: None
