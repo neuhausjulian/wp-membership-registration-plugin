@@ -9,9 +9,10 @@
 
 namespace WpMembershipRegistration;
 
+use WpMembershipRegistration\Admin\AjaxHandlers;
 use WpMembershipRegistration\Admin\SettingsPage;
 use WpMembershipRegistration\Admin\SettingsRegistrar;
-use WpMembershipRegistration\Admin\AjaxHandlers;
+use WpMembershipRegistration\Email\Mailer;
 use WpMembershipRegistration\Shortcodes\MembershipFormShortcode;
 
 /**
@@ -36,6 +37,8 @@ class Plugin {
 		add_action( 'wp_ajax_wmr_download_blank_pdf', array( $ajax_handlers, 'handle_download_blank_pdf' ) );
 		add_action( 'wp_ajax_nopriv_wmr_download_blank_pdf', array( $ajax_handlers, 'handle_download_blank_pdf' ) );
 		add_action( 'wp_ajax_wmr_generate_pdf_stub', array( $ajax_handlers, 'handle_generate_pdf_stub' ) );
+		$mailer = new Mailer();
+		add_action( 'wmr_form_submitted', array( $mailer, 'handle_submission' ), 10, 2 );
 		$shortcode = new MembershipFormShortcode();
 		add_shortcode( 'membership_form', array( $shortcode, 'render' ) );
 	}
