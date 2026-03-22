@@ -12,6 +12,16 @@ if ( ! defined( 'WMR_PLUGIN_DIR' ) ) {
 require_once dirname( __DIR__ ) . '/vendor/autoload.php';
 require_once dirname( __DIR__ ) . '/vendor-prefixed/autoload.php';
 
+// Stub WordPress i18n functions not auto-stubbed by Brain Monkey.
+// These are global stubs (not per-test) because they are pure pass-through
+// in a test context and do not need per-test assertion control.
+if ( ! function_exists( '__' ) ) {
+	// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText,WordPress.WP.I18n.NonSingularStringLiteralDomain
+	function __( string $text, string $domain = 'default' ): string { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.textFound
+		return $text;
+	}
+}
+
 // Register plugin PSR-4 autoloader for src/ classes.
 spl_autoload_register( function ( $class ) {
 	$prefix = 'WpMembershipRegistration\\';

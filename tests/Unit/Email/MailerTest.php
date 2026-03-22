@@ -48,7 +48,6 @@ class MailerTest extends TestCase {
 			[
 				'wp_generate_uuid4' => fn() => 'test-uuid',
 				'sanitize_email'    => fn( $v ) => $v,
-				'wp_delete_file'    => fn( $path ) => null,
 			]
 		);
 	}
@@ -75,6 +74,7 @@ class MailerTest extends TestCase {
 					}
 					return $default;
 				},
+				'wp_delete_file' => fn( $path ) => null,
 			]
 		);
 
@@ -112,6 +112,7 @@ class MailerTest extends TestCase {
 					}
 					return $default;
 				},
+				'wp_delete_file' => fn( $path ) => null,
 			]
 		);
 
@@ -155,6 +156,7 @@ class MailerTest extends TestCase {
 					}
 					return $default;
 				},
+				'wp_delete_file' => fn( $path ) => null,
 			]
 		);
 
@@ -187,6 +189,7 @@ class MailerTest extends TestCase {
 					}
 					return $default;
 				},
+				'wp_delete_file' => fn( $path ) => null,
 			]
 		);
 
