@@ -50,7 +50,7 @@ class SettingsRegistrar {
 					'logo_url'       => '',
 					'accent_color'   => '#2271b1',
 					'document_title' => '',
-					'gdpr_text'      => '',
+					'form_notes'     => '',
 					'footer_text'    => '',
 					'page2_content'  => '',
 				),
@@ -66,6 +66,20 @@ class SettingsRegistrar {
 				'sanitize_callback' => array( $this, 'sanitize_email_settings' ),
 				'default'           => array(
 					'recipients' => '',
+				),
+			)
+		);
+
+		// Form Settings tab — stores consent checkbox text and success message.
+		register_setting(
+			'wmr_form_settings_group',
+			'wmr_form_settings',
+			array(
+				'type'              => 'array',
+				'sanitize_callback' => array( $this, 'sanitize_form_settings' ),
+				'default'           => array(
+					'consent_text'    => '',
+					'success_message' => '',
 				),
 			)
 		);
@@ -106,21 +120,42 @@ class SettingsRegistrar {
 	 * Sanitize PDF branding settings array.
 	 *
 	 * @param mixed $input Raw input from form submission.
-	 * @return array{club_name: string, logo_url: string, accent_color: string, document_title: string, gdpr_text: string, footer_text: string, page2_content: string}
+	 * @return array{club_name: string, logo_url: string, accent_color: string, document_title: string, form_notes: string, footer_text: string, page2_content: string}
 	 */
 	public function sanitize_pdf_branding( mixed $input ): array {
 		if ( ! is_array( $input ) ) {
 			$input = array();
 		}
 		$accent_color = sanitize_hex_color( $input['accent_color'] ?? '' );
+
+		// Migration: existing installs may have form_notes stored as gdpr_text.
+		// On first save after rename, form_notes will be absent but gdpr_text may exist.
+		$form_notes_raw = $input['form_notes'] ?? $input['gdpr_text'] ?? '';
+
 		return array(
 			'club_name'      => sanitize_text_field( $input['club_name'] ?? '' ),
 			'logo_url'       => esc_url_raw( $input['logo_url'] ?? '' ),
 			'accent_color'   => $accent_color ? $accent_color : '#2271b1',
 			'document_title' => sanitize_text_field( $input['document_title'] ?? '' ),
-			'gdpr_text'      => wp_kses_post( $input['gdpr_text'] ?? '' ),
+			'form_notes'     => wp_kses_post( $form_notes_raw ),
 			'footer_text'    => wp_kses_post( $input['footer_text'] ?? '' ),
 			'page2_content'  => wp_kses_post( $input['page2_content'] ?? '' ),
+		);
+	}
+
+	/**
+	 * Sanitize form settings array.
+	 *
+	 * @param mixed $input Raw input from form submission.
+	 * @return array{consent_text: string, success_message: string}
+	 */
+	public function sanitize_form_settings( mixed $input ): array {
+		if ( ! is_array( $input ) ) {
+			$input = array();
+		}
+		return array(
+			'consent_text'    => sanitize_text_field( $input['consent_text'] ?? '' ),
+			'success_message' => sanitize_text_field( $input['success_message'] ?? '' ),
 		);
 	}
 
