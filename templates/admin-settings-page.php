@@ -25,6 +25,7 @@ $has_email      = ! empty( array_filter( $fields, fn( $f ) => ( $f['type'] ?? ''
 		<a href="#wmr-tab-fields" class="nav-tab nav-tab-active" data-tab="fields"><?php esc_html_e( 'Form Fields', 'wp-membership-registration' ); ?></a>
 		<a href="#wmr-tab-branding" class="nav-tab" data-tab="branding"><?php esc_html_e( 'PDF Branding', 'wp-membership-registration' ); ?></a>
 		<a href="#wmr-tab-email" class="nav-tab" data-tab="email"><?php esc_html_e( 'Email Settings', 'wp-membership-registration' ); ?></a>
+		<a href="#wmr-tab-form-settings" class="nav-tab" data-tab="form-settings"><?php esc_html_e( 'Form Settings', 'wp-membership-registration' ); ?></a>
 	</nav>
 
 	<div id="wmr-tab-fields" class="wmr-tab-panel wmr-tab-panel--active">
@@ -134,17 +135,21 @@ $has_email      = ! empty( array_filter( $fields, fn( $f ) => ( $f['type'] ?? ''
 						</td>
 					</tr>
 					<tr>
-						<th scope="row">
-							<label for="wmr-gdpr-text"><?php esc_html_e( 'GDPR / Consent Text', 'wp-membership-registration' ); ?></label>
-						</th>
+						<th scope="row"><label for="wmr-form-notes"><?php esc_html_e( 'Form information', 'wp-membership-registration' ); ?></label></th>
 						<td>
-							<textarea
-								id="wmr-gdpr-text"
-								name="wmr_pdf_branding[gdpr_text]"
-								class="large-text"
-								rows="5"
-							><?php echo wp_kses_post( $branding['gdpr_text'] ?? '' ); ?></textarea>
-							<p class="description"><?php esc_html_e( 'Shown above the signature line in the PDF. May include HTML links.', 'wp-membership-registration' ); ?></p>
+							<?php
+							wp_editor(
+								wp_kses_post( $branding['form_notes'] ?? '' ),
+								'wmr-form-notes',
+								array(
+									'textarea_name' => 'wmr_pdf_branding[form_notes]',
+									'textarea_rows' => 5,
+									'media_buttons' => false,
+									'teeny'         => true,
+								)
+							);
+							?>
+							<p class="description"><?php esc_html_e( 'Shown below form fields on the PDF and on the registration form. Accepts HTML (bold, paragraphs, links).', 'wp-membership-registration' ); ?></p>
 						</td>
 					</tr>
 					<tr>
@@ -162,17 +167,21 @@ $has_email      = ! empty( array_filter( $fields, fn( $f ) => ( $f['type'] ?? ''
 						</td>
 					</tr>
 					<tr>
-						<th scope="row">
-							<label for="wmr-page2-content"><?php esc_html_e( 'Page 2 Content', 'wp-membership-registration' ); ?></label>
-						</th>
+						<th scope="row"><label for="wmr-page2-content"><?php esc_html_e( 'Page 2 content', 'wp-membership-registration' ); ?></label></th>
 						<td>
-							<textarea
-								id="wmr-page2-content"
-								name="wmr_pdf_branding[page2_content]"
-								class="large-text"
-								rows="8"
-							><?php echo wp_kses_post( $branding['page2_content'] ?? '' ); ?></textarea>
-							<p class="description"><?php esc_html_e( 'If set, a second page is added to the PDF (e.g. Datenschutzerklärung). Leave empty for single-page PDF. May include HTML.', 'wp-membership-registration' ); ?></p>
+							<?php
+							wp_editor(
+								wp_kses_post( $branding['page2_content'] ?? '' ),
+								'wmr-page2-content',
+								array(
+									'textarea_name' => 'wmr_pdf_branding[page2_content]',
+									'textarea_rows' => 8,
+									'media_buttons' => false,
+									'teeny'         => true,
+								)
+							);
+							?>
+							<p class="description"><?php esc_html_e( 'Legal/conditions page printed as page 2 of the PDF (AGBs, Datenschutzerklärung, Bankverbindung). Not shown on frontend form.', 'wp-membership-registration' ); ?></p>
 						</td>
 					</tr>
 				</tbody>
@@ -246,5 +255,39 @@ $has_email      = ! empty( array_filter( $fields, fn( $f ) => ( $f['type'] ?? ''
 				</tr>
 			</tbody>
 		</table>
+	</div>
+
+	<?php $form_settings = get_option( 'wmr_form_settings', array() ); ?>
+	<div id="wmr-tab-form-settings" class="wmr-tab-panel" style="display:none">
+		<form method="post" action="options.php">
+			<?php settings_fields( 'wmr_form_settings_group' ); ?>
+			<table class="form-table" role="presentation">
+				<tbody>
+					<tr>
+						<th scope="row">
+							<label for="wmr-consent-text"><?php esc_html_e( 'Consent checkbox text', 'wp-membership-registration' ); ?></label>
+						</th>
+						<td>
+							<input type="text" id="wmr-consent-text" name="wmr_form_settings[consent_text]"
+								value="<?php echo esc_attr( $form_settings['consent_text'] ?? '' ); ?>"
+								class="large-text" />
+							<p class="description"><?php esc_html_e( 'Label for the GDPR consent checkbox on the registration form. Required for submission.', 'wp-membership-registration' ); ?></p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">
+							<label for="wmr-success-message"><?php esc_html_e( 'Success message', 'wp-membership-registration' ); ?></label>
+						</th>
+						<td>
+							<input type="text" id="wmr-success-message" name="wmr_form_settings[success_message]"
+								value="<?php echo esc_attr( $form_settings['success_message'] ?? '' ); ?>"
+								class="large-text" />
+							<p class="description"><?php esc_html_e( 'Message shown in-place after a successful form submission.', 'wp-membership-registration' ); ?></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<?php submit_button(); ?>
+		</form>
 	</div>
 </div>
