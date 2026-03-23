@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-07-PLAN.md
-last_updated: "2026-03-23T21:59:12.172Z"
+stopped_at: Completed 04-06-PLAN.md
+last_updated: "2026-03-23T22:00:34.915Z"
 last_activity: 2026-03-22 — Plan 03-04 complete; Phase 3 e2e verification confirmed in Docker + Mailpit (CONF-05 gate passed)
 progress:
   total_phases: 4
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 19
-  completed_plans: 18
+  completed_plans: 19
   percent: 91
 ---
 
@@ -67,6 +67,7 @@ Progress: [█████████░] 91%
 | Phase 04-frontend-form-and-ux-polish P04 | 525504 | 2 tasks | 3 files |
 | Phase 04-frontend-form-and-ux-polish P08 | 5 | 1 tasks | 1 files |
 | Phase 04-frontend-form-and-ux-polish P07 | 8 | 1 tasks | 2 files |
+| Phase 04-frontend-form-and-ux-polish P06 | 6 | 3 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -121,6 +122,7 @@ Recent decisions affecting current work:
 - [Phase 04-04]: esc_html_e stub must use regular function syntax with echo, not arrow function with print — Patchwork preprocessor fails to parse print language construct in arrow function body
 - [Phase 04-frontend-form-and-ux-polish]: Consent checkbox rendered unconditionally — GDPR compliance requires it always appear regardless of admin config state
 - [Phase 04-frontend-form-and-ux-polish]: Default consent label 'Ich stimme der Verarbeitung meiner personenbezogenen Daten zu.' used as translatable fallback via __()
+- [Phase 04-06]: PDF download uses transient-stored base64 (not temp file on disk) — satisfies no uploads/ constraint; member_email_sent reflects email address availability not wp_mail() delivery status
 
 ### Pending Todos
 
@@ -134,6 +136,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-23T21:59:12.171Z
-Stopped at: Completed 04-07-PLAN.md
+Last session: 2026-03-23T22:00:34.914Z
+Stopped at: Completed 04-06-PLAN.md
 Resume file: None
