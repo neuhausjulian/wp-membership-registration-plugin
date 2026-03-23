@@ -87,4 +87,31 @@ class FormRendererTest extends TestCase {
 		$this->assertStringContainsString( 'wmr-consent-checkbox', $html );
 		$this->assertStringContainsString( 'I agree.', $html );
 	}
+
+	public function test_render_includes_consent_checkbox_when_consent_text_empty(): void {
+		// Override get_option stub to return empty consent_text.
+		Functions\stubs(
+			[
+				'get_option' => function ( $option, $default = null ) {
+					if ( 'wmr_field_schema' === $option ) {
+						return '[]';
+					}
+					if ( 'wmr_pdf_branding' === $option ) {
+						return [];
+					}
+					if ( 'wmr_form_settings' === $option ) {
+						return [ 'consent_text' => '', 'success_message' => '' ];
+					}
+					return $default;
+				},
+			]
+		);
+		$renderer = new FormRenderer();
+		$html     = $renderer->render();
+		$this->assertStringContainsString( 'wmr-consent-checkbox', $html );
+		$this->assertStringContainsString(
+			'Ich stimme der Verarbeitung meiner personenbezogenen Daten zu.',
+			$html
+		);
+	}
 }
