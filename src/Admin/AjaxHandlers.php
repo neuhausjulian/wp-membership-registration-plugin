@@ -105,6 +105,60 @@ class AjaxHandlers {
 	}
 
 	/**
+	 * Handle the wmr_submit_form AJAX action.
+	 *
+	 * Accessible to unauthenticated users (nopriv hook). Security relies on
+	 * check_ajax_referer() — never skip it.
+	 *
+	 * Flow: nonce → honeypot → sanitize fields → fire wmr_form_submitted action → JSON response.
+	 *
+	 * @return void
+	 */
+	public function handle_submit_form(): void {
+		check_ajax_referer( 'wmr_submit_form', 'nonce' );
+
+		// Honeypot: non-empty means bot. Return success silently to avoid retry loops.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce already checked above.
+		$honeypot = isset( $_POST['website'] ) ? sanitize_text_field( wp_unslash( $_POST['website'] ) ) : '';
+		if ( '' !== $honeypot ) {
+			wp_send_json_success();
+			return;
+		}
+
+		// Sanitize submitted field values.
+		// phpcs:disable WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- nonce already checked above; each element is sanitized in the foreach loop below.
+		$raw_fields = isset( $_POST['wmr_fields'] ) && is_array( $_POST['wmr_fields'] )
+			? wp_unslash( (array) $_POST['wmr_fields'] )
+			: array();
+		// phpcs:enable WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+		$field_values = array();
+		foreach ( $raw_fields as $label => $value ) {
+			$clean_label                  = sanitize_text_field( (string) $label );
+			$field_values[ $clean_label ] = sanitize_text_field( (string) $value );
+		}
+
+		// Determine member email: value of first field whose schema type is 'email'.
+		$member_email = '';
+		$schema_json  = get_option( 'wmr_field_schema', '[]' );
+		$schema       = \WpMembershipRegistration\Util\FieldSchema::decode( is_string( $schema_json ) ? $schema_json : '[]' );
+		foreach ( $schema as $field ) {
+			if ( 'email' === $field['type'] && isset( $field_values[ $field['label'] ] ) ) {
+				$member_email = sanitize_email( $field_values[ $field['label'] ] );
+				break;
+			}
+		}
+
+		// Fire the submission action. Mailer::handle_submission() is already hooked here.
+		do_action( 'wmr_form_submitted', $field_values, $member_email );
+
+		$form_settings   = get_option( 'wmr_form_settings', array() );
+		$success_message = sanitize_text_field( $form_settings['success_message'] ?? '' );
+
+		wp_send_json_success( array( 'message' => $success_message ) );
+	}
+
+	/**
 	 * Handle the wmr_download_blank_pdf AJAX action.
 	 *
 	 * Streams a blank (empty-fields) membership form PDF to the browser,

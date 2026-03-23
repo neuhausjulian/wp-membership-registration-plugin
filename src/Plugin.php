@@ -37,9 +37,50 @@ class Plugin {
 		add_action( 'wp_ajax_wmr_download_blank_pdf', array( $ajax_handlers, 'handle_download_blank_pdf' ) );
 		add_action( 'wp_ajax_nopriv_wmr_download_blank_pdf', array( $ajax_handlers, 'handle_download_blank_pdf' ) );
 		add_action( 'wp_ajax_wmr_generate_pdf_stub', array( $ajax_handlers, 'handle_generate_pdf_stub' ) );
+		// Frontend form submission — accessible to unauthenticated visitors.
+		add_action( 'wp_ajax_nopriv_wmr_submit_form', array( $ajax_handlers, 'handle_submit_form' ) );
+		add_action( 'wp_ajax_wmr_submit_form', array( $ajax_handlers, 'handle_submit_form' ) );
 		$mailer = new Mailer();
 		add_action( 'wmr_form_submitted', array( $mailer, 'handle_submission' ), 10, 2 );
 		$shortcode = new MembershipFormShortcode();
 		add_shortcode( 'membership_form', array( $shortcode, 'render' ) );
+		// Enqueue frontend form assets only on pages that use the shortcode.
+		add_action(
+			'wp_enqueue_scripts',
+			static function () {
+				global $post;
+				if ( ! is_singular() || ! is_a( $post, 'WP_Post' ) ) {
+					return;
+				}
+				if ( ! has_shortcode( $post->post_content, 'membership_form' ) ) {
+					return;
+				}
+				$form_settings   = get_option( 'wmr_form_settings', array() );
+				$success_message = wp_kses_post( $form_settings['success_message'] ?? '' );
+
+				wp_enqueue_style(
+					'wmr-form',
+					WMR_PLUGIN_URL . 'assets/css/form.css',
+					array(),
+					WMR_VERSION
+				);
+				wp_enqueue_script(
+					'wmr-form',
+					WMR_PLUGIN_URL . 'assets/js/form.js',
+					array(),
+					WMR_VERSION,
+					true  // Load in footer.
+				);
+				wp_localize_script(
+					'wmr-form',
+					'wmrForm',
+					array(
+						'ajaxUrl'        => admin_url( 'admin-ajax.php' ),
+						'submitNonce'    => wp_create_nonce( 'wmr_submit_form' ),
+						'successMessage' => $success_message,
+					)
+				);
+			}
+		);
 	}
 }
