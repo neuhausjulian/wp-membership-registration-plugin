@@ -285,6 +285,21 @@ $has_email      = ! empty( array_filter( $fields, fn( $f ) => ( $f['type'] ?? ''
 							<p class="description"><?php esc_html_e( 'Message shown in-place after a successful form submission.', 'wp-membership-registration' ); ?></p>
 						</td>
 					</tr>
+					<tr>
+						<th scope="row">
+							<label for="wmr-offer-direct-download"><?php esc_html_e( 'Offer direct download link', 'wp-membership-registration' ); ?></label>
+						</th>
+						<td>
+							<input
+								type="checkbox"
+								id="wmr-offer-direct-download"
+								name="wmr_form_settings[offer_direct_download]"
+								value="1"
+								<?php checked( ! empty( $form_settings['offer_direct_download'] ) ); ?>
+							/>
+							<p class="description"><?php esc_html_e( 'When enabled, the success screen shows a link for the member to download their pre-filled PDF immediately.', 'wp-membership-registration' ); ?></p>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 			<?php submit_button(); ?>

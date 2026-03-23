@@ -70,7 +70,7 @@ class SettingsRegistrar {
 			)
 		);
 
-		// Form Settings tab — stores consent checkbox text and success message.
+		// Form Settings tab — stores consent checkbox text, success message, and download option.
 		register_setting(
 			'wmr_form_settings_group',
 			'wmr_form_settings',
@@ -78,8 +78,9 @@ class SettingsRegistrar {
 				'type'              => 'array',
 				'sanitize_callback' => array( $this, 'sanitize_form_settings' ),
 				'default'           => array(
-					'consent_text'    => '',
-					'success_message' => '',
+					'consent_text'         => '',
+					'success_message'      => '',
+					'offer_direct_download' => false,
 				),
 			)
 		);
@@ -147,15 +148,16 @@ class SettingsRegistrar {
 	 * Sanitize form settings array.
 	 *
 	 * @param mixed $input Raw input from form submission.
-	 * @return array{consent_text: string, success_message: string}
+	 * @return array{consent_text: string, success_message: string, offer_direct_download: bool}
 	 */
 	public function sanitize_form_settings( mixed $input ): array {
 		if ( ! is_array( $input ) ) {
 			$input = array();
 		}
 		return array(
-			'consent_text'    => sanitize_text_field( $input['consent_text'] ?? '' ),
-			'success_message' => sanitize_text_field( $input['success_message'] ?? '' ),
+			'consent_text'          => sanitize_text_field( $input['consent_text'] ?? '' ),
+			'success_message'       => sanitize_text_field( $input['success_message'] ?? '' ),
+			'offer_direct_download' => ! empty( $input['offer_direct_download'] ),
 		);
 	}
 
