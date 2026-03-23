@@ -1,9 +1,9 @@
 ---
-status: complete
+status: resolved
 phase: 04-frontend-form-and-ux-polish
 source: 04-06-SUMMARY.md, 04-07-SUMMARY.md, 04-08-SUMMARY.md
 started: 2026-03-23T22:30:00Z
-updated: 2026-03-23T22:30:00Z
+updated: 2026-03-23T23:15:00Z
 ---
 
 ## Current Test
@@ -49,11 +49,15 @@ skipped: 0
 ## Gaps
 
 - truth: "form_notes HTML content from wp_editor() renders with correct paragraph spacing and line breaks in the generated filled PDF"
-  status: failed
+  status: resolved
   reason: "User reported: pdf is getting generated, but line breaks (visibell in the richtext editor in the settings) are not respected. Only the section with bulletpoints seems to have some spacing"
   severity: major
   test: 6
-  root_cause: ""
-  artifacts: []
-  missing: []
+  root_cause: "TCPDF's writeHTML() renders <p> tags with zero top/bottom margin by default (no built-in CSS for the <p> element). WordPress TinyMCE stores paragraphs as <p>...</p> blocks with no inline style. Consecutive paragraphs produce no visible gap — text flows together. <ul>/<li> appear spaced because TCPDF's list renderer adds native vertical margin for list blocks. The SetFont() reset (plan 04-08) addressed a different theory (font-state corruption) that was not the actual cause."
+  artifacts:
+    - path: "src/Pdf/PdfGenerator.php"
+      issue: "writeHTML($form_notes) passes raw TinyMCE HTML with no CSS context; TCPDF's <p> element has no margin in its default stylesheet, so paragraph breaks are invisible"
+  missing:
+    - "Prepend <style>p { margin-bottom: 6pt; }</style> to $form_notes before writeHTML() so TCPDF spaces paragraphs"
+    - "Wrap $form_notes with wpautop() to convert any surviving \\n newlines to <p> tags"
   debug_session: ""
