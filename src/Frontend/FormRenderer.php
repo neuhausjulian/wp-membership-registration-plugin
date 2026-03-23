@@ -20,7 +20,7 @@ class FormRenderer {
 	 * Field output order (per CONTEXT.md):
 	 *   1. Dynamic fields (from FieldSchema::decode())
 	 *   2. form_notes block (from wmr_pdf_branding['form_notes'])
-	 *   3. Consent checkbox (from wmr_form_settings['consent_text'])
+	 *   3. Consent checkbox (always rendered; uses wmr_form_settings['consent_text'] or default label)
 	 *   4. Honeypot (hidden name="website")
 	 *   5. Nonce field
 	 *   6. Submit button
@@ -86,23 +86,26 @@ class FormRenderer {
 					</div>
 				<?php endif; ?>
 
-				<?php if ( $consent_text ) : ?>
-					<div class="wmr-field-row wmr-consent-row">
-						<label class="wmr-consent-label">
-							<input
-								type="checkbox"
-								id="wmr-consent"
-								name="wmr_consent"
-								value="1"
-								class="wmr-consent-checkbox"
-								data-required="1"
-								data-consent="1"
-							/>
-							<?php echo esc_html( $consent_text ); ?>
-						</label>
-						<span class="wmr-field-error wmr-consent-error" aria-live="polite"></span>
-					</div>
-				<?php endif; ?>
+				<?php
+				$consent_label = $consent_text
+					? $consent_text
+					: __( 'Ich stimme der Verarbeitung meiner personenbezogenen Daten zu.', 'wp-membership-registration' );
+				?>
+				<div class="wmr-field-row wmr-consent-row">
+					<label class="wmr-consent-label">
+						<input
+							type="checkbox"
+							id="wmr-consent"
+							name="wmr_consent"
+							value="1"
+							class="wmr-consent-checkbox"
+							data-required="1"
+							data-consent="1"
+						/>
+						<?php echo esc_html( $consent_label ); ?>
+					</label>
+					<span class="wmr-field-error wmr-consent-error" aria-live="polite"></span>
+				</div>
 
 				<?php /* Honeypot — bots fill this; real users do not see it. */ ?>
 				<div class="wmr-honeypot" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;">
