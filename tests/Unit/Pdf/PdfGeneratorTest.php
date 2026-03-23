@@ -44,7 +44,7 @@ class PdfGeneratorTest extends TestCase {
 							"logo_url"       => "",
 							"accent_color"   => "#2271b1",
 							"document_title" => "Aufnahmeantrag",
-							"gdpr_text"      => "Ich stimme zu.",
+							"form_notes"     => "<p>Ich stimme zu.</p>",
 							"footer_text"    => "Vorstand: Max Muster",
 							"page2_content"  => "",
 						];
@@ -57,7 +57,10 @@ class PdfGeneratorTest extends TestCase {
 				// Escaping / sanitisation functions used in the PDF template.
 				"esc_attr"     => fn( $v ) => htmlspecialchars( (string) $v, ENT_QUOTES, "UTF-8" ),
 				"esc_html"     => fn( $v ) => htmlspecialchars( (string) $v, ENT_QUOTES, "UTF-8" ),
-				"wp_kses_post" => fn( $v ) => (string) $v,
+				"wp_kses_post"        => fn( $v ) => (string) $v,
+				"sanitize_text_field" => fn( $v ) => (string) $v,
+				"sanitize_hex_color"  => fn( $v ) => (string) $v,
+				"esc_html__"          => fn( $text, $domain = "default" ) => $text,
 			]
 		);
 	}
