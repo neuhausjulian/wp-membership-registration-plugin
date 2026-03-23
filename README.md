@@ -1,141 +1,88 @@
 # WP Membership Registration Plugin
 
-WordPress plugin for digital membership registration with PDF generation, email delivery, and webhook support.
+A WordPress plugin for digital membership registration. Visitors fill in a form on your website, receive a pre-filled PDF membership form by email, and the club admin gets a copy. No paid software, no spreadsheets.
 
 ## Requirements
 
-- PHP 8.0+
-- WordPress 6.0+
-- Docker + Docker Compose (for local development)
-- Composer 2.x
-- Node.js 20+ (optional, only needed for `@wordpress/env` if used instead of Docker Compose)
+- WordPress 6.0 or later
+- PHP 8.0 or later
+- An SMTP plugin or hosting SMTP configuration for email delivery
 
----
+## Installation
 
-## Local Development Setup
+1. Download the plugin zip from the [Releases page](../../releases).
+2. In your WordPress admin, go to **Plugins → Add New → Upload Plugin**.
+3. Upload the zip and click **Activate**.
 
-### 1. Install PHP dependencies
+Or place the plugin folder in `wp-content/plugins/wp-membership-registration/` and activate it from the Plugins list.
 
-```bash
-composer install
-```
+## Configuration
 
-This also runs Strauss automatically (via `post-install-cmd`) to scope DOMPDF under the plugin namespace. The `vendor-prefixed/` directory is generated — do not edit it manually.
+Go to **Settings → Membership Registration** in your WordPress admin. The settings page has four tabs:
 
-### 2. Start the Docker environment
+### Form Fields
 
-```bash
-docker compose up -d
-```
+Define the registration form fields that visitors fill in. Each field has:
+- **Label** — the field name shown on the form and in the PDF
+- **Type** — text, email, date, tel, textarea, or select
+- **Required** — whether the field must be filled before submission
 
-Services:
+Use the **Add field**, **Remove**, and drag handles to manage fields. Click **Save** when done.
 
-| Service    | URL / Port                      | Purpose                  |
-|------------|---------------------------------|--------------------------|
-| WordPress  | http://localhost:8080           | Site + WP Admin          |
-| Mailpit    | http://localhost:8025           | Catch-all email viewer   |
-| Adminer    | http://localhost:8081           | Database GUI             |
-| MySQL      | port 3306 (internal)            | Database                 |
+The first field with type **email** is used as the member's email address for the confirmation email.
 
-The plugin directory is mounted at `wp-content/plugins/wp-membership-registration`.
+### PDF Branding
 
-### 3. First-time WordPress setup
+Customize how the generated PDF looks:
+- **Club name** — shown as the heading at the top of the PDF
+- **Document title** — subtitle below the club name (e.g. "Membership Application")
+- **Accent color** — hex color used for headings
+- **Club logo** — displayed in the PDF header (upload via Media Library)
+- **Form information** — rich text shown below the form fields on both the PDF and the registration form. Use this for GDPR notice, membership conditions, or any explanatory text.
+- **Footer text** — small text printed at the bottom of page 1
+- **Page 2 content** — rich text printed on page 2 of the PDF (use for AGBs, Datenschutzerklärung, bank details)
 
-Visit http://localhost:8080 and complete the 5-minute WordPress install.
+### Email Settings
 
-Then activate the plugin: **WP Admin → Plugins → WP Membership Registration → Activate**
+Enter the admin email addresses that receive a copy of each PDF after submission — one address per line. Click **Send test email** to verify your SMTP connection is working before going live.
 
----
+### Form Settings
 
-## Common Dev Tasks
+- **Consent checkbox text** — the label shown next to the GDPR consent checkbox. Submission is blocked unless this is checked.
+- **Success message** — the message shown in-place after a successful form submission.
 
-### Run code style checks (PHPCS/WPCS)
+## Shortcodes
 
-```bash
-composer phpcs
-```
-
-### Run unit tests (PHPUnit)
-
-```bash
-composer phpunit
-# or
-./vendor/bin/phpunit --testsuite unit
-```
-
-### Stop / reset Docker environment
-
-```bash
-docker compose down        # stop (data preserved)
-docker compose down -v     # stop + wipe database
-```
-
----
-
-## Testing Shortcodes
-
-To test a shortcode (e.g. `[membership_form download="blank"]`) in WordPress:
-
-1. Go to **WP Admin → Pages → Add New**
-2. Give the page a title (e.g. "Test")
-3. In the Gutenberg editor, click **+** → search for **Shortcode** → select the Shortcode block
-4. Paste the shortcode into the block (e.g. `[membership_form download="blank"]`)
-5. Click **Publish**, then **View Page**
-
-The shortcode output will render on the front end.
-
----
-
-## Testing the Blank PDF Download
-
-After setting up the plugin and adding at least one form field:
-
-```bash
-curl -v "http://localhost:8080/wp-admin/admin-ajax.php?action=wmr_download_blank_pdf" \
-  -o /tmp/test-blank.pdf
-```
-
-Expected: HTTP 200, `Content-Type: application/pdf`, non-empty file. Open `/tmp/test-blank.pdf` to verify it renders correctly.
-
-Confirm no temp files are left behind:
-
-```bash
-docker compose exec wordpress find /tmp -name "wmr-*.pdf" 2>/dev/null
-# Expected: no output
-```
-
----
-
-## Checking Emails (Mailpit)
-
-All outgoing WordPress emails are captured by Mailpit during development. Open http://localhost:8025 to view them — no emails leave the local environment.
-
----
-
-## Key Technical Decisions
-
-- **DOMPDF** is scoped via Strauss (`vendor-prefixed/`) to avoid conflicts with other plugins. Never relax `isRemoteEnabled = false`.
-- **PDFs are never stored permanently** — always write to `sys_get_temp_dir()` and `unlink()` immediately after use. Never write to `wp-content/uploads/`.
-- **Field schema** is stored as a JSON-encoded string in the `wmr_field_schema` option (not PHP-serialized), safe for both PHP and JS.
-- **SMTP relay** uses a mu-plugin (`dev/mu-plugins/mailpit-smtp.php`) with `SMTPAutoTLS = false` — Mailpit does not support STARTTLS.
-
----
-
-## Plugin Structure
+### Registration form
 
 ```
-src/
-  Admin/          # Settings pages, AJAX handlers
-  Pdf/            # PdfGenerator class
-  Shortcodes/     # MembershipFormShortcode
-templates/
-  admin-settings-page.php
-  pdf/
-    membership-form.php   # HTML template rendered by DOMPDF
-tests/
-  Unit/
-    Pdf/          # PdfGeneratorTest
-dev/
-  mu-plugins/     # Mailpit SMTP relay (local only)
-vendor-prefixed/  # Strauss-scoped DOMPDF (generated, do not edit)
+[membership_form]
 ```
+
+Embed the registration form on any page or post. Add the shortcode to a page — the form is rendered automatically from your Form Fields settings.
+
+### Blank PDF download
+
+```
+[membership_form download="blank"]
+```
+
+Renders a download link for a blank (empty) version of the membership form PDF. Members who prefer to fill in a paper form can download and print this version. The blank PDF contains interactive fillable fields.
+
+## How It Works
+
+1. A visitor fills in and submits the registration form.
+2. The plugin generates a pre-filled PDF with the submitted data.
+3. The visitor receives the PDF by email as confirmation.
+4. All configured admin recipients also receive a copy of the PDF.
+5. The PDF is deleted from the server immediately after sending.
+
+## Privacy
+
+- No form submission data is stored in the database — the plugin is stateless.
+- The generated PDF exists only in the server's temp directory for the seconds it takes to email it, then it is deleted.
+- You are responsible for ensuring your privacy policy covers the data processing described above.
+
+## License
+
+GPL-2.0-or-later. See [LICENSE](LICENSE).
