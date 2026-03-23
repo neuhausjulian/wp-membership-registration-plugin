@@ -34,7 +34,10 @@ class AjaxHandlersTest extends TestCase {
 						return '[{"label":"E-Mail","type":"email","required":true},{"label":"Vorname","type":"text","required":true}]';
 					}
 					if ( 'wmr_form_settings' === $option ) {
-						return [ 'success_message' => 'Danke!' ];
+						return [
+							'success_message'       => 'Danke!',
+							'offer_direct_download' => false,
+						];
 					}
 					return $default;
 				},
@@ -96,6 +99,50 @@ class AjaxHandlersTest extends TestCase {
 		Functions\expect( 'wp_send_json_success' )
 			->once()
 			->with( \Mockery::on( fn( $data ) => isset( $data['message'] ) && 'Danke!' === $data['message'] ) );
+
+		$handler = new AjaxHandlers();
+		$handler->handle_submit_form();
+
+		// Mockery verifies call counts on tearDown; add a PHPUnit assertion to avoid risky flag.
+		$this->addToAssertionCount( 1 );
+	}
+
+	public function test_response_contains_null_pdf_url_when_offer_download_disabled(): void {
+		$_POST['website']    = '';
+		$_POST['wmr_fields'] = [ 'E-Mail' => 'test@example.com' ];
+
+		// offer_direct_download is false in the setUp stub; pdf_url must be null.
+		Functions\expect( 'wp_send_json_success' )
+			->once()
+			->with(
+				\Mockery::on(
+					function ( $data ) {
+						return array_key_exists( 'pdf_url', $data ) && null === $data['pdf_url'];
+					}
+				)
+			);
+
+		$handler = new AjaxHandlers();
+		$handler->handle_submit_form();
+
+		// Mockery verifies call counts on tearDown; add a PHPUnit assertion to avoid risky flag.
+		$this->addToAssertionCount( 1 );
+	}
+
+	public function test_response_member_email_sent_true_when_email_provided(): void {
+		$_POST['website']    = '';
+		$_POST['wmr_fields'] = [ 'E-Mail' => 'member@example.com' ];
+
+		// An email field is present in the schema stub; member_email_sent must be true.
+		Functions\expect( 'wp_send_json_success' )
+			->once()
+			->with(
+				\Mockery::on(
+					function ( $data ) {
+						return isset( $data['member_email_sent'] ) && true === $data['member_email_sent'];
+					}
+				)
+			);
 
 		$handler = new AjaxHandlers();
 		$handler->handle_submit_form();

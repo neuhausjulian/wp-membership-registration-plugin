@@ -152,10 +152,67 @@ class AjaxHandlers {
 		// Fire the submission action. Mailer::handle_submission() is already hooked here.
 		do_action( 'wmr_form_submitted', $field_values, $member_email );
 
-		$form_settings   = get_option( 'wmr_form_settings', array() );
-		$success_message = sanitize_text_field( $form_settings['success_message'] ?? '' );
+		$form_settings     = get_option( 'wmr_form_settings', array() );
+		$success_message   = sanitize_text_field( $form_settings['success_message'] ?? '' );
+		$offer_download    = ! empty( $form_settings['offer_direct_download'] );
+		$pdf_url           = null;
+		$member_email_sent = '' !== $member_email;
 
-		wp_send_json_success( array( 'message' => $success_message ) );
+		if ( $offer_download ) {
+			$generator = new PdfGenerator();
+			$path      = $generator->generate( $field_values );
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_get_contents
+			$bytes = file_get_contents( $path );
+			wp_delete_file( $path );
+			$token = wp_generate_password( 32, false );
+			set_transient( 'wmr_pdf_' . $token, base64_encode( $bytes ), 3600 ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+			$pdf_url = add_query_arg(
+				array(
+					'action' => 'wmr_download_pdf_token',
+					'token'  => $token,
+				),
+				admin_url( 'admin-ajax.php' )
+			);
+		}
+
+		wp_send_json_success(
+			array(
+				'message'           => $success_message,
+				'pdf_url'           => $pdf_url,
+				'member_email_sent' => $member_email_sent,
+			)
+		);
+	}
+
+	/**
+	 * Handle the wmr_download_pdf_token AJAX action.
+	 *
+	 * Streams a transient-stored, base64-encoded PDF to the browser,
+	 * then deletes the transient. Accessible to all users (nopriv + priv).
+	 *
+	 * @return void
+	 */
+	public function handle_download_pdf_token(): void {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- token is the one-time secret
+		$token = isset( $_GET['token'] ) ? sanitize_text_field( wp_unslash( $_GET['token'] ) ) : '';
+		if ( '' === $token ) {
+			wp_die( esc_html__( 'Invalid download link.', 'wp-membership-registration' ), '', 400 );
+		}
+		$encoded = get_transient( 'wmr_pdf_' . $token );
+		if ( false === $encoded ) {
+			wp_die( esc_html__( 'This download link has expired or is invalid.', 'wp-membership-registration' ), '', 404 );
+		}
+		delete_transient( 'wmr_pdf_' . $token );
+		$bytes = base64_decode( $encoded ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
+		header( 'Content-Type: application/pdf' );
+		header( 'Content-Disposition: attachment; filename="membership-form.pdf"' );
+		header( 'Content-Length: ' . strlen( $bytes ) );
+		header( 'Cache-Control: private, max-age=0, must-revalidate' );
+		ob_clean();
+		flush();
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $bytes;
+		exit;
 	}
 
 	/**

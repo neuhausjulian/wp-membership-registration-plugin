@@ -40,6 +40,9 @@ class Plugin {
 		// Frontend form submission — accessible to unauthenticated visitors.
 		add_action( 'wp_ajax_nopriv_wmr_submit_form', array( $ajax_handlers, 'handle_submit_form' ) );
 		add_action( 'wp_ajax_wmr_submit_form', array( $ajax_handlers, 'handle_submit_form' ) );
+		// PDF token download — accessible to all users (token is the one-time secret).
+		add_action( 'wp_ajax_nopriv_wmr_download_pdf_token', array( $ajax_handlers, 'handle_download_pdf_token' ) );
+		add_action( 'wp_ajax_wmr_download_pdf_token', array( $ajax_handlers, 'handle_download_pdf_token' ) );
 		$mailer = new Mailer();
 		add_action( 'wmr_form_submitted', array( $mailer, 'handle_submission' ), 10, 2 );
 		$shortcode = new MembershipFormShortcode();
@@ -57,6 +60,9 @@ class Plugin {
 				}
 				$form_settings   = get_option( 'wmr_form_settings', array() );
 				$success_message = wp_kses_post( $form_settings['success_message'] ?? '' );
+				if ( '' === $success_message ) {
+					$success_message = __( 'Thank you for your registration!', 'wp-membership-registration' );
+				}
 
 				wp_enqueue_style(
 					'wmr-form',
