@@ -15,10 +15,10 @@
 
 ### Frontend Form
 
-- [ ] **FORM-01**: Visitor can access the registration form on any page via the `[membership_form]` shortcode
+- [x] **FORM-01**: Visitor can access the registration form on any page via the `[membership_form]` shortcode
 - [x] **FORM-02**: Form includes a GDPR/privacy consent checkbox with admin-configurable text (required to submit)
-- [ ] **FORM-03**: Form uses honeypot spam protection to block automated bot submissions
-- [ ] **FORM-04**: Form validates required fields and email format client-side before submission
+- [x] **FORM-03**: Form uses honeypot spam protection to block automated bot submissions
+- [x] **FORM-04**: Form validates required fields and email format client-side before submission
 - [x] **FORM-05**: Form displays a configurable success message after successful submission
 
 ### PDF Generation
@@ -37,8 +37,8 @@
 - [x] **DEV-01**: Plugin ships a Docker-based local development environment using `docker-compose.yml` with the official WordPress image (no Node.js/npm required)
 - [ ] **DEV-02**: Plugin includes a PHPUnit test suite: unit tests (Brain Monkey, no WP bootstrap) and integration tests (Docker WP environment)
 - [x] **DEV-03**: WordPress coding standards enforced via PHPCS/WPCS with a `.phpcs.xml` config that runs in CI
-- [ ] **DEV-04**: Plugin includes a `CONTRIBUTING.md` developer guide covering local setup, running tests, coding conventions, and PR submission
-- [ ] **DEV-05**: Plugin includes a user-facing `README.md` covering installation, settings configuration, and shortcode usage
+- [x] **DEV-04**: Plugin includes a `CONTRIBUTING.md` developer guide covering local setup, running tests, coding conventions, and PR submission
+- [x] **DEV-05**: Plugin includes a user-facing `README.md` covering installation, settings configuration, and shortcode usage
 
 ## v2 Requirements
 
@@ -80,10 +80,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CONF-03 | Phase 1 | Complete |
 | CONF-04 | Phase 1 | Complete |
 | CONF-05 | Phase 1 | Complete |
-| FORM-01 | Phase 4 | Pending |
+| FORM-01 | Phase 4 | Complete |
 | FORM-02 | Phase 4 | Complete |
-| FORM-03 | Phase 4 | Pending |
-| FORM-04 | Phase 4 | Pending |
+| FORM-03 | Phase 4 | Complete |
+| FORM-04 | Phase 4 | Complete |
 | FORM-05 | Phase 4 | Complete |
 | PDF-01 | Phase 2 | Complete |
 | PDF-02 | Phase 2 | Complete |
@@ -93,8 +93,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DEV-01 | Phase 1 | Complete |
 | DEV-02 | Phase 4 | Pending |
 | DEV-03 | Phase 1 | Complete |
-| DEV-04 | Phase 4 | Pending |
-| DEV-05 | Phase 4 | Pending |
+| DEV-04 | Phase 4 | Complete |
+| DEV-05 | Phase 4 | Complete |
 
 **Coverage:**
 - v1 requirements: 20 total
