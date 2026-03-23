@@ -124,6 +124,7 @@ class PdfGenerator {
 		// --- form_notes block (HTML from TinyMCE) ---
 		if ( $form_notes ) {
 			$pdf->Ln( 4 );
+			$pdf->SetFont( 'dejavusans', '', 10 );
 			$pdf->writeHTML( $form_notes, true, false, true, false, '' );
 		}
 
