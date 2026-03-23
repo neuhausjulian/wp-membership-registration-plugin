@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Plugin Foundation and Settings** - Working admin settings page with field schema editor, PDF branding config, and email recipient config; dev environment and coding standards running in CI (completed 2026-03-21)
 - [x] **Phase 2: PDF Engine** - Plugin generates a pre-filled, branded PDF from submitted data; blank template downloadable; DOMPDF secured and vendor-namespaced (completed 2026-03-21)
 - [x] **Phase 3: Email Notifications** - Member and admin both receive the generated PDF by email on submission; test-email button confirms SMTP before go-live (completed 2026-03-22)
-- [ ] **Phase 4: Frontend Form and UX Polish** - Embeddable registration form via shortcode with validation, spam protection, GDPR consent, and success message; full end-to-end integration test passes
+- [x] **Phase 4: Frontend Form and UX Polish** - Embeddable registration form via shortcode with validation, spam protection, GDPR consent, and success message; full end-to-end integration test passes (completed 2026-03-23)
 
 ## Phase Details
 
@@ -98,4 +98,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Plugin Foundation and Settings | 3/3 | Complete   | 2026-03-21 |
 | 2. PDF Engine | 4/4 | Complete   | 2026-03-21 |
 | 3. Email Notifications | 4/4 | Complete   | 2026-03-22 |
-| 4. Frontend Form and UX Polish | 4/5 | In Progress|  |
+| 4. Frontend Form and UX Polish | 5/5 | Complete   | 2026-03-23 |
