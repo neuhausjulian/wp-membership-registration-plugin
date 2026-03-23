@@ -43,7 +43,7 @@
 		form.querySelectorAll( '[data-required]' ).forEach( function ( field ) {
 			if ( field.type === 'checkbox' ) {
 				if ( ! field.checked ) {
-					setError( field, 'Bitte bestätigen Sie Ihre Einwilligung.' );
+					setError( field, 'Bitte best\u00e4tigen Sie Ihre Einwilligung.' );
 					valid = false;
 				}
 			} else {
@@ -57,7 +57,7 @@
 		// Validate email format for fields with data-email.
 		form.querySelectorAll( '[data-email]' ).forEach( function ( field ) {
 			if ( field.value.trim() && ! EMAIL_REGEX.test( field.value.trim() ) ) {
-				setError( field, 'Bitte geben Sie eine gültige E-Mail-Adresse ein.' );
+				setError( field, 'Bitte geben Sie eine g\u00fcltige E-Mail-Adresse ein.' );
 				valid = false;
 			}
 		} );
@@ -99,10 +99,26 @@
 				.then( function ( data ) {
 					if ( data.success ) {
 						if ( container ) {
-							container.innerHTML =
-								'<div class="wmr-success-message">' +
-								wmrForm.successMessage +
-								'</div>';
+							var successData = data.data || {};
+							var html = '<div class="wmr-success-message">';
+							html += wmrForm.successMessage;
+
+							if ( successData.member_email_sent ) {
+								html += '<p class="wmr-email-note">' +
+									'Eine Kopie wurde an Ihre E-Mail-Adresse gesendet.' +
+									'</p>';
+							}
+
+							if ( successData.pdf_url ) {
+								html += '<p class="wmr-download-link">' +
+									'<a href="' + successData.pdf_url + '" class="button wmr-download-btn">' +
+									'Ausgef\u00fclltes Formular jetzt herunterladen' +
+									'</a>' +
+									'</p>';
+							}
+
+							html += '</div>';
+							container.innerHTML = html;
 						}
 					} else {
 						var msg =
