@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-04-PLAN.md
-last_updated: "2026-03-23T08:25:48.865Z"
+stopped_at: Completed 04-07-PLAN.md
+last_updated: "2026-03-23T21:59:12.172Z"
 last_activity: 2026-03-22 — Plan 03-04 complete; Phase 3 e2e verification confirmed in Docker + Mailpit (CONF-05 gate passed)
 progress:
   total_phases: 4
-  completed_phases: 4
-  total_plans: 16
-  completed_plans: 16
+  completed_phases: 3
+  total_plans: 19
+  completed_plans: 18
   percent: 91
 ---
 
@@ -65,6 +65,8 @@ Progress: [█████████░] 91%
 | Phase 04-frontend-form-and-ux-polish P03 | 15 | 2 tasks | 6 files |
 | Phase 04-frontend-form-and-ux-polish P05 | 2 | 2 tasks | 2 files |
 | Phase 04-frontend-form-and-ux-polish P04 | 525504 | 2 tasks | 3 files |
+| Phase 04-frontend-form-and-ux-polish P08 | 5 | 1 tasks | 1 files |
+| Phase 04-frontend-form-and-ux-polish P07 | 8 | 1 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -117,6 +119,8 @@ Recent decisions affecting current work:
 - [Phase 04-04]: wp_send_json_success must not be pre-registered as stub in setUp when using Functions\expect() — Brain Monkey 2.7 skips redefineUsingExpectation for already-registered stubs; use expect() per-test exclusively
 - [Phase 04-04]: addToAssertionCount(1) required in Mockery-only test methods to suppress PHPUnit risky flag when no PHPUnit assertions are present
 - [Phase 04-04]: esc_html_e stub must use regular function syntax with echo, not arrow function with print — Patchwork preprocessor fails to parse print language construct in arrow function body
+- [Phase 04-frontend-form-and-ux-polish]: Consent checkbox rendered unconditionally — GDPR compliance requires it always appear regardless of admin config state
+- [Phase 04-frontend-form-and-ux-polish]: Default consent label 'Ich stimme der Verarbeitung meiner personenbezogenen Daten zu.' used as translatable fallback via __()
 
 ### Pending Todos
 
@@ -130,6 +134,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-23T08:21:15.987Z
-Stopped at: Completed 04-04-PLAN.md
+Last session: 2026-03-23T21:59:12.171Z
+Stopped at: Completed 04-07-PLAN.md
 Resume file: None
