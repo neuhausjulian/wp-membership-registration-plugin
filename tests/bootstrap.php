@@ -22,6 +22,14 @@ if ( ! function_exists( '__' ) ) {
 	}
 }
 
+// Stub wpautop() — not auto-stubbed by Brain Monkey; used by PdfGenerator::build_pdf().
+// In a test context, return the input unchanged (no real HTML transformation needed).
+if ( ! function_exists( 'wpautop' ) ) {
+	function wpautop( string $pee, bool $br = true ): string {
+		return $pee;
+	}
+}
+
 // Register plugin PSR-4 autoloader for src/ classes.
 spl_autoload_register( function ( $class ) {
 	$prefix = 'WpMembershipRegistration\\';

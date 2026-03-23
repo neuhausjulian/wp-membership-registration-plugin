@@ -125,7 +125,8 @@ class PdfGenerator {
 		if ( $form_notes ) {
 			$pdf->Ln( 4 );
 			$pdf->SetFont( 'dejavusans', '', 10 );
-			$pdf->writeHTML( $form_notes, true, false, true, false, '' );
+			$html_notes = '<style>p { margin-top: 0; margin-bottom: 6pt; }</style>' . wpautop( $form_notes );
+			$pdf->writeHTML( $html_notes, true, false, true, false, '' );
 		}
 
 		// --- Signature / date line (~8mm margin above) ---
@@ -150,7 +151,8 @@ class PdfGenerator {
 		if ( $page2_content ) {
 			$pdf->AddPage();
 			$pdf->SetFont( 'dejavusans', '', 10 );
-			$pdf->writeHTML( $page2_content, true, false, true, false, '' );
+			$html_page2 = '<style>p { margin-top: 0; margin-bottom: 6pt; }</style>' . wpautop( $page2_content );
+			$pdf->writeHTML( $html_page2, true, false, true, false, '' );
 		}
 
 		return $pdf;
