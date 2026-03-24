@@ -55,12 +55,12 @@
 			function ( field ) {
 				if ( field.type === 'checkbox' ) {
 					if ( ! field.checked ) {
-						setError( field, 'Bitte best\u00e4tigen Sie Ihre Einwilligung.' );
+						setError( field, wmrForm.i18n.consentRequired );
 						valid = false;
 					}
 				} else {
 					if ( ! field.value.trim() ) {
-						setError( field, 'Dieses Feld ist erforderlich.' );
+						setError( field, wmrForm.i18n.fieldRequired );
 						valid = false;
 					}
 				}
@@ -71,7 +71,7 @@
 		form.querySelectorAll( '[data-email]' ).forEach(
 			function ( field ) {
 				if ( field.value.trim() && ! EMAIL_REGEX.test( field.value.trim() ) ) {
-						setError( field, 'Bitte geben Sie eine g\u00fcltige E-Mail-Adresse ein.' );
+						setError( field, wmrForm.i18n.invalidEmail );
 						valid = false;
 				}
 			}
@@ -130,14 +130,14 @@
 
 									if ( successData.member_email_sent ) {
 											html += '<p class="wmr-email-note">' +
-										'Eine Kopie wurde an Ihre E-Mail-Adresse gesendet.' +
+										wmrForm.i18n.emailCopySent +
 										'</p>';
 									}
 
 									if ( successData.pdf_url ) {
 										html += '<p class="wmr-download-link">' +
 											'<a href="' + successData.pdf_url + '" class="button wmr-download-btn">' +
-											'Ausgef\u00fclltes Formular jetzt herunterladen' +
+											wmrForm.i18n.downloadLink +
 											'</a>' +
 											'</p>';
 									}
@@ -149,7 +149,7 @@
 								var msg      =
 									( data.data && data.data.message )
 								? data.data.message
-								: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.';
+								: wmrForm.i18n.genericError;
 								var errorDiv = form.querySelector( '.wmr-submit-row' );
 								if ( errorDiv ) {
 									var existing = form.querySelector( '.wmr-submit-error' );

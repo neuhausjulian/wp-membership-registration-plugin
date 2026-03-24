@@ -89,7 +89,7 @@ class FormRenderer {
 				<?php
 				$consent_label = $consent_text
 					? $consent_text
-					: __( 'Ich stimme der Verarbeitung meiner personenbezogenen Daten zu.', 'wp-membership-registration' );
+					: __( 'I consent to the processing of my personal data.', 'wp-membership-registration' );
 				?>
 				<div class="wmr-field-row wmr-consent-row">
 					<label class="wmr-consent-label">

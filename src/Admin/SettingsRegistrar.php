@@ -81,6 +81,7 @@ class SettingsRegistrar {
 					'consent_text'          => '',
 					'success_message'       => '',
 					'offer_direct_download' => false,
+					'fallback_language'     => 'auto',
 				),
 			)
 		);
@@ -148,16 +149,19 @@ class SettingsRegistrar {
 	 * Sanitize form settings array.
 	 *
 	 * @param mixed $input Raw input from form submission.
-	 * @return array{consent_text: string, success_message: string, offer_direct_download: bool}
+	 * @return array{consent_text: string, success_message: string, offer_direct_download: bool, fallback_language: string}
 	 */
 	public function sanitize_form_settings( mixed $input ): array {
 		if ( ! is_array( $input ) ) {
 			$input = array();
 		}
+		$allowed_languages = array( 'auto', 'de', 'en' );
+		$fallback          = $input['fallback_language'] ?? 'auto';
 		return array(
 			'consent_text'          => sanitize_text_field( $input['consent_text'] ?? '' ),
 			'success_message'       => sanitize_text_field( $input['success_message'] ?? '' ),
 			'offer_direct_download' => ! empty( $input['offer_direct_download'] ),
+			'fallback_language'     => in_array( $fallback, $allowed_languages, true ) ? $fallback : 'auto',
 		);
 	}
 

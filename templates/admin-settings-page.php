@@ -300,6 +300,25 @@ $has_email      = ! empty( array_filter( $fields, fn( $f ) => ( $f['type'] ?? ''
 							<p class="description"><?php esc_html_e( 'When enabled, the success screen shows a link for the member to download their pre-filled PDF immediately.', 'wp-membership-registration' ); ?></p>
 						</td>
 					</tr>
+					<tr>
+						<th scope="row">
+							<label for="wmr-fallback-language"><?php esc_html_e( 'Fallback Language', 'wp-membership-registration' ); ?></label>
+						</th>
+						<td>
+							<select id="wmr-fallback-language" name="wmr_form_settings[fallback_language]">
+								<option value="auto" <?php selected( $form_settings['fallback_language'] ?? 'auto', 'auto' ); ?>>
+									<?php esc_html_e( 'Auto (follow site language)', 'wp-membership-registration' ); ?>
+								</option>
+								<option value="de" <?php selected( $form_settings['fallback_language'] ?? 'auto', 'de' ); ?>>
+									<?php esc_html_e( 'German (de)', 'wp-membership-registration' ); ?>
+								</option>
+								<option value="en" <?php selected( $form_settings['fallback_language'] ?? 'auto', 'en' ); ?>>
+									<?php esc_html_e( 'English (en)', 'wp-membership-registration' ); ?>
+								</option>
+							</select>
+							<p class="description"><?php esc_html_e( 'Override the language used for plugin strings. Defaults to the WordPress site language.', 'wp-membership-registration' ); ?></p>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 			<?php submit_button(); ?>
