@@ -50,11 +50,11 @@ Plans:
   1. A `languages/wp-membership-registration.pot` file exists and contains all translatable strings from PHP source files (no missing strings relative to the wrapped codebase)
   2. `languages/wp-membership-registration-de_DE.po` and `languages/wp-membership-registration-de_DE.mo` exist; installing the plugin on a site with locale `de_DE` causes admin settings and frontend form to render in German without any manual configuration
   3. Client-side validation messages, AJAX success/error feedback, and any other JS-originated strings render in German on a `de_DE` site — delivered via `wp_set_script_translations()` reading a `languages/wp-membership-registration-de_DE-{script-handle}.json` file
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 06-01: Generate .pot file and compile de_DE .po/.mo translations
-- [ ] 06-02: Wire up JS translations via wp_set_script_translations() with German JSON locale file
+- [ ] 06-01-PLAN.md — Migrate JS to wp.i18n.__(), wire wp_set_script_translations() in PHP, add unit tests
+- [ ] 06-02-PLAN.md — Generate .pot, author de_DE .po/.mo translations, generate JS JSON locale files
 
 ## Progress
 
