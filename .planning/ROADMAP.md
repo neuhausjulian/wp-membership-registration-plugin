@@ -35,7 +35,7 @@
   2. Frontend form renders all field labels, placeholder text, validation messages, GDPR checkbox label, and submit button through i18n functions — no bare strings in FormRenderer.php or AjaxHandlers.php output
   3. A "Fallback Language" option (de / en) appears in plugin settings; selecting "de" and switching the site to German causes admin and frontend strings to render in German
   4. `load_plugin_textdomain()` is called on the `init` hook and correctly points at the plugin's `languages/` directory
-**Plans:** 1/3 plans executed
+**Plans:** 2/3 plans executed
 
 Plans:
 - [ ] 05-01-PLAN.md — Register text domain on init and create languages/ directory
@@ -64,7 +64,7 @@ Plans:
 | 2. PDF Engine | v1.0 | 4/4 | Complete | 2026-03-21 |
 | 3. Email Notifications | v1.0 | 4/4 | Complete | 2026-03-22 |
 | 4. Frontend Form and UX Polish | v1.0 | 10/10 | Complete | 2026-03-24 |
-| 5. PHP i18n Foundation | 1/3 | In Progress|  | - |
+| 5. PHP i18n Foundation | 2/3 | In Progress|  | - |
 | 6. Translation Files and JS i18n | v1.1 | 0/2 | Not started | - |
 
 ---

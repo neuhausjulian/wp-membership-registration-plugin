@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Localization
 status: executing
-stopped_at: Phase 5 planned — ready to execute
-last_updated: "2026-03-24T12:02:45.100Z"
-last_activity: 2026-03-24 — Phase 5 plans created (3 plans, 2 waves), verified PASS
+stopped_at: Completed 05-01-PLAN.md
+last_updated: "2026-03-24T12:07:32.744Z"
+last_activity: "2026-03-24 — 05-02 complete: admin JS i18n via wp_localize_script (10 strings wired)"
 progress:
   total_phases: 2
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
-  percent: 0
+  completed_plans: 2
+  percent: 33
 ---
 
 # Project State
@@ -52,6 +52,7 @@ Decisions are logged in PROJECT.md Key Decisions table.
 - Roadmap: 2 phases — Phase 5 (PHP layer) gates Phase 6 (.pot + JS delivery); split mirrors different tooling (PHP wrapping vs xgettext/msgfmt/wp_set_script_translations)
 - 05-02: 'Select' option display text included in i18n (value attr stays 'select', display text is translatable)
 - 05-02: Admin JS i18n pattern: wmrSettings.i18n sub-object via wp_localize_script; JS has zero hardcoded English strings
+- [Phase 05]: 05-01: Test 1 uses Actions\expectAdded with addToAssertionCount(1); Tests 2-3 capture init callback via Functions\when('add_action')->alias() and use Mockery::on() to avoid Patchwork ParseErrors
 
 ### Pending Todos
 
@@ -63,6 +64,6 @@ Decisions are logged in PROJECT.md Key Decisions table.
 
 ## Session Continuity
 
-Last session: 2026-03-24T12:01:57Z
-Stopped at: Completed 05-02-PLAN.md — admin JS i18n via wp_localize_script
-Resume file: .planning/phases/05-php-i18n-foundation/05-03-PLAN.md
+Last session: 2026-03-24T12:07:32.743Z
+Stopped at: Completed 05-01-PLAN.md
+Resume file: None
