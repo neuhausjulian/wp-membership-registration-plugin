@@ -8,6 +8,17 @@ An open-source WordPress plugin that digitizes the member registration process f
 
 A member can register digitally and receive a legally valid, pre-filled membership form (PDF) without the club needing to pay for any software or manage a spreadsheet.
 
+## Current Milestone: v1.1 Localization
+
+**Goal:** Make all plugin UI strings properly translatable and ship de/en translations so the admin settings and frontend form reflect the site's configured language.
+
+**Target features:**
+- Wrap all PHP strings (admin settings + frontend form) in WordPress i18n functions
+- Register text domain and generate `.pot` source file
+- Ship `de_DE` `.po`/`.mo` translation files covering all strings
+- Make JS strings translatable via `wp_set_script_translations()` with German JSON locale file
+- Add admin setting for fallback language (de/en), defaulting to site language
+
 ## Requirements
 
 ### Validated
@@ -32,7 +43,13 @@ A member can register digitally and receive a legally valid, pre-filled membersh
 
 ### Active
 
-(None — v1.0 delivered all planned requirements. Add v1.1 requirements via `/gsd:new-milestone`.)
+- [ ] All admin settings page strings are wrapped in WordPress i18n functions and translatable
+- [ ] All frontend form strings are wrapped in WordPress i18n functions and translatable
+- [ ] Plugin registers text domain via `load_plugin_textdomain()` on init
+- [ ] `.pot` source file generated for the plugin
+- [ ] German (`de_DE`) `.po` and `.mo` translation files provided
+- [ ] JS strings are translatable via `wp_set_script_translations()` with German JSON locale file
+- [ ] Admin can configure fallback language (de/en); defaults to site language
 
 ### Out of Scope
 
@@ -81,4 +98,4 @@ A member can register digitally and receive a legally valid, pre-filled membersh
 | PDF download via transient-stored base64 (not temp file) | Avoids writes to uploads/; satisfies security constraint; transient auto-expires | ✓ Good — clean, no file cleanup needed |
 
 ---
-*Last updated: 2026-03-24 after v1.0 milestone*
+*Last updated: 2026-03-24 after v1.1 milestone start*
