@@ -50,7 +50,7 @@ Plans:
   1. A `languages/wp-membership-registration.pot` file exists and contains all translatable strings from PHP source files (no missing strings relative to the wrapped codebase)
   2. `languages/wp-membership-registration-de_DE.po` and `languages/wp-membership-registration-de_DE.mo` exist; installing the plugin on a site with locale `de_DE` causes admin settings and frontend form to render in German without any manual configuration
   3. Client-side validation messages, AJAX success/error feedback, and any other JS-originated strings render in German on a `de_DE` site — delivered via `wp_set_script_translations()` reading a `languages/wp-membership-registration-de_DE-{script-handle}.json` file
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 
 Plans:
 - [ ] 06-01-PLAN.md — Migrate JS to wp.i18n.__(), wire wp_set_script_translations() in PHP, add unit tests
@@ -65,7 +65,7 @@ Plans:
 | 3. Email Notifications | v1.0 | 4/4 | Complete | 2026-03-22 |
 | 4. Frontend Form and UX Polish | v1.0 | 10/10 | Complete | 2026-03-24 |
 | 5. PHP i18n Foundation | 3/3 | Complete   | 2026-03-24 | - |
-| 6. Translation Files and JS i18n | v1.1 | 0/2 | Not started | - |
+| 6. Translation Files and JS i18n | 1/2 | In Progress|  | - |
 
 ---
 *Full milestone archive: `.planning/milestones/v1.0-ROADMAP.md`*
