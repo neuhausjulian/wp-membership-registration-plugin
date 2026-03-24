@@ -1,0 +1,369 @@
+# WP Membership Registration -- German (de_DE)
+# Copyright (C) 2026 bitstrange
+# License: GPL-2.0-or-later
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Membership Registration 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/bitstrange/wp-membership-registration-plugin\n"
+"POT-Creation-Date: 2026-03-24T00:00:00+00:00\n"
+"PO-Revision-Date: 2026-03-24T00:00:00+00:00\n"
+"Last-Translator: Claude\n"
+"Language-Team: German\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: GSD Phase 6\n"
+
+#. Plugin Name of the plugin
+#: wp-membership-registration.php
+msgid "WP Membership Registration"
+msgstr "WP Mitgliedsregistrierung"
+
+#. Plugin URI of the plugin
+#: wp-membership-registration.php
+msgid "https://github.com/bitstrange/wp-membership-registration-plugin"
+msgstr "https://github.com/bitstrange/wp-membership-registration-plugin"
+
+#. Description of the plugin
+#: wp-membership-registration.php
+msgid "Digital membership registration with PDF generation and email delivery."
+msgstr "Digitale Mitgliedsregistrierung mit PDF-Erstellung und E-Mail-Versand."
+
+#: src/Admin/AjaxHandlers.php:29
+msgid "Unauthorized."
+msgstr "Nicht autorisiert."
+
+#: src/Admin/AjaxHandlers.php:48
+msgid "No recipient address configured. Add at least one email address above and save before testing."
+msgstr "Keine Empfängeradresse konfiguriert. Füge mindestens eine E-Mail-Adresse oben ein und speichere, bevor du den Test durchführst."
+
+#: src/Admin/AjaxHandlers.php:58
+msgid "[Test] Membership Registration email"
+msgstr "[Test] Mitgliedsregistrierung E-Mail"
+
+#: src/Admin/AjaxHandlers.php:59
+msgid "This is a test email from the WP Membership Registration plugin."
+msgstr "Dies ist eine Test-E-Mail vom WP Mitgliedsregistrierung Plugin."
+
+#: src/Admin/AjaxHandlers.php:64
+#: assets/js/admin-settings.js:233
+msgid "Test email sent."
+msgstr "Test-E-Mail gesendet."
+
+#: src/Admin/AjaxHandlers.php:69
+msgid "Email delivery failed. Check your SMTP settings (see Mailpit on port 8025 in local dev)."
+msgstr "E-Mail-Versand fehlgeschlagen. Überprüfe deine SMTP-Einstellungen (siehe Mailpit auf Port 8025 in der lokalen Entwicklungsumgebung)."
+
+#: src/Admin/AjaxHandlers.php:199
+msgid "Invalid download link."
+msgstr "Ungültiger Download-Link."
+
+#: src/Admin/AjaxHandlers.php:203
+msgid "This download link has expired or is invalid."
+msgstr "Dieser Download-Link ist abgelaufen oder ungültig."
+
+#: src/Admin/SettingsPage.php:29
+#: templates/admin-settings-page.php:22
+msgid "Membership Registration Settings"
+msgstr "Mitgliedsregistrierung Einstellungen"
+
+#: src/Admin/SettingsPage.php:30
+msgid "Membership Registration"
+msgstr "Mitgliedsregistrierung"
+
+#: src/Email/Mailer.php:80
+#: templates/admin-settings-page.php:245
+msgid "Your registration form"
+msgstr "Dein Anmeldeformular"
+
+#: src/Email/Mailer.php:81
+#: templates/admin-settings-page.php:246
+msgid "Thank you for your registration. Please find your completed membership form attached."
+msgstr "Vielen Dank für deine Anmeldung. Dein ausgefülltes Mitgliedsformular findest du im Anhang."
+
+#: src/Email/Mailer.php:119
+#: templates/admin-settings-page.php:252
+msgid "New membership registration received"
+msgstr "Neue Mitgliedsanmeldung eingegangen"
+
+#: src/Email/Mailer.php:120
+#: templates/admin-settings-page.php:253
+msgid "A new membership registration was submitted. The completed form is attached."
+msgstr "Eine neue Mitgliedsanmeldung wurde eingereicht. Das ausgefüllte Formular ist beigefügt."
+
+#: src/Frontend/FormRenderer.php:92
+msgid "I consent to the processing of my personal data."
+msgstr "Ich stimme der Verarbeitung meiner personenbezogenen Daten zu."
+
+#: src/Frontend/FormRenderer.php:112
+msgid "Leave this field empty"
+msgstr "Dieses Feld leer lassen"
+
+#: src/Frontend/FormRenderer.php:120
+msgid "Submit registration"
+msgstr "Anmeldung absenden"
+
+#: src/Pdf/PdfGenerator.php:139
+msgid "Ort, Datum"
+msgstr "Ort, Datum"
+
+#: src/Pdf/PdfGenerator.php:141
+msgid "Unterschrift"
+msgstr "Unterschrift"
+
+#: src/Plugin.php:86
+msgid "Thank you for your registration!"
+msgstr "Vielen Dank für deine Anmeldung!"
+
+#: src/Shortcodes/MembershipFormShortcode.php:59
+msgid "Mitgliedsantrag herunterladen (leer)"
+msgstr "Mitgliedsantrag herunterladen (leer)"
+
+#: templates/admin-settings-page.php:25
+msgid "Form Fields"
+msgstr "Formularfelder"
+
+#: templates/admin-settings-page.php:26
+msgid "PDF Branding"
+msgstr "PDF Branding"
+
+#: templates/admin-settings-page.php:27
+msgid "Email Settings"
+msgstr "E-Mail-Einstellungen"
+
+#: templates/admin-settings-page.php:28
+msgid "Form Settings"
+msgstr "Formular-Einstellungen"
+
+#: templates/admin-settings-page.php:39
+msgid "Label"
+msgstr "Bezeichnung"
+
+#: templates/admin-settings-page.php:40
+msgid "Field Type"
+msgstr "Feldtyp"
+
+#: templates/admin-settings-page.php:41
+msgid "Required"
+msgstr "Pflichtfeld"
+
+#: templates/admin-settings-page.php:56
+msgid "Add Field"
+msgstr "Feld hinzufügen"
+
+#: templates/admin-settings-page.php:73
+msgid "Club Name"
+msgstr "Vereinsname"
+
+#: templates/admin-settings-page.php:83
+msgid "Appears in the header of the generated PDF."
+msgstr "Erscheint in der Kopfzeile des generierten PDFs."
+
+#: templates/admin-settings-page.php:88
+msgid "Club Logo"
+msgstr "Vereinslogo"
+
+#: templates/admin-settings-page.php:95
+msgid "Club logo preview"
+msgstr "Vereinslogo-Vorschau"
+
+#: templates/admin-settings-page.php:99
+msgid "Select Logo"
+msgstr "Logo auswählen"
+
+#: templates/admin-settings-page.php:100
+msgid "Remove Logo"
+msgstr "Logo entfernen"
+
+#: templates/admin-settings-page.php:103
+msgid "Upload your club logo. Appears on the PDF membership form."
+msgstr "Lade dein Vereinslogo hoch. Erscheint auf dem PDF-Mitgliedsformular."
+
+#: templates/admin-settings-page.php:108
+msgid "Accent Color"
+msgstr "Akzentfarbe"
+
+#: templates/admin-settings-page.php:119
+msgid "Used as the highlight color in the PDF template."
+msgstr "Wird als Hervorhebungsfarbe in der PDF-Vorlage verwendet."
+
+#: templates/admin-settings-page.php:124
+msgid "Document Title"
+msgstr "Dokumenttitel"
+
+#: templates/admin-settings-page.php:134
+msgid "Shown in the PDF header next to the club name. Example: Aufnahmeantrag."
+msgstr "Wird in der PDF-Kopfzeile neben dem Vereinsnamen angezeigt. Beispiel: Aufnahmeantrag."
+
+#: templates/admin-settings-page.php:138
+msgid "Form information"
+msgstr "Formularinformationen"
+
+#: templates/admin-settings-page.php:152
+msgid "Shown below form fields on the PDF and on the registration form. Accepts HTML (bold, paragraphs, links)."
+msgstr "Wird unterhalb der Formularfelder im PDF und im Anmeldeformular angezeigt. Akzeptiert HTML (Fett, Absätze, Links)."
+
+#: templates/admin-settings-page.php:157
+msgid "Footer Text"
+msgstr "Fußzeilentext"
+
+#: templates/admin-settings-page.php:166
+msgid "Board contact details and bank information shown at the bottom of page 1. May include HTML."
+msgstr "Vorstandskontaktdaten und Bankverbindung, die am Ende von Seite 1 angezeigt werden. Kann HTML enthalten."
+
+#: templates/admin-settings-page.php:170
+msgid "Page 2 content"
+msgstr "Seite-2-Inhalt"
+
+#: templates/admin-settings-page.php:184
+msgid "Legal/conditions page printed as page 2 of the PDF (AGBs, Datenschutzerklärung, Bankverbindung). Not shown on frontend form."
+msgstr "Rechts-/Bedingungsseite, die als Seite 2 des PDFs gedruckt wird (AGBs, Datenschutzerklärung, Bankverbindung). Wird nicht im Frontend-Formular angezeigt."
+
+#: templates/admin-settings-page.php:197
+msgid "No email-type field is configured in the form — members will not receive a confirmation email. Add an email-type field on the Form Fields tab."
+msgstr "Es ist kein E-Mail-Feld im Formular konfiguriert — Mitglieder erhalten keine Bestätigungs-E-Mail. Füge ein E-Mail-Feld auf dem Tab Formularfelder hinzu."
+
+#: templates/admin-settings-page.php:207
+msgid "Notification Recipients"
+msgstr "Benachrichtigungsempfänger"
+
+#: templates/admin-settings-page.php:218
+msgid "Enter one email address per line. All addresses receive a copy of each membership PDF."
+msgstr "Gib eine E-Mail-Adresse pro Zeile ein. Alle Adressen erhalten eine Kopie jedes Mitglieds-PDFs."
+
+#: templates/admin-settings-page.php:226
+msgid "Send Test Email"
+msgstr "Test-E-Mail senden"
+
+#: templates/admin-settings-page.php:237
+msgid "Email Previews"
+msgstr "E-Mail-Vorschau"
+
+#: templates/admin-settings-page.php:238
+msgid "These are the emails that will be sent on each registration. The content is fixed for v1 and cannot be edited here."
+msgstr "Dies sind die E-Mails, die bei jeder Anmeldung versendet werden. Der Inhalt ist für v1 festgelegt und kann hier nicht bearbeitet werden."
+
+#: templates/admin-settings-page.php:243
+msgid "Member email"
+msgstr "Mitglieds-E-Mail"
+
+#: templates/admin-settings-page.php:245
+#: templates/admin-settings-page.php:252
+msgid "Subject:"
+msgstr "Betreff:"
+
+#: templates/admin-settings-page.php:246
+#: templates/admin-settings-page.php:253
+msgid "Body:"
+msgstr "Inhalt:"
+
+#: templates/admin-settings-page.php:250
+msgid "Admin email"
+msgstr "Admin-E-Mail"
+
+#: templates/admin-settings-page.php:268
+msgid "Consent checkbox text"
+msgstr "Text der Zustimmungs-Checkbox"
+
+#: templates/admin-settings-page.php:274
+msgid "Label for the GDPR consent checkbox on the registration form. Required for submission."
+msgstr "Bezeichnung für die DSGVO-Zustimmungs-Checkbox im Anmeldeformular. Für die Einreichung erforderlich."
+
+#: templates/admin-settings-page.php:279
+msgid "Success message"
+msgstr "Erfolgsmeldung"
+
+#: templates/admin-settings-page.php:285
+msgid "Message shown in-place after a successful form submission."
+msgstr "Meldung, die nach einer erfolgreichen Formulareinreichung angezeigt wird."
+
+#: templates/admin-settings-page.php:290
+msgid "Offer direct download link"
+msgstr "Direkten Download-Link anbieten"
+
+#: templates/admin-settings-page.php:300
+msgid "When enabled, the success screen shows a link for the member to download their pre-filled PDF immediately."
+msgstr "Wenn aktiviert, zeigt die Erfolgsseite einen Link, über den das Mitglied das vorausgefüllte PDF sofort herunterladen kann."
+
+#: templates/admin-settings-page.php:305
+msgid "Fallback Language"
+msgstr "Ausweichsprache"
+
+#: templates/admin-settings-page.php:310
+msgid "Auto (follow site language)"
+msgstr "Automatisch (Website-Sprache folgen)"
+
+#: templates/admin-settings-page.php:313
+msgid "German (de)"
+msgstr "Deutsch (de)"
+
+#: templates/admin-settings-page.php:316
+msgid "English (en)"
+msgstr "Englisch (en)"
+
+#: templates/admin-settings-page.php:319
+msgid "Override the language used for plugin strings. Defaults to the WordPress site language."
+msgstr "Überschreibt die für Plugin-Texte verwendete Sprache. Standardmäßig wird die WordPress-Website-Sprache verwendet."
+
+#: assets/js/admin-settings.js:63
+msgid "Drag to reorder"
+msgstr "Ziehen zum Sortieren"
+
+#: assets/js/admin-settings.js:72
+msgid "Select"
+msgstr "Auswählen"
+
+#: assets/js/admin-settings.js:77
+msgid "Delete field"
+msgstr "Feld löschen"
+
+#: assets/js/admin-settings.js:104
+msgid "No fields defined yet."
+msgstr "Noch keine Felder definiert."
+
+#: assets/js/admin-settings.js:105
+msgid "Click Add Field to define the first registration form field."
+msgstr "Klicke auf Feld hinzufügen, um das erste Formularfeld zu definieren."
+
+#: assets/js/admin-settings.js:185
+msgid "Select Club Logo"
+msgstr "Vereinslogo auswählen"
+
+#: assets/js/admin-settings.js:186
+msgid "Use this image"
+msgstr "Dieses Bild verwenden"
+
+#: assets/js/admin-settings.js:217
+msgid "Sending…"
+msgstr "Sende…"
+
+#: assets/js/admin-settings.js:237
+msgid "An unknown error occurred."
+msgstr "Ein unbekannter Fehler ist aufgetreten."
+
+#: assets/js/form.js:58
+msgid "Please confirm your consent."
+msgstr "Bitte bestätige deine Zustimmung."
+
+#: assets/js/form.js:63
+msgid "This field is required."
+msgstr "Dieses Feld ist erforderlich."
+
+#: assets/js/form.js:74
+msgid "Please enter a valid email address."
+msgstr "Bitte gib eine gültige E-Mail-Adresse ein."
+
+#: assets/js/form.js:133
+msgid "A copy has been sent to your email address."
+msgstr "Eine Kopie wurde an deine E-Mail-Adresse gesendet."
+
+#: assets/js/form.js:140
+msgid "Download your completed form now"
+msgstr "Dein ausgefülltes Formular jetzt herunterladen"
+
+#: assets/js/form.js:152
+msgid "An error occurred. Please try again."
+msgstr "Ein Fehler ist aufgetreten. Bitte versuche es erneut."
