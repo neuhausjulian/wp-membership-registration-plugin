@@ -5,7 +5,7 @@
  * @package WpMembershipRegistration
  */
 
-/* global wmrForm */
+/* global wmrForm, wp */
 ( function () {
 	'use strict';
 
@@ -55,12 +55,12 @@
 			function ( field ) {
 				if ( field.type === 'checkbox' ) {
 					if ( ! field.checked ) {
-						setError( field, wmrForm.i18n.consentRequired );
+						setError( field, wp.i18n.__( 'Please confirm your consent.', 'wp-membership-registration' ) );
 						valid = false;
 					}
 				} else {
 					if ( ! field.value.trim() ) {
-						setError( field, wmrForm.i18n.fieldRequired );
+						setError( field, wp.i18n.__( 'This field is required.', 'wp-membership-registration' ) );
 						valid = false;
 					}
 				}
@@ -71,7 +71,7 @@
 		form.querySelectorAll( '[data-email]' ).forEach(
 			function ( field ) {
 				if ( field.value.trim() && ! EMAIL_REGEX.test( field.value.trim() ) ) {
-						setError( field, wmrForm.i18n.invalidEmail );
+						setError( field, wp.i18n.__( 'Please enter a valid email address.', 'wp-membership-registration' ) );
 						valid = false;
 				}
 			}
@@ -130,14 +130,14 @@
 
 									if ( successData.member_email_sent ) {
 											html += '<p class="wmr-email-note">' +
-										wmrForm.i18n.emailCopySent +
+										wp.i18n.__( 'A copy has been sent to your email address.', 'wp-membership-registration' ) +
 										'</p>';
 									}
 
 									if ( successData.pdf_url ) {
 										html += '<p class="wmr-download-link">' +
 											'<a href="' + successData.pdf_url + '" class="button wmr-download-btn">' +
-											wmrForm.i18n.downloadLink +
+											wp.i18n.__( 'Download your completed form now', 'wp-membership-registration' ) +
 											'</a>' +
 											'</p>';
 									}
@@ -149,7 +149,7 @@
 								var msg      =
 									( data.data && data.data.message )
 								? data.data.message
-								: wmrForm.i18n.genericError;
+								: wp.i18n.__( 'An error occurred. Please try again.', 'wp-membership-registration' );
 								var errorDiv = form.querySelector( '.wmr-submit-row' );
 								if ( errorDiv ) {
 									var existing = form.querySelector( '.wmr-submit-error' );

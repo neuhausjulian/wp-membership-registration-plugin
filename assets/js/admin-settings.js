@@ -5,7 +5,7 @@
  *   jquery, jquery-ui-sortable, wp-color-picker
  *
  * Globals:
- *   wmrSettings  { ajaxUrl, testEmailNonce, i18n }
+ *   wmrSettings  { ajaxUrl, testEmailNonce }
  *   wmrExistingFields  array of { label, type, required } — PHP-bootstrapped
  */
 
@@ -60,7 +60,7 @@ jQuery( function ( $ ) {
 	function addRow( field ) {
 		var row = $(
 			'<tr>' +
-				'<td><span class="dashicons dashicons-menu wmr-drag-handle" title="' + wmrSettings.i18n.dragToReorder + '"></span></td>' +
+				'<td><span class="dashicons dashicons-menu wmr-drag-handle" title="' + wp.i18n.__( 'Drag to reorder', 'wp-membership-registration' ) + '"></span></td>' +
 				'<td><input type="text" class="wmr-label widefat" value=""></td>' +
 				'<td>' +
 					'<select class="wmr-type">' +
@@ -69,12 +69,12 @@ jQuery( function ( $ ) {
 						'<option value="date">Date</option>' +
 						'<option value="tel">Phone</option>' +
 						'<option value="textarea">Textarea</option>' +
-						'<option value="select">' + wmrSettings.i18n.selectType + '</option>' +
+						'<option value="select">' + wp.i18n.__( 'Select', 'wp-membership-registration' ) + '</option>' +
 					'</select>' +
 				'</td>' +
 				'<td><input type="checkbox" class="wmr-required"></td>' +
 				'<td>' +
-					'<button type="button" class="button wmr-delete-row" aria-label="' + wmrSettings.i18n.deleteField + '">' +
+					'<button type="button" class="button wmr-delete-row" aria-label="' + wp.i18n.__( 'Delete field', 'wp-membership-registration' ) + '">' +
 						'<span class="dashicons dashicons-trash" aria-hidden="true"></span>' +
 					'</button>' +
 				'</td>' +
@@ -101,8 +101,8 @@ jQuery( function ( $ ) {
 		$( '#wmr-fields-tbody' ).append(
 			'<tr class="wmr-empty-state">' +
 				'<td colspan="5">' +
-					'<strong>' + wmrSettings.i18n.noFieldsDefined + '</strong>' +
-					'<br>' + wmrSettings.i18n.addFirstField +
+					'<strong>' + wp.i18n.__( 'No fields defined yet.', 'wp-membership-registration' ) + '</strong>' +
+					'<br>' + wp.i18n.__( 'Click Add Field to define the first registration form field.', 'wp-membership-registration' ) +
 				'</td>' +
 			'</tr>'
 		);
@@ -182,8 +182,8 @@ jQuery( function ( $ ) {
 		}
 
 		mediaFrame = wp.media( {
-			title:    wmrSettings.i18n.selectLogoTitle,
-			button:   { text: wmrSettings.i18n.selectLogoButton },
+			title:    wp.i18n.__( 'Select Club Logo', 'wp-membership-registration' ),
+			button:   { text: wp.i18n.__( 'Use this image', 'wp-membership-registration' ) },
 			multiple: false,
 			library:  { type: 'image' },
 		} );
@@ -214,7 +214,7 @@ jQuery( function ( $ ) {
 
 		// Disable button and show in-flight state.
 		$button.prop( 'disabled', true ).html(
-			$button.find( '.dashicons' ).prop( 'outerHTML' ) + ' ' + wmrSettings.i18n.sending
+			$button.find( '.dashicons' ).prop( 'outerHTML' ) + ' ' + wp.i18n.__( 'Sending…', 'wp-membership-registration' )
 		);
 
 		// Clear previous result.
@@ -230,11 +230,11 @@ jQuery( function ( $ ) {
 				if ( response.success === true ) {
 					$result
 						.addClass( 'wmr-inline-notice wmr-inline-notice--success' )
-						.text( wmrSettings.i18n.testEmailSent );
+						.text( wp.i18n.__( 'Test email sent.', 'wp-membership-registration' ) );
 				} else {
 					var message = ( response.data && response.data.message )
 						? response.data.message
-						: wmrSettings.i18n.unknownError;
+						: wp.i18n.__( 'An unknown error occurred.', 'wp-membership-registration' );
 					$result
 						.addClass( 'wmr-inline-notice wmr-inline-notice--error' )
 						.text( message );
