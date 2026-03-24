@@ -95,7 +95,7 @@ class Plugin {
 				wp_enqueue_script(
 					'wmr-form',
 					WMR_PLUGIN_URL . 'assets/js/form.js',
-					array(),
+					array( 'wp-i18n' ),
 					WMR_VERSION,
 					true  // Load in footer.
 				);
@@ -106,16 +106,9 @@ class Plugin {
 						'ajaxUrl'        => admin_url( 'admin-ajax.php' ),
 						'submitNonce'    => wp_create_nonce( 'wmr_submit_form' ),
 						'successMessage' => $success_message,
-						'i18n'           => array(
-							'consentRequired' => __( 'Please confirm your consent.', 'wp-membership-registration' ),
-							'fieldRequired'   => __( 'This field is required.', 'wp-membership-registration' ),
-							'invalidEmail'    => __( 'Please enter a valid email address.', 'wp-membership-registration' ),
-							'emailCopySent'   => __( 'A copy has been sent to your email address.', 'wp-membership-registration' ),
-							'downloadLink'    => __( 'Download your completed form now', 'wp-membership-registration' ),
-							'genericError'    => __( 'An error occurred. Please try again.', 'wp-membership-registration' ),
-						),
 					)
 				);
+				wp_set_script_translations( 'wmr-form', 'wp-membership-registration', WMR_PLUGIN_DIR . 'languages' );
 			}
 		);
 	}
