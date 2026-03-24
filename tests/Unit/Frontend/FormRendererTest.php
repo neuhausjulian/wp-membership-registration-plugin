@@ -110,7 +110,7 @@ class FormRendererTest extends TestCase {
 		$html     = $renderer->render();
 		$this->assertStringContainsString( 'wmr-consent-checkbox', $html );
 		$this->assertStringContainsString(
-			'Ich stimme der Verarbeitung meiner personenbezogenen Daten zu.',
+			'I consent to the processing of my personal data.',
 			$html
 		);
 	}

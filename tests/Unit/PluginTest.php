@@ -141,4 +141,147 @@ class PluginTest extends TestCase {
 
 		call_user_func( $this->captured_init_callback );
 	}
+
+	/**
+	 * Test 4: switch_to_locale('de_DE') is called when fallback_language is 'de'.
+	 */
+	public function test_init_switches_locale_for_de_setting(): void {
+		$self = $this;
+
+		Functions\when( 'add_action' )->alias(
+			function ( $hook, $cb ) use ( $self ) {
+				if ( 'init' === $hook ) {
+					$self->captured_init_callback = $cb;
+				}
+			}
+		);
+
+		Functions\stubs(
+			[
+				'add_shortcode'          => true,
+				'wp_kses_post'           => fn( $v ) => (string) $v,
+				'wp_enqueue_style'       => true,
+				'wp_enqueue_script'      => true,
+				'wp_localize_script'     => true,
+				'wp_create_nonce'        => 'test_nonce',
+				'admin_url'              => fn( $p = '' ) => 'http://example.com/wp-admin/' . $p,
+				'plugin_basename'        => fn( $f ) => 'wp-membership-registration/wp-membership-registration.php',
+				'load_plugin_textdomain' => true,
+			]
+		);
+
+		Functions\when( 'get_option' )->alias(
+			function ( $option, $default = null ) {
+				if ( 'wmr_form_settings' === $option ) {
+					return [ 'fallback_language' => 'de' ];
+				}
+				return $default;
+			}
+		);
+
+		( new Plugin() )->register();
+
+		$this->assertNotNull( $this->captured_init_callback, 'No callback was registered for the init hook.' );
+
+		Functions\expect( 'switch_to_locale' )
+			->once()
+			->with( 'de_DE' );
+
+		call_user_func( $this->captured_init_callback );
+	}
+
+	/**
+	 * Test 5: switch_to_locale('en_US') is called when fallback_language is 'en'.
+	 */
+	public function test_init_switches_locale_for_en_setting(): void {
+		$self = $this;
+
+		Functions\when( 'add_action' )->alias(
+			function ( $hook, $cb ) use ( $self ) {
+				if ( 'init' === $hook ) {
+					$self->captured_init_callback = $cb;
+				}
+			}
+		);
+
+		Functions\stubs(
+			[
+				'add_shortcode'          => true,
+				'wp_kses_post'           => fn( $v ) => (string) $v,
+				'wp_enqueue_style'       => true,
+				'wp_enqueue_script'      => true,
+				'wp_localize_script'     => true,
+				'wp_create_nonce'        => 'test_nonce',
+				'admin_url'              => fn( $p = '' ) => 'http://example.com/wp-admin/' . $p,
+				'plugin_basename'        => fn( $f ) => 'wp-membership-registration/wp-membership-registration.php',
+				'load_plugin_textdomain' => true,
+			]
+		);
+
+		Functions\when( 'get_option' )->alias(
+			function ( $option, $default = null ) {
+				if ( 'wmr_form_settings' === $option ) {
+					return [ 'fallback_language' => 'en' ];
+				}
+				return $default;
+			}
+		);
+
+		( new Plugin() )->register();
+
+		$this->assertNotNull( $this->captured_init_callback, 'No callback was registered for the init hook.' );
+
+		Functions\expect( 'switch_to_locale' )
+			->once()
+			->with( 'en_US' );
+
+		call_user_func( $this->captured_init_callback );
+	}
+
+	/**
+	 * Test 6: switch_to_locale is NOT called when fallback_language is 'auto'.
+	 */
+	public function test_init_does_not_switch_locale_for_auto_setting(): void {
+		$self = $this;
+
+		Functions\when( 'add_action' )->alias(
+			function ( $hook, $cb ) use ( $self ) {
+				if ( 'init' === $hook ) {
+					$self->captured_init_callback = $cb;
+				}
+			}
+		);
+
+		Functions\stubs(
+			[
+				'add_shortcode'          => true,
+				'wp_kses_post'           => fn( $v ) => (string) $v,
+				'wp_enqueue_style'       => true,
+				'wp_enqueue_script'      => true,
+				'wp_localize_script'     => true,
+				'wp_create_nonce'        => 'test_nonce',
+				'admin_url'              => fn( $p = '' ) => 'http://example.com/wp-admin/' . $p,
+				'plugin_basename'        => fn( $f ) => 'wp-membership-registration/wp-membership-registration.php',
+				'load_plugin_textdomain' => true,
+			]
+		);
+
+		Functions\when( 'get_option' )->alias(
+			function ( $option, $default = null ) {
+				if ( 'wmr_form_settings' === $option ) {
+					return [ 'fallback_language' => 'auto' ];
+				}
+				return $default;
+			}
+		);
+
+		( new Plugin() )->register();
+
+		$this->assertNotNull( $this->captured_init_callback, 'No callback was registered for the init hook.' );
+
+		// switch_to_locale must NOT be called when fallback is 'auto'.
+		Functions\expect( 'switch_to_locale' )->never();
+
+		call_user_func( $this->captured_init_callback );
+	}
 }
