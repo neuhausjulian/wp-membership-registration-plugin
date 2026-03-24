@@ -80,13 +80,25 @@ class SettingsPage {
 			true
 		);
 
-		// Localize nonces and AJAX URL for admin-settings.js.
+		// Localize nonces, AJAX URL, and translatable strings for admin-settings.js.
 		wp_localize_script(
 			'wmr-admin-settings',
 			'wmrSettings',
 			array(
 				'ajaxUrl'        => admin_url( 'admin-ajax.php' ),
 				'testEmailNonce' => wp_create_nonce( 'wmr_send_test_email' ),
+				'i18n'           => array(
+					'dragToReorder'    => __( 'Drag to reorder', 'wp-membership-registration' ),
+					'deleteField'      => __( 'Delete field', 'wp-membership-registration' ),
+					'noFieldsDefined'  => __( 'No fields defined yet.', 'wp-membership-registration' ),
+					'addFirstField'    => __( 'Click Add Field to define the first registration form field.', 'wp-membership-registration' ),
+					'selectLogoTitle'  => __( 'Select Club Logo', 'wp-membership-registration' ),
+					'selectLogoButton' => __( 'Use this image', 'wp-membership-registration' ),
+					'testEmailSent'    => __( 'Test email sent.', 'wp-membership-registration' ),
+					'unknownError'     => __( 'An unknown error occurred.', 'wp-membership-registration' ),
+					'sending'          => __( 'Sending\u2026', 'wp-membership-registration' ),
+					'selectType'       => __( 'Select', 'wp-membership-registration' ),
+				),
 			)
 		);
 	}
