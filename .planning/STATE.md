@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Localization
 status: executing
-stopped_at: Completed 05-01-PLAN.md
-last_updated: "2026-03-24T12:07:32.744Z"
-last_activity: "2026-03-24 — 05-02 complete: admin JS i18n via wp_localize_script (10 strings wired)"
+stopped_at: Completed 05-03-PLAN.md
+last_updated: "2026-03-24T12:30:00.000Z"
+last_activity: "2026-03-24 — 05-03 complete: English consent default, wmrForm.i18n for 6 JS strings, fallback_language setting + switch_to_locale"
 progress:
   total_phases: 2
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
-  percent: 33
+  completed_plans: 3
+  percent: 50
 ---
 
 # Project State
@@ -25,12 +25,12 @@ See: .planning/PROJECT.md (updated 2026-03-24 after v1.1 milestone start)
 
 ## Current Position
 
-Phase: 5 of 6 (PHP i18n Foundation)
-Plan: 2 of 3 in current phase
-Status: Executing — plan 02 complete
-Last activity: 2026-03-24 — 05-02 complete: admin JS i18n via wp_localize_script (10 strings wired)
+Phase: 5 of 6 (PHP i18n Foundation) — COMPLETE
+Plan: 3 of 3 in current phase (all done)
+Status: Phase 5 complete — ready for Phase 6
+Last activity: 2026-03-24 — 05-03 complete: English consent default, wmrForm.i18n for 6 JS strings, fallback_language setting + switch_to_locale
 
-Progress: [███░░░░░░░] 33%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
@@ -53,6 +53,8 @@ Decisions are logged in PROJECT.md Key Decisions table.
 - 05-02: 'Select' option display text included in i18n (value attr stays 'select', display text is translatable)
 - 05-02: Admin JS i18n pattern: wmrSettings.i18n sub-object via wp_localize_script; JS has zero hardcoded English strings
 - [Phase 05]: 05-01: Test 1 uses Actions\expectAdded with addToAssertionCount(1); Tests 2-3 capture init callback via Functions\when('add_action')->alias() and use Mockery::on() to avoid Patchwork ParseErrors
+- 05-03: fallback_language 'auto' performs no locale switch — WP site language applies naturally; switch_to_locale() called after load_plugin_textdomain() in same init callback
+- 05-03: wmrForm.i18n sub-object pattern established for frontend JS (mirrors wmrSettings.i18n from 05-02); consent default now English; form.js has zero hardcoded strings
 
 ### Pending Todos
 
@@ -64,6 +66,6 @@ Decisions are logged in PROJECT.md Key Decisions table.
 
 ## Session Continuity
 
-Last session: 2026-03-24T12:07:32.743Z
-Stopped at: Completed 05-01-PLAN.md
+Last session: 2026-03-24T12:30:00.000Z
+Stopped at: Completed 05-03-PLAN.md
 Resume file: None
