@@ -35,12 +35,12 @@
   2. Frontend form renders all field labels, placeholder text, validation messages, GDPR checkbox label, and submit button through i18n functions — no bare strings in FormRenderer.php or AjaxHandlers.php output
   3. A "Fallback Language" option (de / en) appears in plugin settings; selecting "de" and switching the site to German causes admin and frontend strings to render in German
   4. `load_plugin_textdomain()` is called on the `init` hook and correctly points at the plugin's `languages/` directory
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 05-01: Register text domain and audit existing i18n coverage
-- [ ] 05-02: Wrap all admin settings PHP strings (SettingsManager.php)
-- [ ] 05-03: Wrap all frontend PHP strings (FormRenderer.php, AjaxHandlers.php) and add fallback language setting
+- [ ] 05-01-PLAN.md — Register text domain on init and create languages/ directory
+- [ ] 05-02-PLAN.md — Wire admin JS i18n strings through wp_localize_script
+- [ ] 05-03-PLAN.md — Fix frontend consent string, wire frontend JS i18n, add fallback language setting
 
 ### Phase 6: Translation Files and JS i18n
 **Goal**: A .pot source file is generated from the wrapped strings, German .po/.mo translation files are compiled and ship with the plugin, and JavaScript client-side strings are delivered as translatable JSON via WordPress script translations API.
