@@ -14,7 +14,7 @@ Requirements for the Localization milestone. Each maps to roadmap phases.
 - [x] **I18N-03**: Plugin registers its text domain via `load_plugin_textdomain()` on init
 - [ ] **I18N-04**: A `.pot` source file is generated for the plugin (enables future community translations)
 - [ ] **I18N-05**: German (`de_DE`) `.po` and `.mo` translation files are provided covering all plugin strings
-- [ ] **I18N-06**: JavaScript strings (client-side validation, AJAX error/success messages) are translatable and delivered via `wp_set_script_translations()` with a German JSON locale file
+- [x] **I18N-06**: JavaScript strings (client-side validation, AJAX error/success messages) are translatable and delivered via `wp_set_script_translations()` with a German JSON locale file
 - [x] **I18N-07**: Admin can configure a fallback language (de or en) in plugin settings; defaults to the site language (German if site is German, English otherwise)
 
 ## Future Requirements
@@ -44,7 +44,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | I18N-07 | Phase 5 | Complete |
 | I18N-04 | Phase 6 | Pending |
 | I18N-05 | Phase 6 | Pending |
-| I18N-06 | Phase 6 | Pending |
+| I18N-06 | Phase 6 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 7 total
