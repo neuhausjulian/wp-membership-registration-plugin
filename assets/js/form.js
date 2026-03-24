@@ -1,3 +1,10 @@
+/**
+ * Frontend form handler for the WP Membership Registration plugin.
+ *
+ * @file
+ * @package WpMembershipRegistration
+ */
+
 /* global wmrForm */
 ( function () {
 	'use strict';
