@@ -78,8 +78,8 @@ class SettingsRegistrar {
 				'type'              => 'array',
 				'sanitize_callback' => array( $this, 'sanitize_form_settings' ),
 				'default'           => array(
-					'consent_text'         => '',
-					'success_message'      => '',
+					'consent_text'          => '',
+					'success_message'       => '',
 					'offer_direct_download' => false,
 				),
 			)

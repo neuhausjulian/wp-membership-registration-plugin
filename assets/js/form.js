@@ -39,120 +39,143 @@
 		var valid = true;
 
 		// Clear previous errors.
-		form.querySelectorAll( '.wmr-field-error' ).forEach( function ( span ) {
-			span.textContent = '';
-		} );
-		form.querySelectorAll( '[aria-invalid]' ).forEach( function ( el ) {
-			el.removeAttribute( 'aria-invalid' );
-		} );
+		form.querySelectorAll( '.wmr-field-error' ).forEach(
+			function ( span ) {
+				span.textContent = '';
+			}
+		);
+		form.querySelectorAll( '[aria-invalid]' ).forEach(
+			function ( el ) {
+				el.removeAttribute( 'aria-invalid' );
+			}
+		);
 
 		// Validate each input/select/textarea with data-required.
-		form.querySelectorAll( '[data-required]' ).forEach( function ( field ) {
-			if ( field.type === 'checkbox' ) {
-				if ( ! field.checked ) {
-					setError( field, 'Bitte best\u00e4tigen Sie Ihre Einwilligung.' );
-					valid = false;
-				}
-			} else {
-				if ( ! field.value.trim() ) {
-					setError( field, 'Dieses Feld ist erforderlich.' );
-					valid = false;
+		form.querySelectorAll( '[data-required]' ).forEach(
+			function ( field ) {
+				if ( field.type === 'checkbox' ) {
+					if ( ! field.checked ) {
+						setError( field, 'Bitte best\u00e4tigen Sie Ihre Einwilligung.' );
+						valid = false;
+					}
+				} else {
+					if ( ! field.value.trim() ) {
+						setError( field, 'Dieses Feld ist erforderlich.' );
+						valid = false;
+					}
 				}
 			}
-		} );
+		);
 
 		// Validate email format for fields with data-email.
-		form.querySelectorAll( '[data-email]' ).forEach( function ( field ) {
-			if ( field.value.trim() && ! EMAIL_REGEX.test( field.value.trim() ) ) {
-				setError( field, 'Bitte geben Sie eine g\u00fcltige E-Mail-Adresse ein.' );
-				valid = false;
+		form.querySelectorAll( '[data-email]' ).forEach(
+			function ( field ) {
+				if ( field.value.trim() && ! EMAIL_REGEX.test( field.value.trim() ) ) {
+						setError( field, 'Bitte geben Sie eine g\u00fcltige E-Mail-Adresse ein.' );
+						valid = false;
+				}
 			}
-		} );
+		);
 
 		return valid;
 	}
 
-	document.addEventListener( 'DOMContentLoaded', function () {
-		var form = document.getElementById( 'wmr-registration-form' );
-		if ( ! form ) {
-			return;
-		}
-		var container = form.closest( '.wmr-form-container' );
-
-		form.addEventListener( 'submit', function ( event ) {
-			event.preventDefault();
-
-			if ( ! validate( form ) ) {
+	document.addEventListener(
+		'DOMContentLoaded',
+		function () {
+			var form = document.getElementById( 'wmr-registration-form' );
+			if ( ! form ) {
 				return;
 			}
+			var container = form.closest( '.wmr-form-container' );
 
-			var submitBtn = form.querySelector( '.wmr-submit-button' );
-			if ( submitBtn ) {
-				submitBtn.disabled = true;
-			}
+			form.addEventListener(
+				'submit',
+				function ( event ) {
+					event.preventDefault();
 
-			var formData = new FormData( form );
-			formData.set( 'action', 'wmr_submit_form' );
-			formData.set( 'nonce', wmrForm.submitNonce );
+					if ( ! validate( form ) ) {
+						return;
+					}
 
-			fetch( wmrForm.ajaxUrl, {
-				method: 'POST',
-				body: formData,
-				credentials: 'same-origin',
-			} )
-				.then( function ( response ) {
-					return response.json();
-				} )
-				.then( function ( data ) {
-					if ( data.success ) {
-						if ( container ) {
-							var successData = data.data || {};
-							var html = '<div class="wmr-success-message">';
-							html += wmrForm.successMessage;
+					var submitBtn = form.querySelector( '.wmr-submit-button' );
+					if ( submitBtn ) {
+						submitBtn.disabled = true;
+					}
 
-							if ( successData.member_email_sent ) {
-								html += '<p class="wmr-email-note">' +
-									'Eine Kopie wurde an Ihre E-Mail-Adresse gesendet.' +
-									'</p>';
-							}
+					var formData = new FormData( form );
+					formData.set( 'action', 'wmr_submit_form' );
+					formData.set( 'nonce', wmrForm.submitNonce );
 
-							if ( successData.pdf_url ) {
-								html += '<p class="wmr-download-link">' +
-									'<a href="' + successData.pdf_url + '" class="button wmr-download-btn">' +
-									'Ausgef\u00fclltes Formular jetzt herunterladen' +
-									'</a>' +
-									'</p>';
-							}
-
-							html += '</div>';
-							container.innerHTML = html;
+					fetch(
+						wmrForm.ajaxUrl,
+						{
+							method: 'POST',
+							body: formData,
+							credentials: 'same-origin',
 						}
-					} else {
-						var msg =
-							( data.data && data.data.message )
+					)
+					.then(
+						function ( response ) {
+							return response.json();
+						}
+					)
+					.then(
+						function ( data ) {
+							if ( data.success ) {
+								if ( container ) {
+									var successData = data.data || {};
+									var html        = '<div class="wmr-success-message">';
+									html           += wmrForm.successMessage;
+
+									if ( successData.member_email_sent ) {
+											html += '<p class="wmr-email-note">' +
+										'Eine Kopie wurde an Ihre E-Mail-Adresse gesendet.' +
+										'</p>';
+									}
+
+									if ( successData.pdf_url ) {
+										html += '<p class="wmr-download-link">' +
+											'<a href="' + successData.pdf_url + '" class="button wmr-download-btn">' +
+											'Ausgef\u00fclltes Formular jetzt herunterladen' +
+											'</a>' +
+											'</p>';
+									}
+
+									html               += '</div>';
+									container.innerHTML = html;
+								}
+							} else {
+								var msg      =
+									( data.data && data.data.message )
 								? data.data.message
 								: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.';
-						var errorDiv = form.querySelector( '.wmr-submit-row' );
-						if ( errorDiv ) {
-							var existing = form.querySelector( '.wmr-submit-error' );
-							if ( existing ) {
-								existing.remove();
+								var errorDiv = form.querySelector( '.wmr-submit-row' );
+								if ( errorDiv ) {
+									var existing = form.querySelector( '.wmr-submit-error' );
+									if ( existing ) {
+										existing.remove();
+									}
+									var errSpan         = document.createElement( 'span' );
+									errSpan.className   = 'wmr-submit-error wmr-field-error';
+									errSpan.textContent = msg;
+									errorDiv.before( errSpan );
+								}
+								if ( submitBtn ) {
+									submitBtn.disabled = false;
+								}
 							}
-							var errSpan = document.createElement( 'span' );
-							errSpan.className = 'wmr-submit-error wmr-field-error';
-							errSpan.textContent = msg;
-							errorDiv.before( errSpan );
 						}
-						if ( submitBtn ) {
-							submitBtn.disabled = false;
+					)
+					.catch(
+						function () {
+							if ( submitBtn ) {
+									submitBtn.disabled = false;
+							}
 						}
-					}
-				} )
-				.catch( function () {
-					if ( submitBtn ) {
-						submitBtn.disabled = false;
-					}
-				} );
-		} );
-	} );
+					);
+				}
+			);
+		}
+	);
 }() );

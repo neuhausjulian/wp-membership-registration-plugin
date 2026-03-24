@@ -58,7 +58,15 @@ body        { font-family: DejaVu Sans, sans-serif; font-size: 10pt; color: #1a1
 <!-- Dynamic Fields -->
 <?php foreach ( $fields as $field ) : ?>
 	<div class="field-row">
-		<?php echo esc_html( $field['label'] ); ?>:&nbsp;&nbsp;<?php if ( $is_blank ) : ?>___________________________<?php else : ?><?php echo esc_html( $field_values[ $field['label'] ] ?? '' ); ?><?php endif; ?>
+		<?php echo esc_html( $field['label'] ); ?>:&nbsp;&nbsp;
+		<?php
+		if ( $is_blank ) :
+			?>
+			___________________________
+			<?php
+else :
+	?>
+			<?php echo esc_html( $field_values[ $field['label'] ] ?? '' ); ?><?php endif; ?>
 	</div>
 <?php endforeach; ?>
 
