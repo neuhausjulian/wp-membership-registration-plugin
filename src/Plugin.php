@@ -26,6 +26,18 @@ class Plugin {
 	 * @return void
 	 */
 	public function register(): void {
+		// Register the plugin text domain on init so .mo files load correctly.
+		add_action(
+			'init',
+			static function () {
+				load_plugin_textdomain(
+					'wp-membership-registration',
+					false,
+					dirname( plugin_basename( WMR_PLUGIN_FILE ) ) . '/languages'
+				);
+			}
+		);
+
 		$settings_page      = new SettingsPage();
 		$settings_registrar = new SettingsRegistrar();
 		$ajax_handlers      = new AjaxHandlers();
