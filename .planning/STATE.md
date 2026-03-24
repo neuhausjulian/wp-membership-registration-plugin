@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Localization
 status: completed
-stopped_at: Completed 06-01-PLAN.md
-last_updated: "2026-03-24T18:10:04.891Z"
-last_activity: "2026-03-24 — 06-01 complete: 16 JS strings to wp.i18n.__(), wp_set_script_translations for wmr-form + wmr-admin-settings, unit tests"
+stopped_at: Completed 06-02-PLAN.md
+last_updated: "2026-03-24T00:00:00.000Z"
+last_activity: "2026-03-24 — 06-02 complete: .pot generated, de_DE .po authored (du-tone), .mo compiled, JS JSON locale files generated"
 progress:
   total_phases: 2
   completed_phases: 1
   total_plans: 5
-  completed_plans: 4
-  percent: 60
+  completed_plans: 5
+  percent: 80
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-03-24 after v1.1 milestone start)
 ## Current Position
 
 Phase: 6 of 6 (JS i18n Migration) — IN PROGRESS
-Plan: 1 of 3 in current phase (06-01 done)
-Status: 06-01 complete — JS i18n migrated to wp.i18n.__(), wp_set_script_translations() wired
-Last activity: 2026-03-24 — 06-01 complete: 16 JS strings to wp.i18n.__(), wp_set_script_translations for wmr-form + wmr-admin-settings, unit tests
+Plan: 2 of 3 in current phase (06-02 done)
+Status: 06-02 complete — .pot generated, de_DE .po authored (informal du-tone), .mo compiled, JS JSON locale files generated
+Last activity: 2026-03-24 — 06-02 complete: .pot generated, de_DE .po authored (du-tone), .mo compiled, JS JSON locale files generated
 
-Progress: [██████░░░░] 60%
+Progress: [████████░░] 80%
 
 ## Performance Metrics
 
@@ -56,6 +56,7 @@ Decisions are logged in PROJECT.md Key Decisions table.
 - 05-03: fallback_language 'auto' performs no locale switch — WP site language applies naturally; switch_to_locale() called after load_plugin_textdomain() in same init callback
 - 05-03: wmrForm.i18n sub-object pattern established for frontend JS (mirrors wmrSettings.i18n from 05-02); consent default now English; form.js has zero hardcoded strings
 - 06-01: JS i18n migrated from wp_localize_script sub-objects to wp.i18n.__() with wp_set_script_translations(); msgid strings match PHP __() calls character-for-character for .pot consistency
+- 06-02: make-json --no-purge preserves JS entries in .po after JSON generation; #: source reference comments required in .po for make-json JS attribution; user approved de_DE translations without corrections
 
 ### Pending Todos
 
@@ -67,6 +68,6 @@ Decisions are logged in PROJECT.md Key Decisions table.
 
 ## Session Continuity
 
-Last session: 2026-03-24T18:10:04.889Z
-Stopped at: Completed 06-01-PLAN.md
+Last session: 2026-03-24T00:00:00.000Z
+Stopped at: Completed 06-02-PLAN.md
 Resume file: None
