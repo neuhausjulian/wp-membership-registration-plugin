@@ -23,11 +23,15 @@ class PluginTest extends TestCase {
 	/** @var callable|null Captured init callback. */
 	private $captured_init_callback = null;
 
+	/** @var callable|null Captured wp_enqueue_scripts callback. */
+	private $captured_enqueue_callback = null;
+
 	protected function setUp(): void {
 		parent::setUp();
 		Monkey\setUp();
 
-		$this->captured_init_callback = null;
+		$this->captured_init_callback    = null;
+		$this->captured_enqueue_callback = null;
 
 		if ( ! defined( 'WMR_PLUGIN_FILE' ) ) {
 			define( 'WMR_PLUGIN_FILE', dirname( __DIR__, 2 ) . '/wp-membership-registration.php' );
@@ -236,6 +240,62 @@ class PluginTest extends TestCase {
 			->with( 'en_US' );
 
 		call_user_func( $this->captured_init_callback );
+	}
+
+	/**
+	 * Register Plugin hooks and capture the 'wp_enqueue_scripts' callback.
+	 */
+	private function register_plugin_and_capture_enqueue(): void {
+		$self = $this;
+
+		Functions\when( 'add_action' )->alias(
+			function ( $hook, $cb ) use ( $self ) {
+				if ( 'wp_enqueue_scripts' === $hook ) {
+					$self->captured_enqueue_callback = $cb;
+				}
+			}
+		);
+
+		Functions\stubs(
+			[
+				'add_shortcode'          => true,
+				'get_option'             => fn( $k, $d = null ) => $d,
+				'wp_kses_post'           => fn( $v ) => (string) $v,
+				'wp_enqueue_style'       => true,
+				'wp_enqueue_script'      => true,
+				'wp_localize_script'     => true,
+				'wp_create_nonce'        => 'test_nonce',
+				'admin_url'              => fn( $p = '' ) => 'http://example.com/wp-admin/' . $p,
+				'plugin_basename'        => fn( $f ) => 'wp-membership-registration/wp-membership-registration.php',
+				'load_plugin_textdomain' => true,
+				'is_singular'            => true,
+				'has_shortcode'          => true,
+			]
+		);
+
+		( new Plugin() )->register();
+	}
+
+	/**
+	 * Test 7: wp_enqueue_scripts callback calls wp_set_script_translations for wmr-form.
+	 */
+	public function test_enqueue_calls_set_script_translations_for_form(): void {
+		$this->register_plugin_and_capture_enqueue();
+
+		$this->assertNotNull( $this->captured_enqueue_callback, 'No callback registered for wp_enqueue_scripts.' );
+
+		// Set up $post global so is_a( $post, 'WP_Post' ) and has_shortcode checks pass.
+		$GLOBALS['post'] = (object) [ 'post_content' => '[membership_form]' ];
+
+		Functions\when( 'is_a' )->justReturn( true );
+
+		Functions\expect( 'wp_set_script_translations' )
+			->once()
+			->with( 'wmr-form', 'wp-membership-registration', \Mockery::on( fn( $p ) => str_ends_with( $p, 'languages' ) ) );
+
+		call_user_func( $this->captured_enqueue_callback );
+
+		unset( $GLOBALS['post'] );
 	}
 
 	/**
