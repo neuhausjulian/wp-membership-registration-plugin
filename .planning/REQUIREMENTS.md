@@ -9,7 +9,7 @@ Requirements for the Localization milestone. Each maps to roadmap phases.
 
 ### Internationalization
 
-- [ ] **I18N-01**: All admin settings page strings are wrapped in WordPress i18n functions and translatable
+- [x] **I18N-01**: All admin settings page strings are wrapped in WordPress i18n functions and translatable
 - [ ] **I18N-02**: All frontend form strings (labels, buttons, validation messages, success/error feedback) are wrapped in WordPress i18n functions and translatable
 - [ ] **I18N-03**: Plugin registers its text domain via `load_plugin_textdomain()` on init
 - [ ] **I18N-04**: A `.pot` source file is generated for the plugin (enables future community translations)
@@ -38,7 +38,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| I18N-01 | Phase 5 | Pending |
+| I18N-01 | Phase 5 | Complete |
 | I18N-02 | Phase 5 | Pending |
 | I18N-03 | Phase 5 | Pending |
 | I18N-07 | Phase 5 | Pending |
