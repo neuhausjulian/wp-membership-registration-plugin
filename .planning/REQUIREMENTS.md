@@ -41,10 +41,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | I18N-01 | Phase 5 | Pending |
 | I18N-02 | Phase 5 | Pending |
 | I18N-03 | Phase 5 | Pending |
-| I18N-04 | Phase 5 | Pending |
-| I18N-05 | Phase 5 | Pending |
-| I18N-06 | Phase 5 | Pending |
 | I18N-07 | Phase 5 | Pending |
+| I18N-04 | Phase 6 | Pending |
+| I18N-05 | Phase 6 | Pending |
+| I18N-06 | Phase 6 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 7 total
@@ -53,4 +53,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-24*
-*Last updated: 2026-03-24 after initial definition*
+*Last updated: 2026-03-24 — traceability updated after roadmap creation (Phases 5–6)*
